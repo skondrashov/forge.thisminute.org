@@ -17,12 +17,12 @@ OS: windows | macos | linux | web | ios | android
 ## Categories
 - iOS UI Components: 699
 - Static Analysis: 526
-- CLI Frameworks: 449
-- Databases: 410
+- CLI Frameworks: 448
+- Databases: 411
 - Testing Frameworks: 350
 - Image Processing: 338
 - Frontend Frameworks: 334
-- Networking: 328
+- Networking: 330
 - Cross-Platform Frameworks: 305
 - Container Orchestration: 303
 - Video Editing: 286
@@ -32,33 +32,33 @@ OS: windows | macos | linux | web | ios | android
 - Game Engines: 230
 - Backend Frameworks: 217
 - Async & Concurrency: 209
-- Media Players: 208
 - Version Control: 208
-- Data Pipelines: 205
+- Data Pipelines: 207
+- Media Players: 207
 - CI/CD Tools: 197
 - API Clients: 195
 - Logging & Diagnostics: 191
 - Project Management: 189
-- Backup & Sync: 184
-- AI/ML Libraries: 183
+- Backup & Sync: 183
+- Configuration: 183
 - Encryption & Privacy Tools: 183
-- Configuration: 182
+- AI/ML Libraries: 182
+- Monitoring & Metrics: 181
 - Programming Languages: 181
-- Monitoring & Metrics: 180
 - Note Taking: 179
 - UI/UX Design Tools: 179
 - Security Scanning: 177
 - Content Management Systems: 174
 - Utilities: 169
-- Launcher & Productivity Utils: 160
+- Launcher & Productivity Utils: 161
 - Accounting & Finance: 159
-- Code Editors: 157
+- Code Editors: 156
 - iOS Networking & Data: 153
-- Documentation Tools: 147
-- System Utilities: 147
+- Documentation Tools: 150
 - Embedded & IoT: 146
-- PDF Tools: 144
 - Auth & Identity: 143
+- PDF Tools: 143
+- System Utilities: 143
 - Build Tools: 140
 - Web Scraping & Parsing: 140
 - File Managers: 139
@@ -75,12 +75,12 @@ OS: windows | macos | linux | web | ios | android
 - Window Managers: 117
 - Learning Platforms: 115
 - Terminal Emulators: 115
+- Cloud Storage: 113
 - HTTP Libraries: 113
-- Cloud Storage: 112
 - Text Processing: 112
 - Scientific Computing: 111
 - Email: 110
-- Data Analysis: 105
+- Data Analysis: 104
 - Calendar & Scheduling: 96
 - Static Site Generators: 84
 - Photo Management: 82
@@ -96,12 +96,12 @@ OS: windows | macos | linux | web | ios | android
 - NLP & Text AI: 68
 - Template Engines: 62
 - Blogging & Newsletter Platforms: 61
-- VPN: 61
 - Browsers: 60
+- VPN: 60
+- LLM Tools: 58
 - Database Drivers: 57
 - Load & Performance Testing: 55
 - Error & Exception Tracking: 54
-- LLM Tools: 54
 - Jupyter & Notebooks: 51
 - Torrent Clients: 51
 - Linters: 50
@@ -110,17 +110,17 @@ OS: windows | macos | linux | web | ios | android
 - Social Media Clients: 47
 - Diagramming & Whiteboard: 46
 - Screenshot & Annotation: 46
-- Terminal UI: 45
+- Terminal UI: 46
 - Code Coverage & Quality: 42
 - CRM & Sales: 41
 - Log Management: 39
-- Shell Environments: 38
+- Shell Environments: 37
 - Vector & Illustration: 36
 - Formatters: 35
 - Math & Numerics: 35
 - Infrastructure as Code: 33
 - API Documentation: 30
-- AI Assistants: 29
+- AI Assistants: 28
 - Compression & Archiving: 28
 - File Search & Navigation: 28
 - Video Conferencing: 25
@@ -131,9 +131,9 @@ OS: windows | macos | linux | web | ios | android
 - Media Processing: 22
 - Error Handling: 21
 - Statistical Tools: 21
-- Task Runners & Monorepos: 20
 - Secrets Management: 18
 - Vector Databases: 18
+- Task Runners & Monorepos: 17
 - HR & People: 16
 - Desktop App Frameworks: 15
 - Flashcards & Study: 14

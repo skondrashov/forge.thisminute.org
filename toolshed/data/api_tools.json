@@ -150,7 +150,7 @@
     "id": "slate",
     "name": "Slate",
     "description": "Beautiful static API documentation generator inspired by Stripe's docs. Markdown-based with a three-column layout.",
-    "url": "https://slatedocs.github.io/slate",
+    "url": "https://github.com/slatedocs/slate",
     "category": "API Documentation",
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
@@ -333,7 +333,7 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "freemium",
     "tags": ["graphql", "api-gateway", "composition", "open-source"],
-    "source": "https://github.com/wundergraph/wundergraph",
+    "source": "https://github.com/wundergraph/cosmo",
     "language": "go"
   },
   {

@@ -322,7 +322,7 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
     "tags": ["privacy", "firefox-fork", "legacy-extensions", "open-source"],
-    "source": "https://github.com/nicnab/nicnab.github.io"
+    "source": "https://github.com/BrowserWorks/waterfox"
   },
   {
     "id": "zen-browser",
@@ -344,7 +344,7 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
     "tags": ["firefox-based", "customizable", "vertical-tabs", "open-source"],
-    "source": "https://github.com/nicnab/nicnab.github.io"
+    "source": "https://github.com/Floorp-Projects/Floorp"
   },
   {
     "id": "whatsapp",
@@ -365,7 +365,7 @@
     "os": ["windows", "macos", "linux", "web", "ios", "android"],
     "pricing": "paid",
     "tags": ["encrypted", "privacy", "swiss", "no-phone-required"],
-    "source": "https://github.com/nicnab/nicnab.github.io"
+    "source": "https://github.com/threema-ch/threema-android"
   },
   {
     "id": "wire",
