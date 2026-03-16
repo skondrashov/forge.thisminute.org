@@ -406,21 +406,29 @@ def _js_render(tokens): return _letter_render(tokens, _JS_C2T, _JS_FORMAT_CHARS,
 
 _JA_T2C = {
     "yyyy": CT.YEAR_4DIGIT, "yy": CT.YEAR_2DIGIT,
+    "y": CT.YEAR_4DIGIT,  # single y = variable-width year, closest to 4-digit
     "MMMM": CT.MONTH_FULL, "MMM": CT.MONTH_ABBR, "MM": CT.MONTH_ZERO_PAD, "M": CT.MONTH_NO_PAD,
     "dd": CT.DAY_ZERO_PAD, "d": CT.DAY_NO_PAD,
     "DDD": CT.DAY_OF_YEAR, "D": CT.DAY_OF_YEAR_NO_PAD,
     "EEEE": CT.WEEKDAY_FULL, "EEE": CT.WEEKDAY_ABBR,
+    "EE": CT.WEEKDAY_ABBR,  # same as EEE in practice
+    "E": CT.WEEKDAY_ABBR,   # single E = abbreviated weekday
     "ee": CT.WEEKDAY_NUM_MONDAY, "e": CT.WEEKDAY_NUM_MONDAY,
     "HH": CT.HOUR_24_ZERO_PAD, "H": CT.HOUR_24_NO_PAD,
     "hh": CT.HOUR_12_ZERO_PAD, "h": CT.HOUR_12_NO_PAD,
     "mm": CT.MINUTE_ZERO_PAD, "m": CT.MINUTE_NO_PAD,
     "ss": CT.SECOND_ZERO_PAD, "s": CT.SECOND_NO_PAD,
-    "SSS": CT.MILLISECOND, "SSSSSS": CT.MICROSECOND, "SSSSSSSSS": CT.NANOSECOND,
+    "SSSSSSSSS": CT.NANOSECOND, "SSSSSS": CT.MICROSECOND, "SSS": CT.MILLISECOND,
+    "SS": CT.MILLISECOND,   # 2-digit fraction
+    "S": CT.MILLISECOND,    # single S = fraction, closest to ms
     "a": CT.AMPM_UPPER,
-    "z": CT.TZ_NAME, "zzzz": CT.TZ_NAME, "Z": CT.TZ_OFFSET, "ZZZZZ": CT.TZ_OFFSET_COLON,
+    "z": CT.TZ_NAME, "zzzz": CT.TZ_NAME, "zzz": CT.TZ_NAME, "zz": CT.TZ_NAME,
+    "Z": CT.TZ_OFFSET, "ZZ": CT.TZ_OFFSET, "ZZZ": CT.TZ_OFFSET,
+    "ZZZZZ": CT.TZ_OFFSET_COLON,
     "XXX": CT.TZ_Z_OR_OFFSET_COLON, "XX": CT.TZ_Z_OR_OFFSET, "X": CT.TZ_OFFSET_SHORT,
     "YYYY": CT.ISO_YEAR_4DIGIT, "YY": CT.ISO_YEAR_2DIGIT,
-    "ww": CT.ISO_WEEK_NUM, "w": CT.ISO_WEEK_NUM, "G": CT.ERA_AD_BC,
+    "ww": CT.ISO_WEEK_NUM, "w": CT.ISO_WEEK_NUM,
+    "G": CT.ERA_AD_BC, "GG": CT.ERA_AD_BC, "GGG": CT.ERA_AD_BC, "GGGG": CT.ERA_AD_BC,
 }
 _JA_C2T = {
     CT.YEAR_4DIGIT: "yyyy", CT.YEAR_2DIGIT: "yy",
@@ -615,8 +623,10 @@ SYSTEMS = {
 }
 
 SYSTEM_ALIASES = {
-    "py": "python", "strftime": "python", "js": "javascript",
-    "golang": "go", "simpledateformat": "java",
+    "py": "python", "strftime": "python",
+    "js": "javascript", "date-fns": "javascript", "datefns": "javascript",
+    "golang": "go",
+    "simpledateformat": "java", "datetimeformatter": "java",
     "c#": "csharp", ".net": "csharp", "dotnet": "csharp",
     "moment": "momentjs", "moment.js": "momentjs", "rb": "ruby",
 }

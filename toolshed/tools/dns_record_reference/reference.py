@@ -169,6 +169,18 @@ DMARC_TYPE = _register(RecordType(
     category="email-auth",
 ))
 
+TLSA_TYPE = _register(RecordType(
+    name="TLSA", code=52, rfc=["RFC 6698"],
+    description="DANE TLS certificate association. Binds a TLS certificate to "
+                "a domain name and port.",
+    syntax="_<port>._<protocol>.<name> <TTL> IN TLSA <usage> <selector> <matching-type> <data>",
+    purpose="Part of DANE. Associates a TLS certificate or public key with a "
+            "service, enabling certificate pinning via DNS.",
+    examples=["_443._tcp.example.com. 3600 IN TLSA 3 1 1 <hex-hash>"],
+    category="security",
+    common=False,
+))
+
 
 def get_record_type(name: str) -> RecordType | None:
     return _RECORD_TYPES.get(name.upper())
@@ -380,6 +392,10 @@ def validate_spf(record: str) -> ValidationResult:
                 result.valid = False
 
         mechanisms.append({"qualifier": qualifier, "mechanism": mn, "argument": mech_arg})
+
+    # Count redirect as a DNS lookup per RFC 7208 Section 4.6.4
+    if "redirect" in modifiers:
+        dns_lookups += 1
 
     if dns_lookups > 10:
         result.errors.append(f"Too many DNS lookups: {dns_lookups} (max 10 per RFC 7208)")
@@ -666,6 +682,105 @@ def validate_mx(value: str) -> ValidationResult:
     return result
 
 
+_TLSA_USAGE = {0: "CA constraint", 1: "Service certificate constraint",
+               2: "Trust anchor assertion", 3: "Domain-issued certificate"}
+_TLSA_SELECTOR = {0: "Full certificate", 1: "SubjectPublicKeyInfo"}
+_TLSA_MATCHING = {0: "No hash (full data)", 1: "SHA-256", 2: "SHA-512"}
+
+
+def validate_tlsa(value: str) -> ValidationResult:
+    """Validate a TLSA record value (RFC 6698).
+
+    Checks usage (0-3), selector (0-1), matching type (0-2), and hex data.
+    """
+    result = ValidationResult(valid=True, record_type="TLSA")
+    value = value.strip()
+    if value.startswith('"') and value.endswith('"'):
+        value = value[1:-1]
+
+    parts = value.split()
+    if len(parts) < 4:
+        result.valid = False
+        result.errors.append(
+            "TLSA record must have: usage selector matching-type data. "
+            "Example: '3 1 1 <hex-sha256-hash>'"
+        )
+        return result
+
+    # Parse usage
+    try:
+        usage = int(parts[0])
+        if not (0 <= usage <= 3):
+            result.errors.append(f"TLSA usage must be 0-3, got {usage}")
+            result.valid = False
+        else:
+            result.parsed["usage"] = usage
+            result.parsed["usage_name"] = _TLSA_USAGE[usage]
+    except ValueError:
+        result.errors.append(f"Invalid TLSA usage: '{parts[0]}' (must be 0-3)")
+        result.valid = False
+
+    # Parse selector
+    try:
+        selector = int(parts[1])
+        if not (0 <= selector <= 1):
+            result.errors.append(f"TLSA selector must be 0 or 1, got {selector}")
+            result.valid = False
+        else:
+            result.parsed["selector"] = selector
+            result.parsed["selector_name"] = _TLSA_SELECTOR[selector]
+    except ValueError:
+        result.errors.append(f"Invalid TLSA selector: '{parts[1]}' (must be 0-1)")
+        result.valid = False
+
+    # Parse matching type
+    try:
+        matching = int(parts[2])
+        if not (0 <= matching <= 2):
+            result.errors.append(f"TLSA matching type must be 0-2, got {matching}")
+            result.valid = False
+        else:
+            result.parsed["matching_type"] = matching
+            result.parsed["matching_name"] = _TLSA_MATCHING[matching]
+    except ValueError:
+        result.errors.append(f"Invalid TLSA matching type: '{parts[2]}' (must be 0-2)")
+        result.valid = False
+
+    # Parse certificate association data (hex)
+    cert_data = "".join(parts[3:])
+    cert_data_clean = cert_data.replace(" ", "")
+    result.parsed["data"] = cert_data_clean
+
+    if not re.match(r'^[0-9a-fA-F]+$', cert_data_clean):
+        result.errors.append("TLSA certificate data must be a hex string")
+        result.valid = False
+    else:
+        data_len = len(cert_data_clean)
+        matching_val = result.parsed.get("matching_type")
+        if matching_val == 1 and data_len != 64:
+            result.warnings.append(
+                f"SHA-256 hash should be 64 hex characters, got {data_len}"
+            )
+        elif matching_val == 2 and data_len != 128:
+            result.warnings.append(
+                f"SHA-512 hash should be 128 hex characters, got {data_len}"
+            )
+        elif matching_val == 0 and data_len < 20:
+            result.warnings.append(
+                f"Full certificate data seems very short ({data_len} hex chars)"
+            )
+
+    # Common configuration advice
+    usage_val = result.parsed.get("usage")
+    if usage_val == 3:
+        result.warnings.append(
+            "Usage 3 (DANE-EE) pins a specific certificate. "
+            "Remember to update this record BEFORE rotating certificates."
+        )
+
+    return result
+
+
 def validate_record(record_type: str, value: str) -> ValidationResult:
     """Validate a DNS record value for the given type."""
     validators = {
@@ -674,6 +789,7 @@ def validate_record(record_type: str, value: str) -> ValidationResult:
         "DMARC": validate_dmarc,
         "A": validate_a,
         "MX": validate_mx,
+        "TLSA": validate_tlsa,
     }
     rt = record_type.upper()
     validator = validators.get(rt)

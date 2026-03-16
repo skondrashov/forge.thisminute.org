@@ -423,6 +423,65 @@ class TestSystemAliases:
     def test_strftime_alias(self):
         assert convert("%Y", "strftime", "java") == "yyyy"
 
+    def test_datefns_alias(self):
+        assert convert("yyyy", "date-fns", "python") == "%Y"
+
+    def test_datefns_alias_nohyphen(self):
+        assert convert("yyyy", "datefns", "python") == "%Y"
+
+    def test_datetimeformatter_alias(self):
+        assert convert("yyyy", "datetimeformatter", "python") == "%Y"
+
+
+# ============================================================================
+# 12b. Java single-letter token handling
+# ============================================================================
+
+
+class TestJavaSingleLetterTokens:
+    """Java single-letter tokens (y, E, S, etc.) must parse correctly."""
+
+    def test_single_y_year(self):
+        """Java single 'y' is variable-width year, maps to 4-digit year."""
+        result = convert("y-MM-dd", "java", "python")
+        assert result == "%Y-%m-%d"
+
+    def test_single_E_weekday(self):
+        """Java single 'E' is abbreviated weekday."""
+        result = convert("E", "java", "python")
+        assert result == "%a"
+
+    def test_double_E_weekday(self):
+        """Java 'EE' is also abbreviated weekday."""
+        result = convert("EE", "java", "python")
+        assert result == "%a"
+
+    def test_single_S_fraction(self):
+        """Java single 'S' maps to millisecond."""
+        result = convert("HH:mm:ss.S", "java", "python")
+        assert "%f" in result
+
+    def test_double_S_fraction(self):
+        """Java 'SS' maps to millisecond."""
+        result = convert("HH:mm:ss.SS", "java", "python")
+        assert "%f" in result
+
+    def test_java_multi_G_era(self):
+        """Java GG, GGG, GGGG all map to era."""
+        for token in ("G", "GG", "GGG", "GGGG"):
+            sys = resolve_system("java")
+            parsed = sys["parse"](token)
+            assert len(parsed) == 1
+            assert parsed[0][1] == CanonicalToken.ERA_AD_BC
+
+    def test_java_multi_z_tz(self):
+        """Java zz, zzz all map to timezone name."""
+        for token in ("z", "zz", "zzz", "zzzz"):
+            sys = resolve_system("java")
+            parsed = sys["parse"](token)
+            assert len(parsed) == 1
+            assert parsed[0][1] == CanonicalToken.TZ_NAME
+
 
 # ============================================================================
 # 13. Error handling

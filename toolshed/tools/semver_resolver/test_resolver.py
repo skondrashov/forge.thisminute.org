@@ -489,6 +489,42 @@ class TestTranslation:
         result = translate_range("*", "npm", "maven")
         assert result["translated"] is not None
 
+    def test_npm_caret_to_pip_exact(self):
+        """npm ^1.2.3 -> pip must produce >=1.2.3,<2.0.0, not ~=1.2 (lossy)."""
+        result = translate_range("^1.2.3", "npm", "pip")
+        assert result["translated"] == ">=1.2.3,<2.0.0"
+        assert result["exact"]
+
+    def test_npm_caret_to_pip_minor_nonzero(self):
+        """npm ^1.4.0 -> pip must be >=1.4.0,<2.0.0 (not ~=1.4)."""
+        result = translate_range("^1.4.0", "npm", "pip")
+        assert result["translated"] == ">=1.4.0,<2.0.0"
+        assert result["exact"]
+
+    def test_npm_caret_to_pip_major_zero(self):
+        """npm ^1.0.0 -> pip must be >=1.0.0,<2.0.0."""
+        result = translate_range("^1.0.0", "npm", "pip")
+        assert result["translated"] == ">=1.0.0,<2.0.0"
+        assert result["exact"]
+
+    def test_npm_tilde_to_pip_exact(self):
+        """npm ~1.2.3 -> pip ~=1.2.3 (tilde maps directly)."""
+        result = translate_range("~1.2.3", "npm", "pip")
+        assert result["translated"] == "~=1.2.3"
+        assert result["exact"]
+
+    def test_npm_tilde_to_pip_zero_patch(self):
+        """npm ~1.2.0 -> pip ~=1.2 (when patch=0, use 2-part form)."""
+        result = translate_range("~1.2.0", "npm", "pip")
+        assert result["translated"] == "~=1.2"
+        assert result["exact"]
+
+    def test_cargo_caret_to_pip(self):
+        """Cargo ^2.1.5 -> pip >=2.1.5,<3.0.0."""
+        result = translate_range("^2.1.5", "cargo", "pip")
+        assert result["translated"] == ">=2.1.5,<3.0.0"
+        assert result["exact"]
+
 
 # ============================================================================
 # 9. check_version convenience

@@ -22,6 +22,7 @@ from reference import (
     validate_dmarc,
     validate_a,
     validate_mx,
+    validate_tlsa,
     validate_record,
     ValidationResult,
     generate_a,
@@ -86,6 +87,11 @@ class TestRegistry:
         rt = get_record_type("CAA")
         assert rt is not None
         assert rt.code == 257
+
+    def test_tlsa_record(self):
+        rt = get_record_type("TLSA")
+        assert rt is not None
+        assert rt.code == 52
 
     def test_case_insensitive(self):
         assert get_record_type("a") is not None
@@ -219,6 +225,29 @@ class TestSPFInvalid:
     def test_all_with_arg(self):
         r = validate_spf("v=spf1 all:foo")
         assert not r.valid
+
+
+class TestSPFRedirectCounting:
+    """SPF redirect modifier counts as a DNS lookup per RFC 7208 Section 4.6.4."""
+
+    def test_redirect_counts_as_lookup(self):
+        r = validate_spf("v=spf1 redirect=_spf.example.com")
+        assert r.valid
+        assert r.parsed["dns_lookups"] == 1
+
+    def test_redirect_plus_includes_counted(self):
+        includes = " ".join(f"include:spf{i}.example.com" for i in range(9))
+        r = validate_spf(f"v=spf1 {includes} redirect=_spf.other.com")
+        # 9 includes + 1 redirect = 10 lookups (at the limit)
+        assert r.valid
+        assert r.parsed["dns_lookups"] == 10
+
+    def test_redirect_pushes_over_limit(self):
+        includes = " ".join(f"include:spf{i}.example.com" for i in range(10))
+        r = validate_spf(f"v=spf1 {includes} redirect=_spf.other.com")
+        # 10 includes + 1 redirect = 11 lookups (over the limit)
+        assert not r.valid
+        assert any("Too many" in e for e in r.errors)
 
 
 class TestSPFWarnings:
@@ -427,6 +456,72 @@ class TestValidateMX:
 
 
 # ============================================================
+# 6b. TLSA Validator
+# ============================================================
+
+class TestTLSAValid:
+    def test_dane_ee_sha256(self):
+        r = validate_tlsa("3 1 1 " + "a" * 64)
+        assert r.valid
+        assert r.parsed["usage"] == 3
+        assert r.parsed["selector"] == 1
+        assert r.parsed["matching_type"] == 1
+
+    def test_ca_constraint(self):
+        r = validate_tlsa("0 0 1 " + "b" * 64)
+        assert r.valid
+        assert r.parsed["usage"] == 0
+
+    def test_full_cert(self):
+        r = validate_tlsa("1 0 0 " + "c" * 100)
+        assert r.valid
+        assert r.parsed["matching_type"] == 0
+
+    def test_sha512(self):
+        r = validate_tlsa("3 1 2 " + "d" * 128)
+        assert r.valid
+        assert r.parsed["matching_type"] == 2
+
+
+class TestTLSAInvalid:
+    def test_too_few_fields(self):
+        r = validate_tlsa("3 1")
+        assert not r.valid
+
+    def test_invalid_usage(self):
+        r = validate_tlsa("5 1 1 " + "a" * 64)
+        assert not r.valid
+
+    def test_invalid_selector(self):
+        r = validate_tlsa("3 5 1 " + "a" * 64)
+        assert not r.valid
+
+    def test_invalid_matching_type(self):
+        r = validate_tlsa("3 1 5 " + "a" * 64)
+        assert not r.valid
+
+    def test_invalid_hex_data(self):
+        r = validate_tlsa("3 1 1 not-hex-data!")
+        assert not r.valid
+
+
+class TestTLSAWarnings:
+    def test_sha256_wrong_length(self):
+        r = validate_tlsa("3 1 1 " + "a" * 32)
+        assert r.valid
+        assert any("64 hex" in w for w in r.warnings)
+
+    def test_sha512_wrong_length(self):
+        r = validate_tlsa("3 1 2 " + "a" * 64)
+        assert r.valid
+        assert any("128 hex" in w for w in r.warnings)
+
+    def test_dane_ee_rotation_warning(self):
+        r = validate_tlsa("3 1 1 " + "a" * 64)
+        assert any("rotating" in w.lower() for w in r.warnings)
+
+
+# ============================================================
 # 7. Unified validate_record
 # ============================================================
 
@@ -445,6 +540,10 @@ class TestValidateRecord:
 
     def test_a(self):
         r = validate_record("A", "93.184.216.34")
+        assert r.valid
+
+    def test_tlsa(self):
+        r = validate_record("TLSA", "3 1 1 " + "a" * 64)
         assert r.valid
 
     def test_case_insensitive(self):

@@ -841,9 +841,9 @@ def _bound_to_pip(lower, upper, lower_inc, upper_inc, unb_lower, unb_upper, note
         if upper == lower.next_major() and lower.minor == 0 and lower.patch == 0:
             return f">={lower},<{upper}", True, []
         if upper == lower.next_major():
-            return f"~={lower.major}.{lower.minor}", False, [
-                f"pip ~= operates at minor level; original range was >={lower} <{upper}"
-            ]
+            # pip ~= can't express >=X.Y.Z <(X+1).0.0 when Y or Z > 0
+            # Fall through to explicit >=,< notation for an exact translation
+            pass
     parts = []
     if not unb_lower:
         parts.append(f">={lower}" if lower_inc else f">{lower}")
