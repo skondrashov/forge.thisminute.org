@@ -113,16 +113,43 @@ def find_url_duplicates(entries):
     return duplicates
 
 
+def _deletion_neighbors(s, max_depth):
+    """Generate all strings obtainable by deleting up to max_depth characters.
+
+    Used by the SymSpell-inspired approach: two strings within edit distance d
+    must have deletion variants that are identical or within a smaller distance.
+    For max_distance=2, we generate all 1-deletion and 2-deletion variants.
+    """
+    results = {s}
+    current_level = {s}
+    for _ in range(max_depth):
+        next_level = set()
+        for word in current_level:
+            for i in range(len(word)):
+                variant = word[:i] + word[i + 1:]
+                if variant not in results:
+                    next_level.add(variant)
+                    results.add(variant)
+        current_level = next_level
+    return results
+
+
 def find_similar_names(entries, max_distance=2):
     """Find entries with very similar names (Levenshtein distance <= max_distance).
 
     Also detects version variants (same name with/without version numbers).
     Skips pairs that are already exact duplicates (handled separately).
     Only checks names >= 4 chars to avoid false positives on short names.
+
+    Uses a SymSpell-inspired deletion neighborhood approach for fast candidate
+    selection. For each unique name, all strings obtainable by deleting up to
+    max_distance characters are generated and indexed. Two names within edit
+    distance d will share at least one deletion variant, so candidates are
+    found via hash lookups instead of pairwise comparison. Runs in O(n * L^d)
+    time where L is average name length and d is max_distance.
     """
     MIN_NAME_LEN = 4
     similar_groups = []
-    seen_pairs = set()
 
     # Build list of (name_lower, entry) for comparison
     name_entries = []
@@ -143,36 +170,65 @@ def find_similar_names(entries, max_distance=2):
     version_groups = {}
     for stripped, group in by_stripped.items():
         # Find entries with different actual names but same stripped name
-        unique_names = set(e.get("name", "").strip().lower() for e in group)
-        if len(unique_names) > 1:
+        unique_names_set = set(e.get("name", "").strip().lower() for e in group)
+        if len(unique_names_set) > 1:
             version_groups[stripped] = group
 
-    # Levenshtein check — O(n^2) but filter by length difference first
-    # Only compare entries whose names have similar lengths
-    for i in range(len(name_entries)):
-        name_i, entry_i = name_entries[i]
-        for j in range(i + 1, len(name_entries)):
-            name_j, entry_j = name_entries[j]
-            # Skip exact matches (handled by exact duplicate check)
-            if name_i == name_j:
+    # SymSpell-inspired deletion neighborhood approach:
+    # For each unique name, generate all deletion variants (up to max_distance
+    # deletions). Index these variants in a dictionary mapping variant -> list
+    # of original names. Two names within edit distance d will share at least
+    # one deletion variant. After finding candidate pairs via shared variants,
+    # verify with actual Levenshtein distance.
+
+    entries_by_name = defaultdict(list)
+    for name_lower, e in name_entries:
+        entries_by_name[name_lower].append(e)
+
+    unique_names = list(entries_by_name.keys())
+
+    # Build deletion variant index: variant -> set of name indices
+    variant_index = defaultdict(set)
+    for idx, name in enumerate(unique_names):
+        for variant in _deletion_neighbors(name, max_distance):
+            variant_index[variant].add(idx)
+
+    # Find candidate pairs: names that share a deletion variant
+    seen_pairs = set()
+    for idx_a, name_a in enumerate(unique_names):
+        len_a = len(name_a)
+        # Check all deletion variants of name_a
+        candidates = set()
+        for variant in _deletion_neighbors(name_a, max_distance):
+            for idx_b in variant_index.get(variant, ()):
+                if idx_b <= idx_a:
+                    continue
+                candidates.add(idx_b)
+
+        for idx_b in candidates:
+            name_b = unique_names[idx_b]
+            if name_a == name_b:
                 continue
-            # Length difference filter: if lengths differ by more than max_distance, skip
-            if abs(len(name_i) - len(name_j)) > max_distance:
+            # Length filter
+            if abs(len_a - len(name_b)) > max_distance:
                 continue
-            # Skip very short names to reduce false positives
-            if len(name_i) < MIN_NAME_LEN or len(name_j) < MIN_NAME_LEN:
-                continue
-            pair_key = tuple(sorted([entry_i.get("id", ""), entry_j.get("id", "")]))
+            pair_key = (idx_a, idx_b)
             if pair_key in seen_pairs:
                 continue
-            dist = levenshtein_distance(name_i, name_j)
+            seen_pairs.add(pair_key)
+
+            dist = levenshtein_distance(name_a, name_b)
             if dist <= max_distance:
-                seen_pairs.add(pair_key)
-                similar_groups.append({
-                    "distance": dist,
-                    "entries": [entry_i, entry_j],
-                    "names": [entry_i.get("name", ""), entry_j.get("name", "")],
-                })
+                for entry_a in entries_by_name[name_a]:
+                    for entry_b in entries_by_name[name_b]:
+                        similar_groups.append({
+                            "distance": dist,
+                            "entries": [entry_a, entry_b],
+                            "names": [
+                                entry_a.get("name", ""),
+                                entry_b.get("name", ""),
+                            ],
+                        })
 
     return similar_groups, version_groups
 

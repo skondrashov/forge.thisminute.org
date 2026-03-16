@@ -1156,5 +1156,89 @@
     ],
     "source": "https://github.com/stryker-mutator/stryker-js",
     "language": "javascript"
+  },
+  {
+    "id": "pylint",
+    "name": "Pylint",
+    "description": "Static code analyzer for Python. Checks for errors, enforces coding standards, detects code smells, and suggests refactoring.",
+    "url": "https://pylint.readthedocs.io",
+    "category": "Static Analysis",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["python", "static-analysis", "code-quality", "refactoring", "open-source"],
+    "source": "https://github.com/pylint-dev/pylint",
+    "language": "python"
+  },
+  {
+    "id": "checkstyle",
+    "name": "Checkstyle",
+    "description": "Development tool for enforcing Java coding standards. Checks layout, formatting, and design issues against configurable style rules.",
+    "url": "https://checkstyle.sourceforge.io",
+    "category": "Static Analysis",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["java", "static-analysis", "code-style", "coding-standards", "open-source"],
+    "source": "https://github.com/checkstyle/checkstyle",
+    "language": "java"
+  },
+  {
+    "id": "pmd",
+    "name": "PMD",
+    "description": "Extensible multilanguage static code analyzer with 400+ built-in rules. Finds unused variables, empty catch blocks, and duplicated code.",
+    "url": "https://pmd.github.io",
+    "category": "Static Analysis",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["java", "static-analysis", "multi-language", "copy-paste-detection", "open-source"],
+    "source": "https://github.com/pmd/pmd",
+    "language": "java"
+  },
+  {
+    "id": "cppcheck",
+    "name": "Cppcheck",
+    "description": "Static analysis tool for C/C++ focused on detecting undefined behavior and dangerous constructs. Low false-positive rate by design.",
+    "url": "https://cppcheck.sourceforge.io",
+    "category": "Static Analysis",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["cpp", "c", "static-analysis", "bug-detection", "open-source"],
+    "source": "https://github.com/danmar/cppcheck",
+    "language": "cpp"
+  },
+  {
+    "id": "spotbugs",
+    "name": "SpotBugs",
+    "description": "Static analysis tool for finding bugs in Java bytecode. Successor to FindBugs with 400+ bug patterns and IDE integration.",
+    "url": "https://spotbugs.github.io",
+    "category": "Static Analysis",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["java", "static-analysis", "bug-detection", "bytecode", "open-source"],
+    "source": "https://github.com/spotbugs/spotbugs",
+    "language": "java"
+  },
+  {
+    "id": "error-prone",
+    "name": "Error Prone",
+    "description": "Java static analysis tool by Google. Augments the compiler to catch common mistakes at build time with suggested fixes.",
+    "url": "https://errorprone.info",
+    "category": "Static Analysis",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["java", "static-analysis", "compiler-plugin", "google", "open-source"],
+    "source": "https://github.com/google/error-prone",
+    "language": "java"
+  },
+  {
+    "id": "infer",
+    "name": "Infer",
+    "description": "Static analysis tool by Meta for Java, C++, Objective-C, and C. Detects null pointer dereferences, resource leaks, and race conditions.",
+    "url": "https://fbinfer.com",
+    "category": "Static Analysis",
+    "os": ["macos", "linux"],
+    "pricing": "free",
+    "tags": ["java", "cpp", "static-analysis", "bug-detection", "meta", "open-source"],
+    "source": "https://github.com/facebook/infer",
+    "language": "multi"
   }
 ]

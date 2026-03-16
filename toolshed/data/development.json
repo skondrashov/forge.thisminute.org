@@ -751,6 +751,132 @@
     "language": "multi"
   },
   {
+    "id": "cryengine",
+    "name": "CryEngine",
+    "description": "Crytek's game engine known for photorealistic rendering and physics simulation. Full source code access, 5% royalty after $5K revenue.",
+    "url": "https://www.cryengine.com",
+    "category": "Game Engines",
+    "os": [
+      "windows"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "gamedev",
+      "3d",
+      "aaa",
+      "physics",
+      "cpp"
+    ],
+    "language": "cpp"
+  },
+  {
+    "id": "rpg-maker",
+    "name": "RPG Maker",
+    "description": "Game creation tool for making 2D RPGs without programming. Drag-and-drop event system, character generator, and large asset marketplace.",
+    "url": "https://www.rpgmakerweb.com",
+    "category": "Game Engines",
+    "os": [
+      "windows",
+      "macos"
+    ],
+    "pricing": "paid",
+    "tags": [
+      "gamedev",
+      "rpg",
+      "2d",
+      "no-code",
+      "indie"
+    ]
+  },
+  {
+    "id": "monogame",
+    "name": "MonoGame",
+    "description": "Open-source C#/.NET framework for cross-platform games. Successor to XNA, used by Celeste and Stardew Valley. No royalties or fees.",
+    "url": "https://monogame.net",
+    "category": "Game Engines",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "android",
+      "ios"
+    ],
+    "pricing": "free",
+    "tags": [
+      "gamedev",
+      "csharp",
+      "cross-platform",
+      "xna",
+      "open-source"
+    ],
+    "source": "https://github.com/MonoGame/MonoGame",
+    "language": "csharp"
+  },
+  {
+    "id": "love2d",
+    "name": "LOVE",
+    "description": "Free 2D game framework using Lua. Lightweight, fast, and permissively licensed. Popular for game jams and prototyping.",
+    "url": "https://love2d.org",
+    "category": "Game Engines",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "android",
+      "ios"
+    ],
+    "pricing": "free",
+    "tags": [
+      "gamedev",
+      "lua",
+      "2d",
+      "lightweight",
+      "open-source"
+    ],
+    "source": "https://github.com/love2d/love",
+    "language": "cpp"
+  },
+  {
+    "id": "o3de",
+    "name": "Open 3D Engine",
+    "description": "Free, open-source 3D engine by the Linux Foundation. Modular architecture for games, simulations, and robotics applications.",
+    "url": "https://o3de.org",
+    "category": "Game Engines",
+    "os": [
+      "windows",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "gamedev",
+      "3d",
+      "open-source",
+      "simulation",
+      "linux-foundation"
+    ],
+    "source": "https://github.com/o3de/o3de",
+    "language": "cpp"
+  },
+  {
+    "id": "construct",
+    "name": "Construct",
+    "description": "Browser-based game creation tool with visual event sheets instead of code. Exports to HTML5, mobile, and desktop platforms.",
+    "url": "https://www.construct.net",
+    "category": "Game Engines",
+    "os": [
+      "web"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "gamedev",
+      "no-code",
+      "html5",
+      "2d",
+      "browser-based"
+    ],
+    "language": "javascript"
+  },
+  {
     "id": "python",
     "name": "Python",
     "description": "Versatile, beginner-friendly language dominant in data science, AI/ML, scripting, and web development.",

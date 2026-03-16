@@ -426,5 +426,125 @@
     "os": ["web", "ios", "android"],
     "pricing": "subscription",
     "tags": ["hr", "payroll", "benefits", "mid-market"]
+  },
+  {
+    "id": "oyster-hr",
+    "name": "Oyster",
+    "description": "Global employment platform for hiring and paying employees in 180+ countries without local entities. Compliance, benefits, and payroll.",
+    "url": "https://www.oysterhr.com",
+    "category": "HR & People",
+    "os": ["web"],
+    "pricing": "subscription",
+    "tags": ["global-employment", "compliance", "payroll", "international"]
+  },
+  {
+    "id": "factorial",
+    "name": "Factorial",
+    "description": "All-in-one HR software for SMBs. Time tracking, payroll, recruitment, performance reviews, and document management.",
+    "url": "https://factorialhr.com",
+    "category": "HR & People",
+    "os": ["web", "ios", "android"],
+    "pricing": "subscription",
+    "tags": ["hr", "time-tracking", "payroll", "recruitment", "smb"]
+  },
+  {
+    "id": "justworks",
+    "name": "Justworks",
+    "description": "PEO and HR platform for small businesses. Payroll, benefits, compliance, and HR tools with a simple per-employee pricing model.",
+    "url": "https://www.justworks.com",
+    "category": "HR & People",
+    "os": ["web", "ios", "android"],
+    "pricing": "subscription",
+    "tags": ["peo", "payroll", "benefits", "compliance", "small-business"]
+  },
+  {
+    "id": "paylocity",
+    "name": "Paylocity",
+    "description": "Cloud-based payroll and HCM platform. Payroll processing, talent management, workforce management, and employee engagement tools.",
+    "url": "https://www.paylocity.com",
+    "category": "HR & People",
+    "os": ["web", "ios", "android"],
+    "pricing": "subscription",
+    "tags": ["payroll", "hcm", "talent-management", "workforce"]
+  },
+  {
+    "id": "adp",
+    "name": "ADP",
+    "description": "Enterprise payroll and HR services provider. Payroll processing, tax filing, benefits administration, and workforce analytics at scale.",
+    "url": "https://www.adp.com",
+    "category": "HR & People",
+    "os": ["web", "ios", "android"],
+    "pricing": "subscription",
+    "tags": ["payroll", "enterprise", "tax-filing", "benefits", "analytics"]
+  },
+  {
+    "id": "dayforce",
+    "name": "Dayforce",
+    "description": "Cloud HCM platform by Ceridian for HR, payroll, benefits, and workforce management. Unified system serving 6,000+ customers globally.",
+    "url": "https://www.dayforce.com",
+    "category": "HR & People",
+    "os": ["web", "ios", "android"],
+    "pricing": "subscription",
+    "tags": ["hcm", "payroll", "workforce-management", "enterprise", "global"]
+  },
+  {
+    "id": "ashby",
+    "name": "Ashby",
+    "description": "All-in-one recruiting platform with ATS, CRM, sourcing, scheduling, and analytics. Built for startups through enterprise hiring.",
+    "url": "https://ashbyhq.com",
+    "category": "HR & People",
+    "os": ["web"],
+    "pricing": "subscription",
+    "tags": ["recruiting", "ats", "sourcing", "analytics", "hiring"]
+  },
+  {
+    "id": "paychex",
+    "name": "Paychex",
+    "description": "Payroll, HR, and benefits platform for businesses of all sizes. Paychex Flex dashboard, automated tax filing, and 401(k) administration.",
+    "url": "https://www.paychex.com",
+    "category": "HR & People",
+    "os": ["web", "ios", "android"],
+    "pricing": "subscription",
+    "tags": ["payroll", "benefits", "401k", "tax-filing", "hr"]
+  },
+  {
+    "id": "breathe-hr",
+    "name": "Breathe",
+    "description": "Cloud HR software for UK SMBs. Leave management, recruitment, absence tracking, performance reviews, and shift scheduling for up to 250 employees.",
+    "url": "https://www.breathehr.com",
+    "category": "HR & People",
+    "os": ["web"],
+    "pricing": "subscription",
+    "tags": ["hr", "smb", "leave-management", "uk", "scheduling"]
+  },
+  {
+    "id": "kenjo",
+    "name": "Kenjo",
+    "description": "Workforce management platform for SMBs with deskless teams. Shift planning, time tracking, absence management, and payroll prep.",
+    "url": "https://www.kenjo.io",
+    "category": "HR & People",
+    "os": ["web", "ios", "android"],
+    "pricing": "subscription",
+    "tags": ["workforce-management", "shift-planning", "time-tracking", "deskless"]
+  },
+  {
+    "id": "trinet",
+    "name": "TriNet",
+    "description": "PEO and HR platform providing payroll, benefits, compliance, and risk management. Acquired Zenefits to expand SMB offerings.",
+    "url": "https://www.trinet.com",
+    "category": "HR & People",
+    "os": ["web", "ios", "android"],
+    "pricing": "subscription",
+    "tags": ["peo", "payroll", "benefits", "compliance", "smb"]
+  },
+  {
+    "id": "hireez",
+    "name": "hireEZ",
+    "description": "AI recruiting platform for mid-market and enterprise. Automated sourcing, resume screening, AI phone screening, and interview scheduling.",
+    "url": "https://www.hireez.com",
+    "category": "HR & People",
+    "os": ["web"],
+    "pricing": "subscription",
+    "tags": ["ai-recruiting", "sourcing", "ats", "enterprise", "automation"]
   }
 ]

@@ -40,22 +40,42 @@ Universal software directory at thisminute.org/toolshed. Browse apps, libraries,
 
 Each entry has: `id` (kebab-case), `name`, `description` (~200 chars), `url`, `category` (one of 124), `os[]` (windows/macos/linux/web/ios/android), `pricing` (free/freemium/paid/subscription), `tags[]`, optional `source` (repo URL if open-source), optional `language`.
 
+Idea entries (in `ideas.js`) follow the same schema plus `complexity`, `capability`, `approach`, `agentArchitecture`, and `triage` fields. CLI tool ideas built by the forge live in the `tools/` directory as standalone Python packages (e.g., `tools/balatro_scorer/`). These are precision tools where lookup beats reasoning — 300-600 LOC, tagged `precision-tool`.
+
+## Idea Triage (for the forge)
+
+Every idea in `ideas.js` must have a `triage` object with three scored criteria. The forge uses these to decide what to build next — no idea should exist without them.
+
+| Field | Values | Meaning |
+|-------|--------|---------|
+| `impact` | high / medium / low | How helpful is this tool to users? |
+| `buildability` | straightforward / moderate / hard | How feasible is it for AI agents to build? |
+| `alternatives` | none / partial / covered | Do existing tools already fill this need? |
+
+Plus `alternatives_note` (free text) naming the specific tools and what gap remains.
+
+**Forge priority order:** Filter out `covered`, then sort by impact (high first), then by buildability (straightforward first). An idea with `high` impact + `straightforward` buildability + `none` alternatives is the top pick. An idea with `covered` alternatives should be skipped regardless of other scores.
+
 ## Current State
 
-- 15,803 entries across 123 populated categories (124 in taxonomy) in 22 top-level groups
-- ~336 curated + ~15,467 discovered entries across 22 data files
+- 15,939 entries across 123 populated categories (124 in taxonomy) in 22 top-level groups
+- 1,343 curated + 14,596 discovered entries + 25 forge ideas across 22 data files
 - 67 tests passing (test_categorize, test_data, test_taxonomy)
+- **View Tabs**: All / Catalog / Requests / Built by Forge — browse the forge pipeline
+- **Multi-dimensional filtering**: OS, pricing (free/freemium/paid/subscription), language, tags
+- **Forge integration**: triage badges (impact/buildability/alternatives), validation info, priority sort
+- **Header stats**: Apps, Categories, AI-Built, Requests (clickable to switch view)
+- **Tag bar**: Top 12 tags shown contextually for current card list, clickable to filter
 - Tree drill-down navigation (taxonomy.json → taxonomy.js)
 - Dark/light mode toggle with `prefers-color-scheme` support + `matchMedia` listener
 - Theme stored in localStorage as `thisminute_theme`
-- Warm amber color scheme, category-colored card borders
-- Cmd/Ctrl+K search shortcut, live result count, search highlighting
+- Warm amber color scheme, category-colored card borders, green/blue forge card accents
+- Cmd/Ctrl+K search shortcut, live result count, search highlighting, context-aware placeholder
 - Search across names, descriptions, categories, tags
-- OS filtering, sort by category/A-Z/shuffle
-- Detail panel with website + source code links, "See Also" (4 shuffled same-category entries), "Copy Link" button
+- Detail panel with triage section (for ideas), validation (for built), "See Also", "Copy Link", clickable tags
 - Mobile: floating "Categories" button with bottom-sheet taxonomy panel (<=900px)
 - API endpoint at api/v1/catalog.json, llms.txt for agent discovery
-- JSON-LD structured data (schema.org SoftwareApplication, 1,153 sampled entries)
+- JSON-LD structured data (schema.org SoftwareApplication, 1,350 sampled entries, 538.3 KB)
 - Noscript fallback with full catalog HTML
 - Live at https://thisminute.org/toolshed
 - Cross-links to sister projects (Rhizome, Agent Forge) in header
@@ -69,6 +89,7 @@ To request a deploy: add an entry to `~/projects/ops/DEPLOY_QUEUE.md` with scope
 ## Commands
 
 - **Build**: `python build.py`
+- **Build (strict)**: `python build.py --strict` (excludes Tier 3, unmatched, and category-disagreement discovered entries — 15,939 → 6,970)
 - **Scrape**: `python -m scrape` (default: awesome,homebrew,cncf sources)
 - **Dry-run scrape**: `python -m scrape --dry-run`
 - **Test**: `python -m pytest tests/ -v` (67 tests)

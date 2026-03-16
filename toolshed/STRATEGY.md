@@ -200,34 +200,41 @@ Define a standard way for agents to interact with Toolshed:
 
 ---
 
-## Current Priorities (Updated 2026-03-15)
+## Current Priorities (Updated 2026-03-16)
 
-**Context:** 15,803 entries across 123 populated categories (124 in taxonomy). 67 tests passing. Categorization quality improved through 5 rounds of fixes (Cycles 5-7, 10, 13). Quality automation scripts built. JSON-LD structured data shipped. All 5 designer tasks complete.
+**Context:** 15,939 entries across 123 populated categories (124 in taxonomy). 67 tests passing. Forge UI integration complete (view tabs, multi-dimensional filtering, forge pipeline visualization, covered/unique distinction). Thin categories addressed (Cycles 15-16, 20, 22, 28, 30, 38, 40, 43 curator). 3 forge ideas remaining, 22 built.
+
+### Priority 0: Idea Triage Must Stay Current (CURATOR)
+
+Every idea in `ideas.js` must have a `triage` object with `impact`, `buildability`, and `alternatives` scored. The forge reads these to decide what to build — untriaged ideas are invisible to it. When reviewing ideas, challenge stale scores: if a new product has launched that covers the need, downgrade `alternatives` to `covered`. See `schema.json` for field definitions.
+
+**Proven pattern: precision CLI tools.** The forge's best cadence is shipping focused Python CLI tools (300-600 LOC, 300-500 tests) in 1-2 days. These are tools where **lookup beats reasoning** — combinatorics, spec compliance, format parsing, lookup tables. The pipeline has 20 such tools tagged `precision-tool`, including 3 forge-infra tools (forge-cli, forge-test-gen, forge-data) that accelerate the forge's own build cadence. Prioritize these over larger web-app or multi-agent ideas that take weeks.
 
 ### Priority 1: Thin Categories Need Attention (CURATOR)
 
 | Category | Count | Notes |
 |---|---|---|
-| Mobile IDE & Tools | 11 | Regressed from 14 after threshold raise |
-| Flashcards & Study | 14 | Could use more entries |
-| Desktop App Frameworks | 15 | Reasonable but thin |
-| HR & People | 16 | |
-| Secrets Management | 18 | |
-| Vector Databases | 18 | |
-| Task Runners & Monorepos | 20 | |
-| Statistical Tools | 21 | |
-| Error Handling | 21 | |
+| Media Processing | 23 | Thinnest remaining |
+| Mobile IDE & Tools | 25 | |
+| Statistical Tools | 25 | |
+| Task Runners & Monorepos | 25 | |
+| Video Conferencing | 25 | |
+| Desktop App Frameworks | 26 | |
+| Flashcards & Study | 26 | |
+| Secrets Management | 26 | |
+| Vector Databases | 26 | |
+| APIs & Services | 27 | |
 
 ### Priority 2: Discovered Entry Quality (BUILDER/CURATOR -- ongoing)
 
-- S38: Random sample shows ~50% miscategorization in discovered entries. Tier 3 threshold raised 0.15->0.20 but categorizer has systemic limits.
-- Options: better section maps, LLM-assisted categorization, confidence-threshold filtering to exclude low-confidence entries.
+- S38: Random sample shows ~50% miscategorization in discovered entries. **Mitigated**: `build.py --strict` excludes Tier 3, unmatched, and category-disagreement discovered entries (15,939 → 6,970). Default build unchanged. S72 fix implemented (tuple return with category agreement filter). S73 fix applied (Tier 2 best-match tracking aligned with `categorize()`).
+- Options for further improvement: better section maps, LLM-assisted categorization, `get_confidence_tier()` category-agreement filtering.
 
 ### Priority 3: Script Quality Improvements (BUILDER -- low)
 
-- S40: `find_duplicates.py` Levenshtein check is O(n^2) -- needs BK-tree or phonetic hashing for CI use
-- S41: `check_urls.py` disables SSL verification -- should use default context with opt-in `--no-verify-ssl`
-- S43: `check_urls.py` no per-domain rate limiting -- needs per-domain semaphore
+- ~~S40: `find_duplicates.py` Levenshtein check is O(n^2)~~ -- **FIXED** (SymSpell deletion neighborhoods, ~3s runtime)
+- ~~S41: `check_urls.py` disables SSL verification~~ -- **FIXED** (`ssl.create_default_context()` with explicit error handling, `--no-verify-ssl` opt-in retained)
+- ~~S43: `check_urls.py` no per-domain rate limiting~~ -- **FIXED** (per-domain tracking with 1s minimum; race condition noted as S63, low severity)
 
 ### Priority 4: Enhanced Metadata (BUILDER -- backlog)
 
@@ -249,14 +256,55 @@ Define a standard way for agents to interact with Toolshed:
 - Fixed 4 duplicate entries, 5 URL collisions, 3 dead domains removed
 
 **Agent Discoverability (Cycles 4, 14):**
-- `api/v1/catalog.json` -- 15,803 entries
+- `api/v1/catalog.json` -- 15,939 entries
 - `llms.txt` and `llms-full.txt`
-- Noscript HTML fallback -- 15,803 entries
-- JSON-LD structured data -- 1,153 sampled entries, 455.6 KB
+- Noscript HTML fallback -- 15,939 entries
+- JSON-LD structured data -- 1,350 sampled entries, 538.3 KB
 - Tree drill-down navigation
 
 **Design Polish (Cycles 1-2):**
 - Search UX (Cmd/Ctrl+K, result count, highlighting), card borders, dark/light toggle, "See Also", "Copy Link", mobile taxonomy panel
+
+**Forge UI Integration (Cycle 15):**
+- View tabs: All / Catalog / Requests / Built by Forge
+- Multi-dimensional filtering: OS + pricing + language + tags + priority sort
+- Forge card styling: triage badges, validation info, green/blue accents
+- Forge summary banner with pipeline stats and contextual descriptions
+- Header forge stats (AI-Built, Requests) clickable to switch view
+- Tag bar: contextual top-12 tags for current card list
+- Detail panel: full triage section for ideas, clickable tags for search
+- Context-aware search placeholders per view
+
+**Accessibility & Polish (Cycles 15-16):**
+- S50-S55 fixed: meta description, triage escaping, WCAG AA contrast in light mode, keyboard a11y on clickable stats, focus-visible on view-tab/tag-chip, curated count in docs
+- Thin categories filled: Secrets Management 18->26, Vector Databases 18->26, Task Runners 17->24, Mobile IDE 20->25, Flashcards 20->25, Desktop App Frameworks 21->25, HR & People 20->27
+
+**Forge Polish & Fixes (Cycles 17-20):**
+- Designer: covered/unique card distinction, forge summary banner unique/covered split, sparse requests message, TAG_EXCLUDE_FORGE
+- Builder: S40 fixed (find_duplicates.py SymSpell deletion neighborhoods, ~3s)
+- Skeptic: S58-S62 found; S58-S60 fixed by orchestrator (sparse message filter, sub-unique contrast, covered-note contrast)
+- Curator Cycle 12: Error Handling 21->34, Statistical Tools 21->32, 21 duplicate discovered entries cleaned
+- Curator Cycle 13: Chess restored 11->27 (+16 curated, 2 discovered replaced)
+- Builder: S41 fixed (SSL verification), S43 fixed (per-domain rate limiting), `--limit N` flag added
+- Skeptic: S63-S66 found; S64/S65 flagged miscategorized discovered entries for curator
+
+**Curation & Search Polish (Cycles 25-29):**
+- Curator Cycle 14: Caching, Static Analysis, Configuration baselines (21 curated, 17 discovered removed)
+- Designer Cycle 4: Forge search surfacing (sort boost, forge match count, highlight colors)
+- Skeptic: S67-S68 found (double search call, stale counts)
+- Curator Cycle 15: Blockchain & Web3, Template Engines, Math & Numerics baselines (21 curated, 10 discovered removed)
+- Librarian: S68 fixed (counts rebuilt from scratch)
+- Curator Cycle 16: Database Drivers baseline (7 curated, 2 discovered removed)
+- Skeptic: S69-S70 found (Eigen URL redirect, OpenZeppelin language); both fixed
+
+**S38 Mitigation & Quality (Cycles 33-39):**
+- Builder: `--strict` flag for `build.py` excludes Tier 3/unmatched discovered entries
+- Orchestrator: S72 fix (tuple return with category agreement filter, 15,939 -> 6,970 strict)
+- S73 fixed (Tier 2 best-match tracking aligned with `categorize()` logic)
+- Skeptic: S71 (tier function logic mismatch -- low), S72/S73 found and resolved
+- Curator Cycle 38: Compression & Archiving baseline (7 curated, 1 discovered removed)
+- Curator Cycle 40: Networking baseline (7 curated, 2 discovered removed)
+- Curator Cycle 43: CLI Frameworks + Frontend Frameworks expansion (12 curated, 5 discovered removed)
 
 ## Deprioritized
 

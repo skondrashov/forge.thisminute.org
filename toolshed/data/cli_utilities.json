@@ -95,6 +95,78 @@
     "language": "python"
   },
   {
+    "id": "picocli",
+    "name": "picocli",
+    "description": "Java CLI framework using annotations. POSIX/GNU syntax, colorized help, subcommands, and GraalVM native image support.",
+    "url": "https://picocli.info",
+    "category": "CLI Frameworks",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["java", "cli", "annotations", "graalvm", "open-source"],
+    "source": "https://github.com/remkop/picocli",
+    "language": "java"
+  },
+  {
+    "id": "python-fire",
+    "name": "Python Fire",
+    "description": "Google library that generates CLIs from any Python object. Turn functions, classes, and modules into commands automatically.",
+    "url": "https://google.github.io/python-fire",
+    "category": "CLI Frameworks",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["python", "cli", "google", "auto-generate", "open-source"],
+    "source": "https://github.com/google/python-fire",
+    "language": "python"
+  },
+  {
+    "id": "urfave-cli",
+    "name": "urfave/cli",
+    "description": "Declarative Go package for building CLIs. Commands, flags, shell completions for bash/zsh/fish, and env var lookups.",
+    "url": "https://cli.urfave.org",
+    "category": "CLI Frameworks",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["go", "cli", "commands", "completions", "open-source"],
+    "source": "https://github.com/urfave/cli",
+    "language": "go"
+  },
+  {
+    "id": "docopt",
+    "name": "docopt",
+    "description": "CLI argument parser that generates parsers from help message text. Write the usage pattern, get the parser for free.",
+    "url": "https://github.com/docopt/docopt",
+    "category": "CLI Frameworks",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["python", "cli", "argument-parser", "help-text", "open-source"],
+    "source": "https://github.com/docopt/docopt",
+    "language": "python"
+  },
+  {
+    "id": "clikt",
+    "name": "Clikt",
+    "description": "Multiplatform Kotlin CLI library. Type-safe parameters, nested commands, shell autocomplete, and JVM/native/JS targets.",
+    "url": "https://ajalt.github.io/clikt",
+    "category": "CLI Frameworks",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["kotlin", "cli", "multiplatform", "type-safe", "open-source"],
+    "source": "https://github.com/ajalt/clikt",
+    "language": "kotlin"
+  },
+  {
+    "id": "system-commandline",
+    "name": "System.CommandLine",
+    "description": "Microsoft's .NET library for building CLIs. POSIX/Windows conventions, tab completion, response files, and AOT support.",
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/commandline/",
+    "category": "CLI Frameworks",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["dotnet", "cli", "csharp", "microsoft", "open-source"],
+    "source": "https://github.com/dotnet/command-line-api",
+    "language": "csharp"
+  },
+  {
     "id": "bubbletea",
     "name": "Bubble Tea",
     "description": "TUI framework for Go based on The Elm Architecture. Build interactive terminal apps with components and state management.",
@@ -627,8 +699,7 @@
     "category": "Error Handling",
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
-    "tags": ["elm", "error-handling", "result-type", "functional", "compiler-enforced"],
-    "language": "elm"
+    "tags": ["elm", "error-handling", "result-type", "functional", "compiler-enforced"]
   },
   {
     "id": "date-fns",
@@ -1384,6 +1455,78 @@
     "language": "c"
   },
   {
+    "id": "gnu-sed",
+    "name": "GNU sed",
+    "description": "Stream editor for filtering and transforming text. The standard Unix tool for search-and-replace, line deletion, and text manipulation in pipelines.",
+    "url": "https://www.gnu.org/software/sed/",
+    "category": "Text Processing",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["stream-editor", "text-transform", "unix", "pipeline", "open-source"],
+    "source": "https://git.savannah.gnu.org/cgit/sed.git",
+    "language": "c"
+  },
+  {
+    "id": "gawk",
+    "name": "GNU Awk",
+    "description": "Pattern-scanning and text-processing language. Splits input into records and fields, applies rules, and produces reports. A Unix essential.",
+    "url": "https://www.gnu.org/software/gawk/",
+    "category": "Text Processing",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["text-processing", "pattern-matching", "unix", "scripting", "open-source"],
+    "source": "https://git.savannah.gnu.org/cgit/gawk.git",
+    "language": "c"
+  },
+  {
+    "id": "yq",
+    "name": "yq",
+    "description": "Lightweight command-line YAML, JSON, XML, CSV, and TOML processor. Uses jq-like syntax for querying and transforming structured data files.",
+    "url": "https://mikefarah.gitbook.io/yq",
+    "category": "Text Processing",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["yaml", "json", "xml", "jq-like", "open-source"],
+    "source": "https://github.com/mikefarah/yq",
+    "language": "go"
+  },
+  {
+    "id": "sd",
+    "name": "sd",
+    "description": "Intuitive find-and-replace CLI. Modern sed alternative with regex and literal modes, cleaner syntax, and significantly faster performance.",
+    "url": "https://github.com/chmln/sd",
+    "category": "Text Processing",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["find-replace", "sed-alternative", "rust", "regex", "open-source"],
+    "source": "https://github.com/chmln/sd",
+    "language": "rust"
+  },
+  {
+    "id": "choose",
+    "name": "choose",
+    "description": "Human-friendly alternative to cut and awk for field selection. Negative indexing, regex separators, and Python-like slice syntax.",
+    "url": "https://github.com/theryangeary/choose",
+    "category": "Text Processing",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["field-selection", "cut-alternative", "rust", "cli", "open-source"],
+    "source": "https://github.com/theryangeary/choose",
+    "language": "rust"
+  },
+  {
+    "id": "sttr",
+    "name": "sttr",
+    "description": "CLI tool for string transformations. Encode/decode, hash, case conversion, JSON/YAML conversion, and 30+ operations with interactive or piped usage.",
+    "url": "https://github.com/abhimanyu003/sttr",
+    "category": "Text Processing",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["string-transform", "encoding", "hashing", "conversion", "open-source"],
+    "source": "https://github.com/abhimanyu003/sttr",
+    "language": "go"
+  },
+  {
     "id": "worldtimebuddy",
     "name": "World Time Buddy",
     "description": "Web-based timezone converter with visual overlap grid. Compare multiple timezones side-by-side for scheduling across cities.",
@@ -1404,5 +1547,89 @@
     "tags": ["python", "iso", "countries", "languages", "currencies", "i18n", "open-source"],
     "source": "https://github.com/pycountry/pycountry",
     "language": "python"
+  },
+  {
+    "id": "consul",
+    "name": "Consul",
+    "description": "Service networking platform by HashiCorp. Service discovery, health checking, KV store, and multi-datacenter configuration.",
+    "url": "https://developer.hashicorp.com/consul",
+    "category": "Configuration",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "freemium",
+    "tags": ["service-discovery", "key-value", "distributed", "hashicorp", "open-source"],
+    "source": "https://github.com/hashicorp/consul",
+    "language": "go"
+  },
+  {
+    "id": "etcd",
+    "name": "etcd",
+    "description": "Strongly consistent distributed key-value store for shared configuration and service discovery. Powers Kubernetes.",
+    "url": "https://etcd.io",
+    "category": "Configuration",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["distributed", "key-value", "kubernetes", "cncf", "open-source"],
+    "source": "https://github.com/etcd-io/etcd",
+    "language": "go"
+  },
+  {
+    "id": "apache-zookeeper",
+    "name": "Apache ZooKeeper",
+    "description": "Centralized service for distributed configuration, naming, synchronization, and group services. Foundation for Kafka and HBase.",
+    "url": "https://zookeeper.apache.org",
+    "category": "Configuration",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["distributed", "coordination", "apache", "consensus", "open-source"],
+    "source": "https://github.com/apache/zookeeper",
+    "language": "java"
+  },
+  {
+    "id": "flagsmith",
+    "name": "Flagsmith",
+    "description": "Open-source feature flag and remote configuration platform. Manage feature rollouts, A/B tests, and config values without deploys.",
+    "url": "https://www.flagsmith.com",
+    "category": "Configuration",
+    "os": ["web"],
+    "pricing": "freemium",
+    "tags": ["feature-flags", "remote-config", "a-b-testing", "self-hosted", "open-source"],
+    "source": "https://github.com/Flagsmith/flagsmith",
+    "language": "python"
+  },
+  {
+    "id": "viper",
+    "name": "Viper",
+    "description": "Complete configuration solution for Go apps. Reads from files, env vars, flags, and remote stores. Supports JSON, TOML, YAML, and live reloading.",
+    "url": "https://github.com/spf13/viper",
+    "category": "Configuration",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["go", "configuration", "env-vars", "multi-format", "open-source"],
+    "source": "https://github.com/spf13/viper",
+    "language": "go"
+  },
+  {
+    "id": "dynaconf",
+    "name": "Dynaconf",
+    "description": "Configuration management for Python with layered settings. Supports TOML, YAML, JSON, env vars, and Django/Flask integration.",
+    "url": "https://github.com/dynaconf/dynaconf",
+    "category": "Configuration",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["python", "configuration", "twelve-factor", "multi-format", "open-source"],
+    "source": "https://github.com/dynaconf/dynaconf",
+    "language": "python"
+  },
+  {
+    "id": "confd",
+    "name": "confd",
+    "description": "Lightweight configuration management tool. Keeps local config files in sync with data from etcd, Consul, Vault, and other backends.",
+    "url": "https://github.com/kelseyhightower/confd",
+    "category": "Configuration",
+    "os": ["linux", "macos"],
+    "pricing": "free",
+    "tags": ["configuration", "templates", "etcd", "consul", "open-source"],
+    "source": "https://github.com/kelseyhightower/confd",
+    "language": "go"
   }
 ]

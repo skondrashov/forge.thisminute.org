@@ -53,7 +53,26 @@ Check `STRATEGY.md` for the gap list. When filling a gap:
 - Include at least one free/open-source option per category
 - Create a new JSON file in `data/` if the category doesn't fit existing files
 
-## 5. Report Results
+## 5. Triage Ideas (Required)
+
+Every idea entry (status: "idea" or "in-progress") MUST have a `triage` object with all three fields scored. No idea enters the pipeline without triage. The forge uses these scores to decide what to build next.
+
+| Field | Values | Question It Answers |
+|-------|--------|-------------------|
+| `impact` | high / medium / low | How helpful is this tool to users? |
+| `buildability` | straightforward / moderate / hard | How feasible is it for AI agents to build? |
+| `alternatives` | none / partial / covered | Do existing tools already fill this need? |
+
+Also include `alternatives_note` — name the specific existing tools and explain what gap remains (or doesn't).
+
+**Scoring guidance:**
+- `impact: high` = solves a real pain point for a broad audience, or a critical pain point for a specific one
+- `buildability: straightforward` = can be built as a static site or simple CLI with LLM calls, no complex infrastructure
+- `alternatives: covered` = good tools already exist, building another adds little value — the forge should skip this
+
+When reviewing existing ideas, challenge the triage scores. If an alternative has launched since the idea was scored, downgrade accordingly.
+
+## 6. Report Results
 
 Post to `FORUM.md`:
 - How many entries added/updated

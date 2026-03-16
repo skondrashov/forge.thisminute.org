@@ -464,6 +464,174 @@
     "tags": ["tactics", "training", "puzzles", "endgames"]
   },
   {
+    "id": "leela-chess-zero",
+    "name": "Leela Chess Zero",
+    "description": "Neural network chess engine inspired by AlphaZero. Learns through self-play with no human bias. GPLv3 licensed.",
+    "url": "https://lczero.org",
+    "category": "Chess",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["engine", "neural-network", "alphazero", "open-source"],
+    "source": "https://github.com/LeelaChessZero/lc0"
+  },
+  {
+    "id": "chessbase",
+    "name": "ChessBase",
+    "description": "Industry-standard chess database and analysis software. 8M+ games, opening training, video courses, and Fritz engine.",
+    "url": "https://en.chessbase.com",
+    "category": "Chess",
+    "os": ["windows", "macos"],
+    "pricing": "paid",
+    "tags": ["database", "analysis", "professional", "openings"]
+  },
+  {
+    "id": "en-croissant",
+    "name": "En Croissant",
+    "description": "Open-source, cross-platform chess GUI. Game analysis with eval graphs, personal database, and built-in engine downloads.",
+    "url": "https://encroissant.org",
+    "category": "Chess",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["gui", "analysis", "database", "open-source"],
+    "source": "https://github.com/franciscoBSalguworthy/en-croissant"
+  },
+  {
+    "id": "nibbler-chess",
+    "name": "Nibbler",
+    "description": "Real-time analysis GUI for Leela Chess Zero. Displays engine evaluations, winrate graphs, and top moves continuously.",
+    "url": "https://github.com/rooklift/nibbler",
+    "category": "Chess",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["gui", "leela", "analysis", "open-source"],
+    "source": "https://github.com/rooklift/nibbler"
+  },
+  {
+    "id": "chess-king",
+    "name": "Chess King",
+    "description": "Chess education and analysis software. Tactics courses, opening trainers, and engine analysis for PC and Mac.",
+    "url": "https://chesskingtraining.com",
+    "category": "Chess",
+    "os": ["windows", "macos"],
+    "pricing": "paid",
+    "tags": ["education", "analysis", "tactics", "openings"]
+  },
+  {
+    "id": "shredder-chess",
+    "name": "Shredder Chess",
+    "description": "19-time World Computer Chess Champion. Adjustable playing strength, analysis tools, and online play across all platforms.",
+    "url": "https://www.shredderchess.com",
+    "category": "Chess",
+    "os": ["windows", "macos", "linux", "ios", "android", "web"],
+    "pricing": "paid",
+    "tags": ["engine", "analysis", "adjustable-strength", "champion"]
+  },
+  {
+    "id": "fritz-chess",
+    "name": "Fritz",
+    "description": "Long-running chess engine and GUI by ChessBase. Human-like play style, beauty points for aggressive moves, and online play.",
+    "url": "https://fritz.chessbase.com",
+    "category": "Chess",
+    "os": ["windows", "web"],
+    "pricing": "freemium",
+    "tags": ["engine", "gui", "chessbase", "online-play"]
+  },
+  {
+    "id": "pychess-desktop",
+    "name": "PyChess",
+    "description": "GTK chess client for Linux and Windows. Play against engines, online via FICS/ICC, with PGN support and variants.",
+    "url": "https://github.com/pychess/pychess",
+    "category": "Chess",
+    "os": ["windows", "linux"],
+    "pricing": "free",
+    "tags": ["gui", "gtk", "fics", "open-source"],
+    "source": "https://github.com/pychess/pychess"
+  },
+  {
+    "id": "chessx",
+    "name": "ChessX",
+    "description": "Free, open-source chess database. Manage PGN collections, search by position, analyze with engines, and study openings.",
+    "url": "https://chessx.sourceforge.io",
+    "category": "Chess",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["database", "pgn", "analysis", "open-source"],
+    "source": "https://sourceforge.net/projects/chessx"
+  },
+  {
+    "id": "chessify",
+    "name": "Chessify",
+    "description": "Cloud chess analysis platform. Run Stockfish and Leela at up to 1B nodes/sec, with a 9.7M game database.",
+    "url": "https://chessify.me",
+    "category": "Chess",
+    "os": ["web", "ios", "android"],
+    "pricing": "freemium",
+    "tags": ["cloud-analysis", "stockfish", "leela", "database"]
+  },
+  {
+    "id": "chess-tui",
+    "name": "chess-tui",
+    "description": "Terminal chess game in Rust. Play locally, against UCI engines, or online via Lichess. Customizable themes.",
+    "url": "https://github.com/thomas-mauran/chess-tui",
+    "category": "Chess",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["tui", "terminal", "rust", "open-source"],
+    "source": "https://github.com/thomas-mauran/chess-tui"
+  },
+  {
+    "id": "lichess-mobile",
+    "name": "Lichess Mobile",
+    "description": "Official mobile app for Lichess. Play, solve puzzles, analyze games, and follow tournaments on the go.",
+    "url": "https://github.com/lichess-org/lichobile",
+    "category": "Chess",
+    "os": ["ios", "android"],
+    "pricing": "free",
+    "tags": ["mobile", "lichess", "puzzles", "open-source"],
+    "source": "https://github.com/lichess-org/lichobile"
+  },
+  {
+    "id": "banksia-gui",
+    "name": "BanksiaGUI",
+    "description": "Feature-rich freeware chess GUI. Engine tournaments, database management, server connections, and game analysis.",
+    "url": "https://banksiagui.com",
+    "category": "Chess",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["gui", "tournaments", "database", "freeware"]
+  },
+  {
+    "id": "pychess-variants",
+    "name": "PyChess Variants",
+    "description": "Free online platform for chess variants. Play standard chess, Crazyhouse, Atomic, Shogi, and many more variants.",
+    "url": "https://www.pychess.org",
+    "category": "Chess",
+    "os": ["web"],
+    "pricing": "free",
+    "tags": ["variants", "online", "crazyhouse", "open-source"]
+  },
+  {
+    "id": "jfxchess",
+    "name": "JFXChess",
+    "description": "Cross-platform chess GUI with Stockfish engine. Game editing, PGN support, automatic analysis, and adjustable difficulty.",
+    "url": "https://github.com/asdfjkl/jerry",
+    "category": "Chess",
+    "os": ["windows", "linux"],
+    "pricing": "free",
+    "tags": ["gui", "java", "stockfish", "open-source"],
+    "source": "https://github.com/asdfjkl/jerry"
+  },
+  {
+    "id": "365chess",
+    "name": "365Chess",
+    "description": "Online chess database with 4.4M+ games. Opening explorer, position search, puzzles, and endgame training tools.",
+    "url": "https://www.365chess.com",
+    "category": "Chess",
+    "os": ["web"],
+    "pricing": "freemium",
+    "tags": ["database", "openings", "puzzles", "training"]
+  },
+  {
     "id": "tixati",
     "name": "Tixati",
     "description": "Lightweight BitTorrent client with detailed bandwidth management. No ads, DHT, and advanced per-torrent settings.",

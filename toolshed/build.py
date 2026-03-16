@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """Aggregate data/*.json into data.js, api/v1/catalog.json, api/v1/categories.json, llms.txt, llms-full.txt, inject noscript catalog and JSON-LD structured data into index.html."""
-import json, glob, os, re, html as html_mod
+import argparse, json, glob, os, re, sys, html as html_mod
 from itertools import groupby
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.join(script_dir, "data")
 
+# --- Parse arguments ---
+parser = argparse.ArgumentParser(description="Build toolshed site data")
+parser.add_argument("--strict", action="store_true",
+                    help="Exclude low-confidence discovered entries (Tier 3 only)")
+args = parser.parse_args()
+
 entries = []
 curated_ids = set()  # Track curated (non-discovered) entry IDs
+discovered_ids = set()  # Track discovered entry IDs for strict filtering
 seen_ids = set()
 files = sorted(glob.glob(os.path.join(data_dir, "*.json")))
 
@@ -26,6 +33,46 @@ for path in files:
         entries.append(item)
         if not is_discovered:
             curated_ids.add(item["id"])
+        else:
+            discovered_ids.add(item["id"])
+
+# --- Strict mode: filter out low-confidence discovered entries ---
+if args.strict:
+    # Add scrape package to path so we can import categorize
+    sys.path.insert(0, script_dir)
+    from scrape.categorize import get_confidence_tier, build_category_index
+
+    print("Strict mode: evaluating discovered entry confidence...")
+    category_index = build_category_index()
+
+    before_count = len(entries)
+    tier_counts = {0: 0, 1: 0, 2: 0, 3: 0, None: 0}
+    strict_excluded = 0
+    kept_entries = []
+
+    category_disagreements = 0
+
+    for entry in entries:
+        if entry["id"] not in discovered_ids:
+            kept_entries.append(entry)
+            continue
+        tier, assigned_cat = get_confidence_tier(entry, category_index)
+        tier_counts[tier] += 1
+        if tier == 3 or tier is None:
+            strict_excluded += 1
+        elif assigned_cat and entry.get("category") != assigned_cat:
+            # T1/T2 but keyword assigns a different category than stored
+            category_disagreements += 1
+            strict_excluded += 1
+        else:
+            kept_entries.append(entry)
+
+    entries = kept_entries
+    print(f"  Discovered tier distribution: T0={tier_counts[0]}, T1={tier_counts[1]}, "
+          f"T2={tier_counts[2]}, T3={tier_counts[3]}, unmatched={tier_counts[None]}")
+    print(f"  Strict filter: excluded {strict_excluded} (T3/unmatched: {strict_excluded - category_disagreements}, "
+          f"category disagreement: {category_disagreements}), kept {before_count - strict_excluded} "
+          f"(was {before_count})")
 
 entries.sort(key=lambda e: (e.get("category", ""), e.get("name", "")))
 
@@ -71,7 +118,11 @@ llms_lines.append("- Full text catalog: /llms-full.txt")
 llms_lines.append("- Human browsable: /")
 llms_lines.append("")
 llms_lines.append("## Entry Schema")
-llms_lines.append("{ id, name, description, url, category, os[], pricing, tags[], source?, language? }")
+llms_lines.append("{ id, name, description, url, category, os[], pricing, tags[], source?, language?, triage? }")
+llms_lines.append("")
+llms_lines.append("## Triage (ideas only)")
+llms_lines.append("Ideas (status: idea/in-progress) have a triage object: { impact: high|medium|low, buildability: straightforward|moderate|hard, alternatives: none|partial|covered, alternatives_note: string }")
+llms_lines.append("Filter out covered, sort by impact desc then buildability asc.")
 llms_lines.append("")
 llms_lines.append("Pricing: free | freemium | paid | subscription")
 llms_lines.append("OS: windows | macos | linux | web | ios | android")
@@ -87,6 +138,7 @@ llms_lines.append("- os: check if desired OS is in the os[] array")
 llms_lines.append("- pricing: exact match (free, freemium, paid, subscription)")
 llms_lines.append("- tags: check if desired tag is in tags[] array")
 llms_lines.append("- language: filter libraries by ecosystem (python, rust, go, javascript, etc.)")
+llms_lines.append("- status: idea (unfulfilled request), submitted (built by AI forge), or absent (existing software)")
 llms_lines.append("- text search: match against name, description, tags")
 llms_lines.append("")
 llms_lines.append("## Example Queries")
@@ -126,6 +178,12 @@ for cat, group in groupby(entries, key=lambda e: e.get("category", "Uncategorize
         language = entry.get("language")
         if language:
             full_lines.append(f"- Language: {language}")
+        triage = entry.get("triage")
+        if triage:
+            full_lines.append(f"- Triage: impact={triage.get('impact','?')}, buildability={triage.get('buildability','?')}, alternatives={triage.get('alternatives','?')}")
+            alt_note = triage.get("alternatives_note")
+            if alt_note:
+                full_lines.append(f"- Alternatives note: {alt_note}")
         full_lines.append("")
 
 llms_full_path = os.path.join(script_dir, "llms-full.txt")

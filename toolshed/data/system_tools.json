@@ -802,5 +802,80 @@
       "microsoft",
       "diagnostics"
     ]
+  },
+  {
+    "id": "7-zip",
+    "name": "7-Zip",
+    "description": "Free, open-source file archiver with high compression ratio. Native 7z format and supports 30+ archive formats including ZIP, RAR, TAR.",
+    "url": "https://www.7-zip.org",
+    "category": "Compression & Archiving",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["archiver", "compression", "7z", "open-source"],
+    "source": "https://github.com/ip7z/7zip"
+  },
+  {
+    "id": "winrar",
+    "name": "WinRAR",
+    "description": "Long-standing archive manager for RAR and ZIP formats. Strong AES-256 encryption, recovery records, and multi-volume archives.",
+    "url": "https://www.win-rar.com",
+    "category": "Compression & Archiving",
+    "os": ["windows", "macos", "linux", "android"],
+    "pricing": "paid",
+    "tags": ["archiver", "rar", "compression", "encryption"]
+  },
+  {
+    "id": "pigz",
+    "name": "pigz",
+    "description": "Parallel implementation of gzip that exploits multiple cores. Drop-in gzip replacement for faster compression of large files.",
+    "url": "https://zlib.net/pigz",
+    "category": "Compression & Archiving",
+    "os": ["macos", "linux"],
+    "pricing": "free",
+    "tags": ["compression", "gzip", "parallel", "cli", "open-source"]
+  },
+  {
+    "id": "zstd-cli",
+    "name": "Zstandard",
+    "description": "Fast compression algorithm by Meta with excellent speed/ratio tradeoff. IETF RFC 8878 standard, used in Linux kernel and databases.",
+    "url": "https://facebook.github.io/zstd",
+    "category": "Compression & Archiving",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["compression", "fast", "cli", "open-source"],
+    "source": "https://github.com/facebook/zstd"
+  },
+  {
+    "id": "brotli",
+    "name": "Brotli",
+    "description": "Compression algorithm by Google optimized for web content. Widely used in HTTP compression, better ratios than gzip for text.",
+    "url": "https://github.com/google/brotli",
+    "category": "Compression & Archiving",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["compression", "web", "http", "cli", "open-source"],
+    "source": "https://github.com/google/brotli"
+  },
+  {
+    "id": "lz4",
+    "name": "LZ4",
+    "description": "Extremely fast compression algorithm focused on speed over ratio. Used in Linux kernel, ZFS, and real-time applications.",
+    "url": "https://lz4.org",
+    "category": "Compression & Archiving",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["compression", "fast", "cli", "open-source"],
+    "source": "https://github.com/lz4/lz4"
+  },
+  {
+    "id": "xz-utils",
+    "name": "XZ Utils",
+    "description": "High-ratio LZMA2 compression tools for .xz and .lzma files. Standard in Linux distributions for compressing tarballs and packages.",
+    "url": "https://tukaani.org/xz",
+    "category": "Compression & Archiving",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["compression", "lzma", "cli", "open-source"],
+    "source": "https://github.com/tukaani-project/xz"
   }
 ]

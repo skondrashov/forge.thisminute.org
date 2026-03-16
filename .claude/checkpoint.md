@@ -8,7 +8,16 @@ Files updated: `AGENTS.md`, `agents/orchestrator.md`, `agents/builder.md`, `agen
 
 ## What was done
 
-### Session 5 (current)
+### Session 6 (current)
+
+Cross-site polish, DRY cleanup, CSS normalization.
+
+- **Phase 1:** Committed crucible sub-site, security fixes, cross-site a11y polish (144e6fa)
+- **Phase 2:** Added cross-site nav links to crucible (fixed top-left, mobile-responsive) (0a5b4cd)
+- **Phase 3:** Toolshed DRY — extracted `shuffleArray()` + `sortResults()` helpers (3 inline shuffles → 1, 2 sort blocks → 1), added 10 missing `:focus-visible` styles (69a30d0)
+- **Phase 4:** Rhizome CSS variables normalized: `--bg-primary` → `--bg`, `--bg-secondary` → `--bg-raised`, `--text-primary` → `--text`, removed dead `--bg-tertiary` and `--border-focus` (144414e)
+
+### Session 5 (prior)
 
 Forge is actively developing — things are in flux. Reviewed and fixed what's stable.
 
@@ -54,32 +63,20 @@ Forge is actively developing — things are in flux. Reviewed and fixed what's s
 
 ## Uncommitted changes
 
-Significant — forge is actively developing. Changes span:
-- Portal: new vision statement, crucible card, 2-col grid, updated meta/tagline
-- Forge: Plausible crossorigin
-- Rhizome: mermaid SRI pinned to @10.9.1, highlightText XSS fix, similar-chip keyboard a11y
-- Toolshed: focus trap, focus-visible styles, similar-item keyboard a11y, crucibleId schema field
-- Evolution: Plausible crossorigin
-- Crucible (new sub-site): 8 seed ideas, filterable UI, build script, schema
+None — all changes committed.
 
 ## In progress
 
-- Forge is actively developing — pipeline/bellows.py and agents/bellows.md appeared and were removed during this session. Expect further changes.
-- S38 worktree branch `worktree-agent-a9345a0f` no longer exists — results likely merged or abandoned.
+- Forge is actively developing — pipeline and bellows work handled by thisminute-forge. Don't touch `pipeline/` or `agents/bellows.md`.
 
 ## Deferred
 
-### Skeptic S5 findings (not yet fixed)
-- Crucible: missing sibling nav links (Rhizome, Toolshed, Agent Forge) — breaks cross-site nav pattern
+### bellows (forge's domain)
 - bellows.py: if it returns, needs `subprocess.run()` instead of `os.system()`, and schema validation on JSON input
 - bellows.py: `--publish` writes TODO placeholders into source data
 
-### DRY / code cleanliness (pre-existing)
-- Toolshed: Fisher-Yates shuffle duplicated 3x — extract to helper
-- Toolshed: getFilteredEntries/getSearchResults duplicate sort logic — extract shared sortResults()
-- Cross-site: CSS variable naming — rhizome uses --bg-primary/--text-primary convention vs --bg/--text everywhere else
+### DRY / code cleanliness (remaining)
 - Cross-site: theme toggle logic copy-pasted across 6 files (worse with crucible added)
 
 ### Catalog
-- S38 miscategorization status unknown (worktree gone)
 - Thin categories: Mobile IDE (11), Flashcards (14), Desktop App (15), HR & People (16)

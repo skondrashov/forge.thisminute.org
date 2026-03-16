@@ -750,6 +750,171 @@
     ]
   },
   {
+    "id": "google-secret-manager",
+    "name": "Google Secret Manager",
+    "description": "GCP service for storing and managing API keys, passwords, and certificates. Automatic rotation, IAM-based access control, and audit logging.",
+    "url": "https://cloud.google.com/security/products/secret-manager",
+    "category": "Secrets Management",
+    "os": [
+      "web"
+    ],
+    "pricing": "paid",
+    "tags": [
+      "gcp",
+      "google",
+      "secrets",
+      "rotation",
+      "cloud"
+    ]
+  },
+  {
+    "id": "azure-key-vault",
+    "name": "Azure Key Vault",
+    "description": "Microsoft Azure service for safeguarding cryptographic keys, secrets, and certificates. HSM-backed with centralized access policies.",
+    "url": "https://azure.microsoft.com/en-us/products/key-vault",
+    "category": "Secrets Management",
+    "os": [
+      "web"
+    ],
+    "pricing": "paid",
+    "tags": [
+      "azure",
+      "microsoft",
+      "secrets",
+      "hsm",
+      "cloud"
+    ]
+  },
+  {
+    "id": "sealed-secrets",
+    "name": "Sealed Secrets",
+    "description": "Kubernetes controller and CLI for encrypting secrets that are safe to store in Git. Only the cluster controller can decrypt them.",
+    "url": "https://github.com/bitnami-labs/sealed-secrets",
+    "category": "Secrets Management",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "kubernetes",
+      "gitops",
+      "encryption",
+      "bitnami",
+      "open-source"
+    ],
+    "source": "https://github.com/bitnami-labs/sealed-secrets",
+    "language": "go"
+  },
+  {
+    "id": "external-secrets",
+    "name": "External Secrets Operator",
+    "description": "Kubernetes operator that syncs secrets from external APIs like Vault, AWS, and GCP into native Kubernetes Secrets automatically.",
+    "url": "https://external-secrets.io",
+    "category": "Secrets Management",
+    "os": [
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "kubernetes",
+      "operator",
+      "sync",
+      "multi-provider",
+      "open-source"
+    ],
+    "source": "https://github.com/external-secrets/external-secrets",
+    "language": "go"
+  },
+  {
+    "id": "teller",
+    "name": "Teller",
+    "description": "Universal CLI for accessing secrets from multiple providers. Populates environment variables and detects hardcoded secrets in codebases.",
+    "url": "https://github.com/tellerops/teller",
+    "category": "Secrets Management",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "cli",
+      "multi-provider",
+      "environment-variables",
+      "secret-scanning",
+      "open-source"
+    ],
+    "source": "https://github.com/tellerops/teller",
+    "language": "rust"
+  },
+  {
+    "id": "chamber",
+    "name": "Chamber",
+    "description": "CLI tool for managing secrets via AWS Systems Manager Parameter Store. Reads, writes, and exports secrets as environment variables.",
+    "url": "https://github.com/segmentio/chamber",
+    "category": "Secrets Management",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "aws",
+      "ssm",
+      "cli",
+      "environment-variables",
+      "open-source"
+    ],
+    "source": "https://github.com/segmentio/chamber",
+    "language": "go"
+  },
+  {
+    "id": "git-crypt",
+    "name": "git-crypt",
+    "description": "Transparent encryption for files in a Git repo. Selected files are encrypted on commit and decrypted on checkout using GPG or shared keys.",
+    "url": "https://github.com/AGWA/git-crypt",
+    "category": "Secrets Management",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "git",
+      "encryption",
+      "gpg",
+      "transparent",
+      "open-source"
+    ],
+    "source": "https://github.com/AGWA/git-crypt",
+    "language": "cpp"
+  },
+  {
+    "id": "dotenv-vault",
+    "name": "Dotenv Vault",
+    "description": "Secure sync and management for .env files. Encrypts environment variables with AES-GCM and provides team collaboration features.",
+    "url": "https://www.dotenv.org",
+    "category": "Secrets Management",
+    "os": [
+      "web",
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "dotenv",
+      "environment-variables",
+      "encryption",
+      "team",
+      "ci-cd"
+    ]
+  },
+  {
     "id": "snyk",
     "name": "Snyk",
     "description": "Developer security platform that finds and fixes vulnerabilities in code, dependencies, containers, and infrastructure as code.",

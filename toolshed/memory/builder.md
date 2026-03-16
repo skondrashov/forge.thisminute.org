@@ -1,5 +1,72 @@
 # Builder Memory
 
+## 2026-03-16: S38 Mitigation -- `--strict` Flag for build.py
+
+### What was done
+- Added `--strict` flag to `build.py` that excludes low-confidence discovered entries (Tier 3 and unmatched)
+- Added `get_confidence_tier(entry, category_index)` to `scrape/categorize.py` -- re-evaluates an entry ignoring its stored category to determine which tier would assign it
+- Strict mode: 15,921 -> 9,200 entries (excludes 6,721 discovered entries, 46% of discovered)
+- Tier distribution of discovered: T0=15, T1=2,844, T2=5,024, T3=6,538, unmatched=183
+
+### Key learnings
+- Discovered entries don't store which tier assigned their category -- the `_tier` field doesn't exist in the data. `get_confidence_tier()` re-evaluates from scratch.
+- Many discovered entries get their category from section maps (awesome list scraping), not from the categorizer at all. `get_confidence_tier()` strips the existing category and re-evaluates purely on tags/description/name, which means some section-map-assigned entries may score as Tier 3 even though their category was reliable. This is conservative (better to exclude than miscategorize).
+- The 46% exclusion rate matches the ~50% miscategorization estimate from S38, validating the approach.
+- Categories most inflated by Tier 3: iOS UI Components (700->215), Cross-Platform Frameworks (304->31), Game Engines (228->55), Image Processing (338->121).
+
+### Files modified
+- `build.py` -- added argparse, `--strict` flag, discovered tier filtering
+- `scrape/categorize.py` -- added `get_confidence_tier()` function
+
+### Stats
+- 67 tests passing
+- Normal build: 15,921 entries (unchanged)
+- Strict build: 9,200 entries
+
+## 2026-03-16: S41 + S43 Fix -- check_urls.py SSL & Rate Limiting
+
+### What was done
+- S41: Changed `SSL_CONTEXT = None` to `ssl.create_default_context()` -- `context=None` in `urlopen` uses Python's legacy unverified behavior, not the secure default
+- S41: Added explicit `ssl.SSLCertVerificationError` / `ssl.SSLError` catch blocks in `check_url()` with `ssl_error` status tracking
+- S41: Added SSL error count to summary output and JSON report
+- S43: Added `_rate_limit(url)` with thread-safe per-domain tracking (dict + `threading.Lock`), 1s minimum between same-domain requests
+- Bonus: Added `--limit N` flag for testing with small samples
+
+### Key learnings
+- `urlopen(context=None)` does NOT use `ssl.create_default_context()` -- it uses legacy unverified behavior. You must explicitly pass `ssl.create_default_context()` to get certificate verification.
+- SSL errors come wrapped in `URLError` with `reason` being an `ssl.SSLError` instance -- must check `isinstance(e.reason, ssl.SSLError)` before the generic `URLError` handler
+- Rate limiting with ThreadPoolExecutor: release the lock before sleeping so other domains can proceed concurrently
+
+### Files modified
+- `scripts/check_urls.py`
+
+### Stats
+- 67 tests passing
+- Tested with `--limit 10`: 7 OK, 3 redirects, 0 SSL errors
+
+## 2026-03-16: S40 Fix -- find_duplicates.py O(n^2) Levenshtein
+
+### What was done
+- Replaced O(n^2) all-pairs Levenshtein check in `find_similar_names()` with SymSpell-inspired deletion neighborhood approach
+- New `_deletion_neighbors()` function generates all strings obtainable by deleting up to `max_distance` characters
+- Candidates found via hash lookups instead of pairwise comparison: O(n * L^d) instead of O(n^2)
+- Runtime dropped from estimated 10+ minutes to ~3 seconds for 15,866 entries
+
+### Key learnings
+- BK-tree approach (tried first) was still too slow -- pure Python Levenshtein is expensive per call, and BK-trees don't prune enough for small edit distances on varied-length strings (estimated 596s for 15k names)
+- Trigram blocking approach (tried second) was ~8s -- common trigrams create large posting lists that dominate iteration time
+- SymSpell deletion neighborhoods are the right fit: hash-based candidate generation is fast, and the number of deletion variants per name is bounded by O(L^d) which is small for d=2
+- The deletion approach is guaranteed zero false negatives: if levenshtein(a,b) <= d, then a and b must share at least one deletion variant
+
+### Files modified
+- `scripts/find_duplicates.py` -- replaced O(n^2) loop with `_deletion_neighbors()` + hash-indexed candidate selection
+
+### Stats
+- 15,866 entries, 15,392 unique names >= 4 chars
+- Similar names check: ~2.86s (was estimated 10+ min)
+- Full script: ~3.16s
+- 67 tests passing
+
 ## 2026-03-14: JSON-LD Structured Data
 
 ### What was done

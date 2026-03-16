@@ -303,5 +303,81 @@
     "os": ["web"],
     "pricing": "freemium",
     "tags": ["dns", "email", "spf", "dkim", "dmarc", "diagnostics", "web-tool"]
+  },
+  {
+    "id": "wireshark",
+    "name": "Wireshark",
+    "description": "Network protocol analyzer with deep packet inspection. Industry standard for traffic capture, filtering, and debugging across hundreds of protocols.",
+    "url": "https://www.wireshark.org",
+    "category": "Networking",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["packet-capture", "protocol-analysis", "debugging", "open-source"],
+    "source": "https://gitlab.com/wireshark/wireshark"
+  },
+  {
+    "id": "nmap",
+    "name": "Nmap",
+    "description": "Network discovery and security auditing tool. Port scanning, OS detection, service enumeration, and scriptable probes.",
+    "url": "https://nmap.org",
+    "category": "Networking",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["port-scanning", "security-audit", "network-discovery", "open-source"],
+    "source": "https://github.com/nmap/nmap"
+  },
+  {
+    "id": "tcpdump",
+    "name": "tcpdump",
+    "description": "Command-line packet analyzer using libpcap. Captures and displays network traffic with powerful BPF filtering syntax.",
+    "url": "https://www.tcpdump.org",
+    "category": "Networking",
+    "os": ["macos", "linux"],
+    "pricing": "free",
+    "tags": ["packet-capture", "cli", "libpcap", "bpf", "open-source"],
+    "source": "https://github.com/the-tcpdump-group/tcpdump"
+  },
+  {
+    "id": "ncat",
+    "name": "Ncat",
+    "description": "Modern netcat replacement from the Nmap project. TCP/UDP connections, port forwarding, proxying, and SSL support.",
+    "url": "https://nmap.org/ncat/",
+    "category": "Networking",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["netcat", "tcp", "udp", "port-forwarding", "open-source"],
+    "source": "https://github.com/nmap/nmap"
+  },
+  {
+    "id": "mtr",
+    "name": "MTR",
+    "description": "Network diagnostic combining traceroute and ping into a single tool. Continuously probes each hop and reports packet loss and latency.",
+    "url": "https://www.bitwizard.nl/mtr/",
+    "category": "Networking",
+    "os": ["macos", "linux"],
+    "pricing": "free",
+    "tags": ["traceroute", "ping", "diagnostics", "latency", "open-source"],
+    "source": "https://github.com/traviscross/mtr"
+  },
+  {
+    "id": "iperf",
+    "name": "iPerf3",
+    "description": "Network bandwidth measurement tool. Tests TCP, UDP, and SCTP throughput between two endpoints with detailed statistics.",
+    "url": "https://iperf.fr",
+    "category": "Networking",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["bandwidth", "performance", "tcp", "udp", "open-source"],
+    "source": "https://github.com/esnet/iperf"
+  },
+  {
+    "id": "ngrok",
+    "name": "ngrok",
+    "description": "Expose local servers to the internet via secure tunnels. Instant public URLs for development, webhooks, and demos.",
+    "url": "https://ngrok.com",
+    "category": "Networking",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "freemium",
+    "tags": ["tunneling", "webhooks", "development", "reverse-proxy"]
   }
 ]

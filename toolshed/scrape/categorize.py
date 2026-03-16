@@ -418,3 +418,158 @@ def categorize(entry, category_index=None):
             return best
 
     return None
+
+
+def get_confidence_tier(entry, category_index=None):
+    """Determine the highest-confidence tier that can assign a category.
+
+    Ignores the entry's existing category and re-evaluates from scratch.
+    Returns (tier, category) where tier is 0, 1, 2, 3 or None.
+    Used by build.py --strict to gauge categorization quality.
+    """
+    entry_id = entry.get("id", "")
+    if entry_id in CATEGORY_OVERRIDES:
+        return (0, CATEGORY_OVERRIDES[entry_id])
+
+    topics = [t.lower() for t in entry.get("tags", []) + entry.get("topics", [])]
+    desc = (entry.get("description") or "").lower()
+    name = (entry.get("name") or "").lower()
+
+    # Tier 1: direct tag match
+    for topic in topics:
+        if topic in KEYWORD_TO_CATEGORY:
+            cat = KEYWORD_TO_CATEGORY[topic]
+            if cat in VALID_CATEGORIES:
+                return (1, cat)
+
+    # Tier 2: description/name keyword match (best-match, longest keyword wins)
+    all_text = f"{name} {desc} {' '.join(topics)}"
+    t2_best_cat, t2_best_len = None, 0
+    for keyword, cat in KEYWORD_TO_CATEGORY.items():
+        if cat not in VALID_CATEGORIES:
+            continue
+        kw = keyword.replace("-", " ")
+        matched = False
+        if len(kw) <= 3:
+            if re.search(r'\b' + re.escape(kw) + r'\b', all_text):
+                matched = True
+        else:
+            if kw in all_text:
+                matched = True
+        if matched and len(kw) > t2_best_len:
+            t2_best_len = len(kw)
+            t2_best_cat = cat
+    if t2_best_cat:
+        return (2, t2_best_cat)
+
+    # Tier 3: category index scoring
+    if category_index:
+        tokens = set(topics + re.findall(r'[a-z]{3,}', all_text))
+        best_cat, best_score = None, 0
+        for cat, keywords in category_index.items():
+            raw = sum(keywords.get(t, 0) for t in tokens)
+            if raw > 0:
+                total = sum(keywords.values())
+                score = raw / (total ** 0.5) if total > 0 else raw
+                if score > best_score:
+                    best_score = score
+                    best_cat = cat
+        if best_score >= 0.20 and best_cat:
+            return (3, best_cat)
+
+    return (None, None)
+
+
+def categorize_with_tier(entry, category_index=None):
+    """Like categorize(), but returns (category, tier) tuple.
+
+    Tier values:
+        0 - Hard override (CATEGORY_OVERRIDES)
+        1 - Exact keyword match from tags/topics
+        2 - Keyword match in description/name text
+        3 - Category index scoring (lowest confidence)
+        None - No match (category is None)
+    """
+    entry_id = entry.get("id", "")
+    if entry_id in CATEGORY_OVERRIDES:
+        return CATEGORY_OVERRIDES[entry_id], 0
+
+    if entry.get("category") in VALID_CATEGORIES:
+        return entry["category"], None  # pre-assigned, tier unknown
+
+    topics = [t.lower() for t in entry.get("tags", []) + entry.get("topics", [])]
+    desc = (entry.get("description") or "").lower()
+    name = (entry.get("name") or "").lower()
+
+    # Tier 1
+    for topic in topics:
+        if topic in KEYWORD_TO_CATEGORY:
+            cat = KEYWORD_TO_CATEGORY[topic]
+            if cat in VALID_CATEGORIES:
+                return cat, 1
+
+    # Tier 2
+    all_text = f"{name} {desc} {' '.join(topics)}"
+    best_cat = None
+    best_score = 0
+    for keyword, cat in KEYWORD_TO_CATEGORY.items():
+        if cat not in VALID_CATEGORIES:
+            continue
+        kw = keyword.replace("-", " ")
+        if len(kw) <= 3:
+            if re.search(r'\b' + re.escape(kw) + r'\b', all_text):
+                score = len(kw)
+                if score > best_score:
+                    best_score = score
+                    best_cat = cat
+        else:
+            if kw in all_text:
+                score = len(kw)
+                if score > best_score:
+                    best_score = score
+                    best_cat = cat
+    if best_cat:
+        return best_cat, 2
+
+    TIER3_EXCLUDED = {
+        "Desktop App Frameworks",
+        "Mobile IDE & Tools",
+        "Code Editors",
+        "Backend Frameworks",
+        "Frontend Frameworks",
+    }
+
+    # Tier 3
+    if category_index:
+        scores = {}
+        tokens = set(topics + re.findall(r'[a-z]{3,}', all_text))
+        for cat, keywords in category_index.items():
+            if cat in TIER3_EXCLUDED:
+                continue
+            raw = sum(keywords.get(t, 0) for t in tokens)
+            if raw > 0:
+                total = sum(keywords.values())
+                score = raw / (total ** 0.5) if total > 0 else raw
+                if cat in ("Utilities", "System Utilities"):
+                    score *= 0.3
+                elif cat in ("AI Assistants", "Cloud SDKs & CLIs",
+                             "Task Runners & Monorepos"):
+                    score *= 0.5
+                elif cat in ("HR & People", "Chess", "Flashcards & Study",
+                             "Error Handling", "Statistical Tools",
+                             "Mobile IDE & Tools"):
+                    score *= 0.3
+                elif cat in ("Desktop App Frameworks",):
+                    score *= 0.3
+                elif cat in ("Data Analysis",):
+                    score *= 0.3
+                elif cat in ("Date & Time", "Browsers"):
+                    score *= 0.5
+                scores[cat] = score
+        if scores:
+            best = max(scores, key=scores.get)
+            if scores[best] < 0.20:
+                return None, None
+            return best, 3
+
+    return None, None

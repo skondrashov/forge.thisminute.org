@@ -714,6 +714,141 @@
     "language": "typescript"
   },
   {
+    "id": "angular",
+    "name": "Angular",
+    "description": "Google's TypeScript framework for scalable web apps. Dependency injection, RxJS, two-way binding, and a full CLI.",
+    "url": "https://angular.dev",
+    "category": "Frontend Frameworks",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "typescript",
+      "google",
+      "enterprise",
+      "spa",
+      "open-source"
+    ],
+    "source": "https://github.com/angular/angular",
+    "language": "typescript"
+  },
+  {
+    "id": "preact",
+    "name": "Preact",
+    "description": "Fast 3 KB alternative to React with the same modern API. Lightweight virtual DOM and hooks support.",
+    "url": "https://preactjs.com",
+    "category": "Frontend Frameworks",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "javascript",
+      "lightweight",
+      "react-compatible",
+      "virtual-dom",
+      "open-source"
+    ],
+    "source": "https://github.com/preactjs/preact",
+    "language": "javascript"
+  },
+  {
+    "id": "qwik",
+    "name": "Qwik",
+    "description": "Resumable framework that eliminates hydration. Lazy-loads JS at interaction time for instant page loads.",
+    "url": "https://qwik.dev",
+    "category": "Frontend Frameworks",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "typescript",
+      "resumable",
+      "edge",
+      "performance",
+      "open-source"
+    ],
+    "source": "https://github.com/QwikDev/qwik",
+    "language": "typescript"
+  },
+  {
+    "id": "alpine-js",
+    "name": "Alpine.js",
+    "description": "Minimal reactive framework for composing behavior directly in HTML markup. 15 attributes, no build step required.",
+    "url": "https://alpinejs.dev",
+    "category": "Frontend Frameworks",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "javascript",
+      "lightweight",
+      "declarative",
+      "no-build",
+      "open-source"
+    ],
+    "source": "https://github.com/alpinejs/alpine",
+    "language": "javascript"
+  },
+  {
+    "id": "lit",
+    "name": "Lit",
+    "description": "Google-backed library for building web components. 5 KB, reactive properties, declarative templates, and Shadow DOM.",
+    "url": "https://lit.dev",
+    "category": "Frontend Frameworks",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "javascript",
+      "web-components",
+      "lightweight",
+      "shadow-dom",
+      "open-source"
+    ],
+    "source": "https://github.com/lit/lit",
+    "language": "typescript"
+  },
+  {
+    "id": "htmx",
+    "name": "htmx",
+    "description": "Access AJAX, WebSockets, and SSE directly from HTML attributes. No JavaScript required for interactive UIs.",
+    "url": "https://htmx.org",
+    "category": "Frontend Frameworks",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "javascript",
+      "html",
+      "hypermedia",
+      "lightweight",
+      "open-source"
+    ],
+    "source": "https://github.com/bigskysoftware/htmx",
+    "language": "javascript"
+  },
+  {
     "id": "socket-io",
     "name": "Socket.IO",
     "description": "Real-time bidirectional event-based communication for Node.js. WebSocket with automatic fallback and rooms.",
@@ -1112,58 +1247,6 @@
     "source": "https://github.com/neondatabase/neon"
   },
   {
-    "id": "algolia",
-    "name": "Algolia",
-    "description": "Search and discovery API. Sub-millisecond full-text search with typo tolerance, faceting, and AI-powered relevance.",
-    "url": "https://www.algolia.com",
-    "category": "APIs & Services",
-    "os": [
-      "web"
-    ],
-    "pricing": "freemium",
-    "tags": [
-      "search",
-      "api",
-      "full-text",
-      "relevance"
-    ]
-  },
-  {
-    "id": "auth0",
-    "name": "Auth0",
-    "description": "Identity and access management platform. Social login, MFA, SSO, and user management via drop-in SDKs.",
-    "url": "https://auth0.com",
-    "category": "APIs & Services",
-    "os": [
-      "web"
-    ],
-    "pricing": "freemium",
-    "tags": [
-      "auth",
-      "identity",
-      "sso",
-      "mfa",
-      "okta"
-    ]
-  },
-  {
-    "id": "clerk",
-    "name": "Clerk",
-    "description": "Authentication and user management for React and Next.js. Prebuilt UI components, session management, and organizations.",
-    "url": "https://clerk.com",
-    "category": "APIs & Services",
-    "os": [
-      "web"
-    ],
-    "pricing": "freemium",
-    "tags": [
-      "auth",
-      "react",
-      "nextjs",
-      "user-management"
-    ]
-  },
-  {
     "id": "uploadthing",
     "name": "UploadThing",
     "description": "File upload service for TypeScript apps. Type-safe API, built-in UI components, and S3-compatible storage.",
@@ -1180,25 +1263,6 @@
       "api"
     ],
     "source": "https://github.com/pingdotgg/uploadthing"
-  },
-  {
-    "id": "inngest",
-    "name": "Inngest",
-    "description": "Event-driven background jobs and workflows. Durable functions, retries, scheduling, and step functions for any language.",
-    "url": "https://www.inngest.com",
-    "category": "APIs & Services",
-    "os": [
-      "web"
-    ],
-    "pricing": "freemium",
-    "tags": [
-      "background-jobs",
-      "event-driven",
-      "workflows",
-      "serverless",
-      "open-source"
-    ],
-    "source": "https://github.com/inngest/inngest"
   },
   {
     "id": "hugo",
@@ -1690,5 +1754,295 @@
     ],
     "source": "https://github.com/wagtail/wagtail",
     "language": "python"
+  },
+  {
+    "id": "ethereum",
+    "name": "Ethereum",
+    "description": "Decentralized blockchain platform for smart contracts and dApps. The most widely used programmable blockchain with the largest developer ecosystem.",
+    "url": "https://ethereum.org",
+    "category": "Blockchain & Web3",
+    "os": [
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "blockchain",
+      "smart-contracts",
+      "dapps",
+      "open-source",
+      "decentralized"
+    ],
+    "source": "https://github.com/ethereum/go-ethereum"
+  },
+  {
+    "id": "solana",
+    "name": "Solana",
+    "description": "High-performance blockchain for decentralized apps and crypto. Sub-second finality, low fees, and parallel transaction processing.",
+    "url": "https://solana.com",
+    "category": "Blockchain & Web3",
+    "os": [
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "blockchain",
+      "smart-contracts",
+      "high-performance",
+      "open-source"
+    ],
+    "source": "https://github.com/solana-labs/solana"
+  },
+  {
+    "id": "hardhat",
+    "name": "Hardhat",
+    "description": "Ethereum development environment for compiling, testing, and deploying smart contracts. Rust-powered Solidity tests and extensible plugin system.",
+    "url": "https://hardhat.org",
+    "category": "Blockchain & Web3",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "ethereum",
+      "solidity",
+      "testing",
+      "development",
+      "open-source"
+    ],
+    "source": "https://github.com/NomicFoundation/hardhat",
+    "language": "typescript"
+  },
+  {
+    "id": "foundry",
+    "name": "Foundry",
+    "description": "Fast Ethereum development toolkit written in Rust. Includes Forge (build/test), Cast (CLI), Anvil (local node), and Chisel (Solidity REPL).",
+    "url": "https://getfoundry.sh",
+    "category": "Blockchain & Web3",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "ethereum",
+      "solidity",
+      "rust",
+      "testing",
+      "open-source"
+    ],
+    "source": "https://github.com/foundry-rs/foundry",
+    "language": "rust"
+  },
+  {
+    "id": "metamask",
+    "name": "MetaMask",
+    "description": "Crypto wallet browser extension and mobile app. Manages Ethereum accounts, interacts with dApps, and supports token swaps and staking.",
+    "url": "https://metamask.io",
+    "category": "Blockchain & Web3",
+    "os": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "pricing": "free",
+    "tags": [
+      "wallet",
+      "ethereum",
+      "browser-extension",
+      "dapps"
+    ]
+  },
+  {
+    "id": "remix-ide",
+    "name": "Remix IDE",
+    "description": "Browser-based IDE for Solidity smart contract development. Built-in compiler, debugger, and deployment tools with no setup required.",
+    "url": "https://remix.ethereum.org",
+    "category": "Blockchain & Web3",
+    "os": [
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "ethereum",
+      "solidity",
+      "ide",
+      "browser",
+      "open-source"
+    ],
+    "source": "https://github.com/ethereum/remix-project"
+  },
+  {
+    "id": "openzeppelin",
+    "name": "OpenZeppelin",
+    "description": "Industry-standard library of reusable, audited smart contracts for Ethereum. Tokens, access control, governance, and security utilities.",
+    "url": "https://www.openzeppelin.com",
+    "category": "Blockchain & Web3",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "ethereum",
+      "solidity",
+      "smart-contracts",
+      "security",
+      "open-source"
+    ],
+    "source": "https://github.com/OpenZeppelin/openzeppelin-contracts"
+  },
+  {
+    "id": "jinja2",
+    "name": "Jinja2",
+    "description": "Fast, expressive template engine for Python. Sandboxed execution, automatic HTML escaping, and template inheritance. Powers Flask and Ansible.",
+    "url": "https://jinja.palletsprojects.com",
+    "category": "Template Engines",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "python",
+      "templating",
+      "flask",
+      "open-source"
+    ],
+    "source": "https://github.com/pallets/jinja",
+    "language": "python"
+  },
+  {
+    "id": "handlebars",
+    "name": "Handlebars",
+    "description": "Mustache-compatible template engine for JavaScript. Compiles templates to functions for fast rendering with helpers and partials.",
+    "url": "https://handlebarsjs.com",
+    "category": "Template Engines",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "javascript",
+      "templating",
+      "mustache",
+      "open-source"
+    ],
+    "source": "https://github.com/handlebars-lang/handlebars.js",
+    "language": "javascript"
+  },
+  {
+    "id": "ejs",
+    "name": "EJS",
+    "description": "Embedded JavaScript templating for Node.js. Plain JavaScript syntax with no new language to learn, integrates directly with Express.",
+    "url": "https://ejs.co",
+    "category": "Template Engines",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "javascript",
+      "nodejs",
+      "templating",
+      "open-source"
+    ],
+    "source": "https://github.com/mde/ejs",
+    "language": "javascript"
+  },
+  {
+    "id": "pug",
+    "name": "Pug",
+    "description": "Whitespace-sensitive template engine for Node.js. Clean indentation-based syntax, mixins, includes, and template inheritance.",
+    "url": "https://pugjs.org",
+    "category": "Template Engines",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "javascript",
+      "nodejs",
+      "templating",
+      "open-source"
+    ],
+    "source": "https://github.com/pugjs/pug",
+    "language": "javascript"
+  },
+  {
+    "id": "mustache",
+    "name": "Mustache",
+    "description": "Logic-less template system available in 50+ languages. Minimal syntax enforcing clean separation of logic and presentation.",
+    "url": "https://mustache.github.io",
+    "category": "Template Engines",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "templating",
+      "multi-language",
+      "logic-less",
+      "open-source"
+    ],
+    "source": "https://github.com/mustache/mustache"
+  },
+  {
+    "id": "liquid",
+    "name": "Liquid",
+    "description": "Safe, customer-facing template language created by Shopify. Powers Shopify themes and Jekyll. Designed for untrusted template authors.",
+    "url": "https://shopify.github.io/liquid",
+    "category": "Template Engines",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "ruby",
+      "shopify",
+      "templating",
+      "open-source"
+    ],
+    "source": "https://github.com/Shopify/liquid",
+    "language": "ruby"
+  },
+  {
+    "id": "twig",
+    "name": "Twig",
+    "description": "Flexible, fast template engine for PHP. Compiles to optimized PHP code with automatic output escaping and sandboxing. Used by Symfony.",
+    "url": "https://twig.symfony.com",
+    "category": "Template Engines",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "php",
+      "symfony",
+      "templating",
+      "open-source"
+    ],
+    "source": "https://github.com/twigphp/Twig",
+    "language": "php"
   }
 ]

@@ -1,5 +1,5 @@
 # toolshed
-> Universal software directory with 15803 entries across 123 categories. Structured data for AI agents and developers.
+> Universal software directory with 15947 entries across 123 categories. Structured data for AI agents and developers.
 
 ## Endpoints
 - Full catalog (JSON): /api/v1/catalog.json
@@ -9,58 +9,62 @@
 - Human browsable: /
 
 ## Entry Schema
-{ id, name, description, url, category, os[], pricing, tags[], source?, language? }
+{ id, name, description, url, category, os[], pricing, tags[], source?, language?, triage? }
+
+## Triage (ideas only)
+Ideas (status: idea/in-progress) have a triage object: { impact: high|medium|low, buildability: straightforward|moderate|hard, alternatives: none|partial|covered, alternatives_note: string }
+Filter out covered, sort by impact desc then buildability asc.
 
 Pricing: free | freemium | paid | subscription
 OS: windows | macos | linux | web | ios | android
 
 ## Categories
-- iOS UI Components: 699
-- Static Analysis: 526
-- CLI Frameworks: 448
-- Databases: 411
-- Testing Frameworks: 350
+- iOS UI Components: 700
+- Static Analysis: 533
+- CLI Frameworks: 452
+- Databases: 404
+- Testing Frameworks: 349
 - Image Processing: 338
-- Frontend Frameworks: 334
-- Networking: 330
-- Cross-Platform Frameworks: 305
-- Container Orchestration: 303
+- Frontend Frameworks: 337
+- Networking: 334
+- Cross-Platform Frameworks: 304
+- Container Orchestration: 302
 - Video Editing: 286
 - Communication: 285
-- Data Validation & Serialization: 277
+- Data Validation & Serialization: 275
 - Music Production: 273
-- Game Engines: 230
-- Backend Frameworks: 217
-- Async & Concurrency: 209
+- Game Engines: 233
+- Backend Frameworks: 216
 - Version Control: 208
 - Data Pipelines: 207
 - Media Players: 207
-- CI/CD Tools: 197
+- Async & Concurrency: 206
+- CI/CD Tools: 196
 - API Clients: 195
 - Logging & Diagnostics: 191
 - Project Management: 189
+- Configuration: 185
 - Backup & Sync: 183
-- Configuration: 183
 - Encryption & Privacy Tools: 183
-- AI/ML Libraries: 182
+- AI/ML Libraries: 181
 - Monitoring & Metrics: 181
-- Programming Languages: 181
+- Programming Languages: 180
 - Note Taking: 179
-- UI/UX Design Tools: 179
+- UI/UX Design Tools: 178
 - Security Scanning: 177
 - Content Management Systems: 174
-- Utilities: 169
+- Utilities: 167
 - Launcher & Productivity Utils: 161
 - Accounting & Finance: 159
-- Code Editors: 156
+- Code Editors: 157
 - iOS Networking & Data: 153
 - Documentation Tools: 150
 - Embedded & IoT: 146
+- System Utilities: 144
 - Auth & Identity: 143
 - PDF Tools: 143
-- System Utilities: 143
-- Build Tools: 140
 - Web Scraping & Parsing: 140
+- Build Tools: 139
 - File Managers: 139
 - 3D & CAD: 133
 - Screen Recording / Streaming: 129
@@ -68,42 +72,42 @@ OS: windows | macos | linux | web | ios | android
 - ORMs: 125
 - Search Engines: 122
 - Real-time Communication: 121
-- Operating Systems: 119
-- Package Managers: 119
 - Password Managers: 119
+- Text Processing: 119
 - Office Suites: 118
+- Operating Systems: 117
+- Package Managers: 117
 - Window Managers: 117
-- Learning Platforms: 115
 - Terminal Emulators: 115
+- Learning Platforms: 114
 - Cloud Storage: 113
 - HTTP Libraries: 113
-- Text Processing: 112
-- Scientific Computing: 111
+- Scientific Computing: 112
 - Email: 110
-- Data Analysis: 104
+- Data Analysis: 108
 - Calendar & Scheduling: 96
 - Static Site Generators: 84
 - Photo Management: 82
+- Caching: 80
 - RSS Readers: 80
+- Blockchain & Web3: 78
 - Document Conversion: 78
-- Caching: 76
+- Date & Time: 76
 - Virtualization: 76
-- Date & Time: 75
-- Blockchain & Web3: 72
 - Clipboard Managers: 71
 - UI Automation & E2E Testing: 71
 - Cloud SDKs & CLIs: 69
-- NLP & Text AI: 68
-- Template Engines: 62
+- NLP & Text AI: 69
+- Template Engines: 63
+- Database Drivers: 62
 - Blogging & Newsletter Platforms: 61
-- Browsers: 60
 - VPN: 60
+- Browsers: 59
 - LLM Tools: 58
-- Database Drivers: 57
 - Load & Performance Testing: 55
-- Error & Exception Tracking: 54
-- Jupyter & Notebooks: 51
+- Error & Exception Tracking: 53
 - Torrent Clients: 51
+- Jupyter & Notebooks: 50
 - Linters: 50
 - GraphQL Tools: 49
 - Image Editors: 47
@@ -113,31 +117,31 @@ OS: windows | macos | linux | web | ios | android
 - Terminal UI: 46
 - Code Coverage & Quality: 42
 - CRM & Sales: 41
+- Math & Numerics: 40
 - Log Management: 39
 - Shell Environments: 37
 - Vector & Illustration: 36
-- Formatters: 35
-- Math & Numerics: 35
+- Compression & Archiving: 34
+- Database Migrations: 34
+- Formatters: 34
 - Infrastructure as Code: 33
-- API Documentation: 30
+- Error Handling: 30
+- API Documentation: 29
+- Database Tools: 29
 - AI Assistants: 28
-- Compression & Archiving: 28
 - File Search & Navigation: 28
+- APIs & Services: 27
+- Chess: 27
+- HR & People: 27
+- Desktop App Frameworks: 26
+- Flashcards & Study: 26
+- Secrets Management: 26
+- Vector Databases: 26
+- Mobile IDE & Tools: 25
+- Statistical Tools: 25
+- Task Runners & Monorepos: 25
 - Video Conferencing: 25
-- Chess: 24
-- APIs & Services: 23
-- Database Migrations: 23
-- Database Tools: 23
-- Media Processing: 22
-- Error Handling: 21
-- Statistical Tools: 21
-- Secrets Management: 18
-- Vector Databases: 18
-- Task Runners & Monorepos: 17
-- HR & People: 16
-- Desktop App Frameworks: 15
-- Flashcards & Study: 14
-- Mobile IDE & Tools: 11
+- Media Processing: 23
 
 ## Querying
 Download /api/v1/catalog.json and filter by:
@@ -146,6 +150,7 @@ Download /api/v1/catalog.json and filter by:
 - pricing: exact match (free, freemium, paid, subscription)
 - tags: check if desired tag is in tags[] array
 - language: filter libraries by ecosystem (python, rust, go, javascript, etc.)
+- status: idea (unfulfilled request), submitted (built by AI forge), or absent (existing software)
 - text search: match against name, description, tags
 
 ## Example Queries

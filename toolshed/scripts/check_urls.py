@@ -21,6 +21,7 @@ import glob
 import os
 import sys
 import time
+import threading
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.request import Request, urlopen
@@ -37,8 +38,35 @@ USER_AGENT = (
     "+https://forge.thisminute.org/toolshed)"
 )
 
-# Default: use standard SSL verification; override with --no-verify-ssl
-SSL_CONTEXT = None
+# Default: verify SSL certificates; override with --no-verify-ssl
+SSL_CONTEXT = ssl.create_default_context()
+
+# Per-domain rate limiting (S43): at least 1 second between requests to same domain
+_domain_last_request = {}  # domain -> timestamp of last request
+_domain_lock = threading.Lock()
+RATE_LIMIT_SECONDS = 1.0
+
+
+def _rate_limit(url):
+    """Wait if needed to enforce per-domain rate limiting."""
+    parsed = urlparse(url)
+    domain = parsed.hostname
+    if not domain:
+        return
+    with _domain_lock:
+        now = time.monotonic()
+        last = _domain_last_request.get(domain, 0)
+        wait = RATE_LIMIT_SECONDS - (now - last)
+        if wait > 0:
+            # Release lock while sleeping so other domains aren't blocked
+            pass
+        else:
+            _domain_last_request[domain] = now
+            return
+    # Sleep outside lock, then re-acquire to update timestamp
+    time.sleep(wait)
+    with _domain_lock:
+        _domain_last_request[domain] = time.monotonic()
 
 
 def load_entries(include_discovered=False):
@@ -95,6 +123,7 @@ def check_url(entry, timeout=10, max_redirects=3):
     for redirect_count in range(max_redirects + 1):
         for method in ["HEAD", "GET"]:
             try:
+                _rate_limit(current_url)
                 req = Request(
                     current_url,
                     method=method,
@@ -161,6 +190,19 @@ def check_url(entry, timeout=10, max_redirects=3):
                 return result
 
             except URLError as e:
+                # Check if this is an SSL certificate error
+                if isinstance(e.reason, ssl.SSLCertVerificationError):
+                    if method == "HEAD":
+                        continue
+                    result["status"] = "ssl_error"
+                    result["error"] = f"SSL certificate error: {e.reason}"
+                    return result
+                if isinstance(e.reason, ssl.SSLError):
+                    if method == "HEAD":
+                        continue
+                    result["status"] = "ssl_error"
+                    result["error"] = f"SSL error: {e.reason}"
+                    return result
                 if method == "HEAD":
                     continue  # Try GET
                 result["status"] = "connection_error"
@@ -242,6 +284,12 @@ def main():
         action="store_true",
         help="Disable SSL certificate verification (not recommended)",
     )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=0,
+        help="Only check the first N entries (for testing, default: all)",
+    )
     args = parser.parse_args()
 
     # Override SSL context if requested
@@ -252,6 +300,8 @@ def main():
         SSL_CONTEXT.verify_mode = ssl.CERT_NONE
 
     entries = load_entries(include_discovered=args.all)
+    if args.limit > 0:
+        entries = entries[:args.limit]
     scope = "all" if args.all else "curated"
     print(f"Checking {len(entries)} {scope} entries (timeout={args.timeout}s, concurrency={args.concurrency})")
     print()
@@ -293,6 +343,7 @@ def main():
     dead = [r for r in results if r["status"] in ("client_error", "server_error")]
     timeouts = [r for r in results if r["status"] == "timeout"]
     conn_errors = [r for r in results if r["status"] == "connection_error"]
+    ssl_errors = [r for r in results if r["status"] == "ssl_error"]
     too_many = [r for r in results if r["status"] == "too_many_redirects"]
     invalid = [r for r in results if r["status"] == "invalid"]
     other_errors = [r for r in results if r["status"] == "error"]
@@ -312,6 +363,7 @@ def main():
             sorted(defaultdict(int, {r["status_code"]: sum(1 for x in client_errs if x["status_code"] == r["status_code"]) for r in client_errs}).items())
         ))
     print(f"  Server errors (5xx): {len(server_errs)}")
+    print(f"  SSL errors:          {len(ssl_errors)}")
     print(f"  Timeouts:            {len(timeouts)}")
     print(f"  Connection errors:   {len(conn_errors)}")
     print(f"  Too many redirects:  {len(too_many)}")
@@ -320,7 +372,7 @@ def main():
     print("=" * 60)
 
     # Print details for problematic URLs
-    problems = dead + timeouts + conn_errors + too_many + invalid + other_errors
+    problems = dead + timeouts + conn_errors + ssl_errors + too_many + invalid + other_errors
     if problems:
         print(f"\n--- DEAD / ERROR URLS ({len(problems)}) ---\n")
         for r in sorted(problems, key=lambda x: x["status"]):
@@ -345,6 +397,7 @@ def main():
                 "redirects": len(redirects),
                 "client_errors": len(client_errs),
                 "server_errors": len(server_errs),
+                "ssl_errors": len(ssl_errors),
                 "timeouts": len(timeouts),
                 "connection_errors": len(conn_errors),
                 "too_many_redirects": len(too_many),
