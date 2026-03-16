@@ -1181,5 +1181,73 @@
     "tags": ["javascript", "cli", "prompts", "interactive", "open-source"],
     "source": "https://github.com/terkelg/prompts",
     "language": "javascript"
+  },
+  {
+    "id": "regex101",
+    "name": "regex101",
+    "description": "Web-based regex tester and debugger. Explains each token, highlights matches in real-time, supports PCRE, JavaScript, Python, Go, and Java flavors.",
+    "url": "https://regex101.com",
+    "category": "Text Processing",
+    "os": ["web"],
+    "pricing": "free",
+    "tags": ["regex", "testing", "debugger", "explainer", "web-tool"]
+  },
+  {
+    "id": "chardet",
+    "name": "chardet",
+    "description": "Python character encoding detector. CLI tool (chardetect) and library for auto-detecting text file encodings from byte sequences.",
+    "url": "https://github.com/chardet/chardet",
+    "category": "Text Processing",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["python", "encoding", "detection", "cli", "open-source"],
+    "source": "https://github.com/chardet/chardet",
+    "language": "python"
+  },
+  {
+    "id": "uchardet",
+    "name": "uchardet",
+    "description": "C/C++ encoding detector based on Mozilla's universal charset detection. Fast CLI tool for identifying text file encodings.",
+    "url": "https://github.com/AbiWord/uchardet",
+    "category": "Text Processing",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["c", "encoding", "detection", "cli", "mozilla", "open-source"],
+    "source": "https://github.com/AbiWord/uchardet",
+    "language": "c"
+  },
+  {
+    "id": "uniname",
+    "name": "uniname",
+    "description": "Unix CLI tool for looking up Unicode character names, codepoints, and properties. Part of the uniutils package.",
+    "url": "https://github.com/online-go/goutils",
+    "category": "Text Processing",
+    "os": ["macos", "linux"],
+    "pricing": "free",
+    "tags": ["unicode", "cli", "character-lookup", "text", "open-source"],
+    "source": "https://github.com/online-go/goutils",
+    "language": "c"
+  },
+  {
+    "id": "worldtimebuddy",
+    "name": "World Time Buddy",
+    "description": "Web-based timezone converter with visual overlap grid. Compare multiple timezones side-by-side for scheduling across cities.",
+    "url": "https://www.worldtimebuddy.com",
+    "category": "Date & Time",
+    "os": ["web", "ios", "android"],
+    "pricing": "freemium",
+    "tags": ["timezone", "converter", "scheduling", "overlap", "web-tool"]
+  },
+  {
+    "id": "pycountry",
+    "name": "pycountry",
+    "description": "Python library providing ISO databases for countries (3166), languages (639), currencies (4217), and subdivisions.",
+    "url": "https://github.com/pycountry/pycountry",
+    "category": "Utilities",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["python", "iso", "countries", "languages", "currencies", "i18n", "open-source"],
+    "source": "https://github.com/pycountry/pycountry",
+    "language": "python"
   }
 ]

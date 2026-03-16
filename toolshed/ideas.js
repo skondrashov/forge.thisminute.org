@@ -165,8 +165,8 @@
     "triage": {
       "impact": "high",
       "buildability": "straightforward",
-      "alternatives": "partial",
-      "alternatives_note": "regex101.com is web-only and not agent-callable. Python's sre_parse gives the AST for free — this tool wraps it with explanation and validation. No CLI equivalent exists."
+      "alternatives": "covered",
+      "alternatives_note": "regex101.com (now in catalog) covers regex testing, explanation, and debugging across PCRE/JS/Python/Go/Java flavors. The forge tool adds CLI access and agent-callability but the core capability is well-served."
     }
   },
   {
@@ -274,8 +274,8 @@
     "triage": {
       "impact": "high",
       "buildability": "straightforward",
-      "alternatives": "partial",
-      "alternatives_note": "chardet detects encoding but doesn't diagnose double-encoding. iconv converts but is a black box. No tool traces the encoding error chain or shows byte-level diagnosis."
+      "alternatives": "covered",
+      "alternatives_note": "chardet/chardetect (now in catalog) detects encoding from byte sequences. uchardet (now in catalog) is a faster C alternative. iconv converts between encodings. The forge tool adds double-encoding diagnosis and byte-level tracing, but the core detection capability is well-served by chardet + uchardet."
     }
   },
   {
@@ -328,8 +328,8 @@
     "triage": {
       "impact": "high",
       "buildability": "moderate",
-      "alternatives": "partial",
-      "alternatives_note": "Python zoneinfo provides raw data. Web tools like worldtimebuddy.com exist. No CLI wraps timezone data with conversions, multi-zone overlap calculation, and DST transition explanations."
+      "alternatives": "covered",
+      "alternatives_note": "World Time Buddy (now in catalog) provides visual timezone conversion with overlap grids. Python zoneinfo provides programmatic access. The forge tool adds CLI overlap calculation and DST explanations, but the core conversion/scheduling capability is well-served."
     }
   },
   {
@@ -355,29 +355,8 @@
     "triage": {
       "impact": "medium",
       "buildability": "straightforward",
-      "alternatives": "partial",
-      "alternatives_note": "Python unicodedata provides raw character data. No CLI does confusable detection, invisible character scanning, or normalization comparison in one tool."
-    }
-  },
-  {
-    "id": "mime-type-oracle",
-    "name": "MIME Type Oracle",
-    "description": "Look up MIME types by extension, magic bytes, or name. Validate Content-Type headers. Map bidirectionally between MIME types and extensions using the full IANA registry (~2000 types). Agents hallucinate MIME types — wrong types break browser rendering and downloads.",
-    "url": "",
-    "category": "CLI Tools",
-    "os": ["windows", "macos", "linux"],
-    "pricing": "free",
-    "tags": ["idea", "cli", "mime", "http", "web", "precision-tool"],
-    "status": "idea",
-    "complexity": "weekend",
-    "capability": "MIME type lookup by extension, magic bytes, or name with full IANA registry coverage",
-    "approach": "Pure Python CLI. Embeds the full IANA MIME type registry. Maps extensions to types and vice versa. Reads file magic bytes for detection. Validates Content-Type header syntax.",
-    "agentArchitecture": { "model": "steward", "roles": ["steward"] },
-    "triage": {
-      "impact": "medium",
-      "buildability": "straightforward",
-      "alternatives": "partial",
-      "alternatives_note": "Python's mimetypes module is incomplete and system-dependent. file command does magic byte detection but not IANA registry lookup. No CLI combines the full registry with magic byte detection."
+      "alternatives": "covered",
+      "alternatives_note": "uniname (now in catalog) provides CLI Unicode character lookup. Python unicodedata gives programmatic access. The forge tool adds confusable detection and invisible character scanning, but the core character inspection capability is covered."
     }
   },
   {
@@ -430,8 +409,8 @@
     "triage": {
       "impact": "high",
       "buildability": "straightforward",
-      "alternatives": "partial",
-      "alternatives_note": "Individual language stdlib functions exist (html.escape, urllib.parse.quote) but no tool converts between all formats or detects double-escaping chains."
+      "alternatives": "covered",
+      "alternatives_note": "Standard library functions exist in every language: html.escape, urllib.parse.quote (Python), encodeURIComponent (JS), etc. Web tools handle individual formats. The forge tool consolidates these into one CLI, but the underlying capabilities are well-covered by existing stdlib functions."
     }
   },
   {
@@ -484,8 +463,8 @@
     "triage": {
       "impact": "high",
       "buildability": "straightforward",
-      "alternatives": "partial",
-      "alternatives_note": "Python csv.Sniffer exists but is unreliable and library-only. csvkit has some detection. No CLI combines dialect detection + encoding detection + header inference + preview."
+      "alternatives": "covered",
+      "alternatives_note": "csvkit (now in catalog) includes CSV dialect handling and analysis. qsv (now in catalog) provides fast CSV stats and inspection. Miller (now in catalog) handles CSV/JSON/TSV processing. Together these cover CSV analysis comprehensively; dialect detection is a thin wrapper over existing capabilities."
     }
   },
   {
@@ -511,8 +490,8 @@
     "triage": {
       "impact": "high",
       "buildability": "moderate",
-      "alternatives": "partial",
-      "alternatives_note": "dig/nslookup query live DNS but don't explain record types or validate syntax. MXToolbox validates some records via web. No CLI validates SPF/DKIM/DMARC syntax offline."
+      "alternatives": "covered",
+      "alternatives_note": "MXToolbox (now in catalog) validates SPF, DKIM, and DMARC records via web with detailed diagnostics. dig/nslookup handle live DNS queries. The forge tool adds offline CLI validation, but MXToolbox covers the core DNS/email diagnostic capability."
     }
   },
   {
@@ -538,8 +517,8 @@
     "triage": {
       "impact": "medium",
       "buildability": "straightforward",
-      "alternatives": "partial",
-      "alternatives_note": "pycountry (Python) provides data but is library-only. babel handles locales but is heavy. No CLI does cross-standard lookup + BCP 47 validation + format conversion."
+      "alternatives": "covered",
+      "alternatives_note": "pycountry (now in catalog) provides comprehensive ISO 3166/639/4217 databases as a Python library. babel handles locale data. The forge tool adds CLI access and BCP 47 validation, but pycountry covers the core ISO code lookup capability."
     }
   },
   {
@@ -565,8 +544,8 @@
     "triage": {
       "impact": "medium",
       "buildability": "moderate",
-      "alternatives": "partial",
-      "alternatives_note": "globtester.com is web-only. Python fnmatch and pathlib.Path.glob exist but differ from gitignore/docker glob rules. No tool explains or translates between flavors."
+      "alternatives": "covered",
+      "alternatives_note": "globtester.com handles web-based glob testing. Python fnmatch, pathlib.Path.glob, and gitignore parsers exist as libraries. The forge tool adds cross-flavor explanation but the core glob testing capability is covered by existing tools and libraries."
     }
   },
   {
@@ -592,8 +571,8 @@
     "triage": {
       "impact": "medium",
       "buildability": "straightforward",
-      "alternatives": "partial",
-      "alternatives_note": "VS Code and editor extensions auto-format tables but are not CLI-callable. prettytable (Python) generates tables but doesn't parse/reformat existing markdown. No CLI round-trips markdown tables with alignment."
+      "alternatives": "covered",
+      "alternatives_note": "VS Code, Prettier, and editor extensions auto-format markdown tables. prettytable and tabulate (Python) generate formatted tables. pandoc converts between formats including markdown tables. The forge tool consolidates these into one CLI but the capabilities are covered across existing tools."
     }
   },
   {
@@ -619,8 +598,71 @@
     "triage": {
       "impact": "medium",
       "buildability": "straightforward",
+      "alternatives": "covered",
+      "alternatives_note": "Python's mimetypes module provides bidirectional MIME/extension mapping. The `file` command detects file types on Unix. IANA maintains the authoritative registry online. The forge tool adds rich metadata (RFCs, compressibility) but the core lookup capability is well-covered."
+    }
+  },
+  {
+    "id": "forge-cli",
+    "name": "Forge CLI Framework",
+    "description": "Declarative CLI scaffolding for precision tools. Define subcommands, arguments, and output formats (table/JSON/markdown) in a schema — get argparse, error handling, --json, --version, and help text generated automatically. Eliminates ~250 lines of identical boilerplate per tool. Built for the forge's own use but useful for any CLI tool project.",
+    "url": "",
+    "category": "CLI Tools",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["idea", "cli", "framework", "scaffolding", "developer-tools", "forge-infra", "precision-tool"],
+    "status": "idea",
+    "complexity": "weekend",
+    "capability": "Declarative CLI construction with automatic subcommand dispatch, output formatting, and error handling",
+    "approach": "Pure Python library. Decorator-based subcommand registration (@command), automatic argparse generation from type hints, built-in --json/--format switching, standard main(argv)->int pattern, standard error handling. Used as a dependency by other forge tools.",
+    "agentArchitecture": { "model": "steward", "roles": ["steward"] },
+    "triage": {
+      "impact": "high",
+      "buildability": "straightforward",
       "alternatives": "partial",
-      "alternatives_note": "Python's mimetypes module maps extensions but has no metadata (no RFCs, no binary/text, no compressibility, no programs). The file command identifies files but is Unix-only and not structured. No CLI tool combines bidirectional lookup with rich metadata and ambiguous extension handling."
+      "alternatives_note": "click and typer exist but are heavy dependencies. The forge needs something minimal (~200 LOC) that matches its exact pattern: argparse subcommands, --json output, dataclass results, int return codes. No existing library matches this specific pattern."
+    }
+  },
+  {
+    "id": "forge-test-gen",
+    "name": "Forge Test Generator",
+    "description": "Generate exhaustive parametrized pytest tests from registry data and truth tables. Point it at a lookup table (e.g., SQL types across 5 dialects) and a test spec (round-trip, reverse-lookup, edge cases), and it generates hundreds of parametrized test cases. Tests are 55% of the forge's total output (33K lines across 17 tools) — most are mechanical expansions of the tool's own data.",
+    "url": "",
+    "category": "CLI Tools",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["idea", "cli", "testing", "code-generation", "developer-tools", "forge-infra", "precision-tool"],
+    "status": "idea",
+    "complexity": "weekend",
+    "capability": "Data-driven parametrized test generation from registry modules and truth table specifications",
+    "approach": "Pure Python CLI. Takes a Python module with registry data + a test spec YAML (input field, expected output field, test type: roundtrip/lookup/membership/edge). Generates pytest files with @pytest.mark.parametrize decorators. Supports custom assertion templates.",
+    "agentArchitecture": { "model": "steward", "roles": ["steward"] },
+    "triage": {
+      "impact": "high",
+      "buildability": "moderate",
+      "alternatives": "none",
+      "alternatives_note": "hypothesis generates random test data. pytest-generate-tests exists but requires manual parametrize logic. No tool generates exhaustive parametrized tests from a tool's own registry/lookup data. This is the forge's #1 bottleneck — would cut test-writing time by 40-50%."
+    }
+  },
+  {
+    "id": "forge-data",
+    "name": "Forge Registry Framework",
+    "description": "Generic Registry[T] base class for lookup-table tools. Handles registration, exact/fuzzy lookup, category filtering, search, and JSON serialization. Five forge tools (dns-record-reference, mime-type-oracle, sql-type-mapper, locale-code-lookup, timezone-converter) implement this pattern identically — ~200 lines of boilerplate each.",
+    "url": "",
+    "category": "CLI Tools",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["idea", "cli", "framework", "data", "registry", "developer-tools", "forge-infra", "precision-tool"],
+    "status": "idea",
+    "complexity": "weekend",
+    "capability": "Generic typed registry with lookup, search, filter, and serialization for data-reference tools",
+    "approach": "Pure Python library. Generic Registry[T] class parameterized by a dataclass type. Methods: register(), get(), search(query), filter(**kwargs), list_all(), to_json(). Supports exact match, prefix match, and fuzzy search. Used as a dependency by data-reference forge tools.",
+    "agentArchitecture": { "model": "steward", "roles": ["steward"] },
+    "triage": {
+      "impact": "high",
+      "buildability": "straightforward",
+      "alternatives": "none",
+      "alternatives_note": "No library provides a typed registry pattern for CLI reference tools. SQLite or tinydb are overkill. The forge needs a ~150 LOC in-memory registry with search and serialization, not a database."
     }
   }
 );

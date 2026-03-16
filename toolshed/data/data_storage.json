@@ -1629,5 +1629,205 @@
     ],
     "source": "https://github.com/marqo-ai/marqo",
     "language": "python"
+  },
+  {
+    "id": "vespa",
+    "name": "Vespa",
+    "description": "Open-source big data serving engine by Yahoo. Combines vector search, text search, and structured data with ML ranking at scale.",
+    "url": "https://vespa.ai",
+    "category": "Vector Databases",
+    "os": [
+      "linux"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "vector-search",
+      "text-search",
+      "ml-ranking",
+      "scalable",
+      "open-source"
+    ],
+    "source": "https://github.com/vespa-engine/vespa",
+    "language": "java"
+  },
+  {
+    "id": "vald",
+    "name": "Vald",
+    "description": "Cloud-native distributed vector search engine using the NGT algorithm. Designed for billion-scale approximate nearest neighbor search.",
+    "url": "https://vald.vdaas.org",
+    "category": "Vector Databases",
+    "os": [
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "vector-search",
+      "distributed",
+      "cloud-native",
+      "kubernetes",
+      "open-source"
+    ],
+    "source": "https://github.com/vdaas/vald",
+    "language": "go"
+  },
+  {
+    "id": "turbopuffer",
+    "name": "turbopuffer",
+    "description": "Serverless vector and full-text search on object storage. Sub-10ms latency at scale with automatic indexing and hybrid queries.",
+    "url": "https://turbopuffer.com",
+    "category": "Vector Databases",
+    "os": [
+      "web"
+    ],
+    "pricing": "paid",
+    "tags": [
+      "vector-search",
+      "serverless",
+      "full-text-search",
+      "hybrid-search",
+      "object-storage"
+    ]
+  },
+  {
+    "id": "zilliz",
+    "name": "Zilliz Cloud",
+    "description": "Fully managed vector database built on Milvus. Enterprise-grade similarity search with multi-cloud deployment and SOC2 compliance.",
+    "url": "https://zilliz.com",
+    "category": "Vector Databases",
+    "os": [
+      "web"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "managed",
+      "milvus",
+      "enterprise",
+      "multi-cloud",
+      "vector-search"
+    ]
+  },
+  {
+    "id": "annoy",
+    "name": "Annoy",
+    "description": "Spotify's C++ library for approximate nearest neighbor search. Memory-mapped indexes for fast read-only queries on static datasets.",
+    "url": "https://github.com/spotify/annoy",
+    "category": "Vector Databases",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "ann",
+      "spotify",
+      "memory-mapped",
+      "static-datasets",
+      "open-source"
+    ],
+    "source": "https://github.com/spotify/annoy",
+    "language": "cpp"
+  },
+  {
+    "id": "usearch",
+    "name": "USearch",
+    "description": "Compact vector search engine supporting 10+ languages. HNSW-based with custom distance metrics and quantization for memory efficiency.",
+    "url": "https://github.com/unum-cloud/usearch",
+    "category": "Vector Databases",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "ann",
+      "hnsw",
+      "multi-language",
+      "quantization",
+      "open-source"
+    ],
+    "source": "https://github.com/unum-cloud/usearch",
+    "language": "cpp"
+  },
+  {
+    "id": "hnswlib",
+    "name": "hnswlib",
+    "description": "Header-only C++ library for fast approximate nearest neighbor search using the HNSW algorithm. Lightweight with Python bindings.",
+    "url": "https://github.com/nmslib/hnswlib",
+    "category": "Vector Databases",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "ann",
+      "hnsw",
+      "header-only",
+      "lightweight",
+      "open-source"
+    ],
+    "source": "https://github.com/nmslib/hnswlib",
+    "language": "cpp"
+  },
+  {
+    "id": "deep-lake",
+    "name": "Deep Lake",
+    "description": "Database for AI built on a columnar storage format optimized for deep learning. Stores vectors, tensors, and multimedia with versioning.",
+    "url": "https://deeplake.ai",
+    "category": "Vector Databases",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "vector-database",
+      "deep-learning",
+      "tensors",
+      "versioning",
+      "open-source"
+    ],
+    "source": "https://github.com/activeloopai/deeplake",
+    "language": "python"
+  },
+  {
+    "id": "csvkit",
+    "name": "csvkit",
+    "description": "Python CLI suite for working with CSV files. Includes csvstat, csvsql, csvlook, csvgrep, csvjoin, in2csv, and more for slicing, querying, and converting tabular data.",
+    "url": "https://github.com/wireservice/csvkit",
+    "category": "Data Analysis",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["python", "csv", "cli", "data", "sql", "open-source"],
+    "source": "https://github.com/wireservice/csvkit",
+    "language": "python"
+  },
+  {
+    "id": "qsv",
+    "name": "qsv",
+    "description": "Ultra-fast CSV CLI toolkit in Rust (successor to xsv). Index, slice, search, join, stats, frequency, and transform CSV files at high speed.",
+    "url": "https://github.com/jqnatividad/qsv",
+    "category": "Data Analysis",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["rust", "csv", "cli", "performance", "data", "open-source"],
+    "source": "https://github.com/jqnatividad/qsv",
+    "language": "rust"
+  },
+  {
+    "id": "miller",
+    "name": "Miller (mlr)",
+    "description": "Like awk, sed, and cut for name-indexed data (CSV, TSV, JSON, XTAB). Stream-processes structured data with verbs for sort, filter, join, stats, and reshape.",
+    "url": "https://github.com/johnkerl/miller",
+    "category": "Data Analysis",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["go", "csv", "json", "cli", "data-processing", "open-source"],
+    "source": "https://github.com/johnkerl/miller",
+    "language": "go"
   }
 ]

@@ -293,5 +293,15 @@
     "pricing": "free",
     "tags": ["video", "matrix", "decentralized", "encrypted", "open-source"],
     "source": "https://github.com/element-hq/element-call"
+  },
+  {
+    "id": "mxtoolbox",
+    "name": "MXToolbox",
+    "description": "Web-based DNS and email diagnostics suite. SPF, DKIM, and DMARC validators, MX lookup, blacklist checks, and SMTP testing.",
+    "url": "https://mxtoolbox.com",
+    "category": "Networking",
+    "os": ["web"],
+    "pricing": "freemium",
+    "tags": ["dns", "email", "spf", "dkim", "dmarc", "diagnostics", "web-tool"]
   }
 ]
