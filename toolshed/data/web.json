@@ -1075,6 +1075,132 @@
     ]
   },
   {
+    "id": "planetscale",
+    "name": "PlanetScale",
+    "description": "Serverless MySQL platform with branching, non-blocking schema changes, and Vitess-powered horizontal scaling.",
+    "url": "https://planetscale.com",
+    "category": "APIs & Services",
+    "os": [
+      "web"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "mysql",
+      "serverless",
+      "database",
+      "branching",
+      "vitess"
+    ]
+  },
+  {
+    "id": "neon-db",
+    "name": "Neon",
+    "description": "Serverless Postgres with branching, autoscaling, and a generous free tier. Separates storage and compute.",
+    "url": "https://neon.tech",
+    "category": "APIs & Services",
+    "os": [
+      "web"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "postgres",
+      "serverless",
+      "database",
+      "branching",
+      "open-source"
+    ],
+    "source": "https://github.com/neondatabase/neon"
+  },
+  {
+    "id": "algolia",
+    "name": "Algolia",
+    "description": "Search and discovery API. Sub-millisecond full-text search with typo tolerance, faceting, and AI-powered relevance.",
+    "url": "https://www.algolia.com",
+    "category": "APIs & Services",
+    "os": [
+      "web"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "search",
+      "api",
+      "full-text",
+      "relevance"
+    ]
+  },
+  {
+    "id": "auth0",
+    "name": "Auth0",
+    "description": "Identity and access management platform. Social login, MFA, SSO, and user management via drop-in SDKs.",
+    "url": "https://auth0.com",
+    "category": "APIs & Services",
+    "os": [
+      "web"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "auth",
+      "identity",
+      "sso",
+      "mfa",
+      "okta"
+    ]
+  },
+  {
+    "id": "clerk",
+    "name": "Clerk",
+    "description": "Authentication and user management for React and Next.js. Prebuilt UI components, session management, and organizations.",
+    "url": "https://clerk.com",
+    "category": "APIs & Services",
+    "os": [
+      "web"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "auth",
+      "react",
+      "nextjs",
+      "user-management"
+    ]
+  },
+  {
+    "id": "uploadthing",
+    "name": "UploadThing",
+    "description": "File upload service for TypeScript apps. Type-safe API, built-in UI components, and S3-compatible storage.",
+    "url": "https://uploadthing.com",
+    "category": "APIs & Services",
+    "os": [
+      "web"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "file-upload",
+      "typescript",
+      "storage",
+      "api"
+    ],
+    "source": "https://github.com/pingdotgg/uploadthing"
+  },
+  {
+    "id": "inngest",
+    "name": "Inngest",
+    "description": "Event-driven background jobs and workflows. Durable functions, retries, scheduling, and step functions for any language.",
+    "url": "https://www.inngest.com",
+    "category": "APIs & Services",
+    "os": [
+      "web"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "background-jobs",
+      "event-driven",
+      "workflows",
+      "serverless",
+      "open-source"
+    ],
+    "source": "https://github.com/inngest/inngest"
+  },
+  {
     "id": "hugo",
     "name": "Hugo",
     "description": "Blazing-fast static site generator written in Go. Builds thousands of pages in seconds with flexible templating.",

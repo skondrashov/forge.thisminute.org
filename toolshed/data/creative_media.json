@@ -1743,6 +1743,28 @@
     "language": "go"
   },
   {
+    "id": "gstreamer",
+    "name": "GStreamer",
+    "description": "Pipeline-based multimedia framework for streaming, editing, and processing audio and video. Modular plugin architecture.",
+    "url": "https://gstreamer.freedesktop.org",
+    "category": "Media Processing",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "multimedia",
+      "pipeline",
+      "streaming",
+      "plugins",
+      "open-source"
+    ],
+    "source": "https://gitlab.freedesktop.org/gstreamer/gstreamer",
+    "language": "c"
+  },
+  {
     "id": "ffmpeg",
     "name": "FFmpeg",
     "description": "Swiss army knife of audio/video processing. Transcode, stream, filter, and mux virtually any media format.",
