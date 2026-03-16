@@ -518,7 +518,13 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
     "tags": ["idea", "cli", "i18n", "locale", "iso", "precision-tool"],
-    "status": "idea",
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/locale-code-lookup/",
+    "language": "python",
+    "validation": {
+      "benchmarks": "406 tests passing. Covers ISO 3166-1 (249 countries, alpha-2/alpha-3/numeric/name bidirectional lookup), ISO 639-1/2 (184 languages), ISO 4217 (170 currencies with symbols and decimal places), BCP 47 locale parsing (language, script, region, variants, extensions), and cross-standard relationships (country->languages, language->countries, country->currency). CLI commands: country, language, currency, locale, related with JSON output support.",
+      "limitations": "Pure offline tool with no external dependencies. Relationship data covers official/major languages only (not all spoken languages). BCP 47 variant and extension subtag validation is structural only (not against a registry)."
+    },
     "complexity": "weekend",
     "capability": "ISO 3166/639 code lookup, BCP 47 locale parsing, and format conversion",
     "approach": "Pure Python CLI. Embeds ISO 3166 (249 countries), ISO 639 (180+ languages), ISO 4217 (170 currencies). Parses and validates BCP 47 locale tags. Converts between alpha-2, alpha-3, and numeric codes.",
