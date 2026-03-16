@@ -1336,5 +1336,134 @@
       "open-source"
     ],
     "source": "https://github.com/microsoft/azuredatastudio"
+  },
+  {
+    "id": "phpmyadmin",
+    "name": "phpMyAdmin",
+    "description": "Web-based administration tool for MySQL and MariaDB. Browse, edit, create, and drop databases, tables, and rows through the browser.",
+    "url": "https://www.phpmyadmin.net",
+    "category": "Database Tools",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "mysql",
+      "web-based",
+      "administration",
+      "php",
+      "open-source"
+    ],
+    "source": "https://github.com/phpmyadmin/phpmyadmin",
+    "language": "php"
+  },
+  {
+    "id": "sequel-ace",
+    "name": "Sequel Ace",
+    "description": "Native macOS database client for MySQL and MariaDB. Successor to Sequel Pro with Apple Silicon support and modern features.",
+    "url": "https://sequel-ace.com",
+    "category": "Database Tools",
+    "os": [
+      "macos"
+    ],
+    "pricing": "free",
+    "tags": [
+      "mysql",
+      "mariadb",
+      "native",
+      "macos",
+      "open-source"
+    ],
+    "source": "https://github.com/Sequel-Ace/Sequel-Ace",
+    "language": "swift"
+  },
+  {
+    "id": "mongodb-compass",
+    "name": "MongoDB Compass",
+    "description": "Official GUI for MongoDB. Visual query builder, schema analysis, real-time performance metrics, and aggregation pipeline editor.",
+    "url": "https://www.mongodb.com/products/compass",
+    "category": "Database Tools",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "mongodb",
+      "nosql",
+      "gui",
+      "official",
+      "open-source"
+    ],
+    "source": "https://github.com/mongodb-js/compass",
+    "language": "typescript"
+  },
+  {
+    "id": "redis-insight",
+    "name": "Redis Insight",
+    "description": "Official GUI for Redis. Browse keys, run commands, profile performance, and visualize data structures across clusters.",
+    "url": "https://redis.io/insight",
+    "category": "Database Tools",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "redis",
+      "gui",
+      "official",
+      "key-value",
+      "open-source"
+    ],
+    "source": "https://github.com/RedisInsight/RedisInsight",
+    "language": "typescript"
+  },
+  {
+    "id": "arctype",
+    "name": "Arctype",
+    "description": "SQL client and database management tool with a clean interface. Collaborative queries, dashboards, and schema visualization.",
+    "url": "https://arctype.com",
+    "category": "Database Tools",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "sql",
+      "collaboration",
+      "dashboards",
+      "schema-visualization"
+    ]
+  },
+  {
+    "id": "dbgate",
+    "name": "DbGate",
+    "description": "Open-source database manager that runs everywhere. Supports MySQL, PostgreSQL, SQL Server, MongoDB, SQLite, and more.",
+    "url": "https://dbgate.org",
+    "category": "Database Tools",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "multi-database",
+      "cross-platform",
+      "sql",
+      "nosql",
+      "open-source"
+    ],
+    "source": "https://github.com/dbgate/dbgate",
+    "language": "javascript"
   }
 ]
