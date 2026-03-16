@@ -228,7 +228,13 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
     "tags": ["idea", "cli", "semver", "versioning", "package-management", "precision-tool"],
-    "status": "idea",
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/semver-range-resolver/",
+    "language": "python",
+    "validation": {
+      "benchmarks": "351 tests passing. Covers all 4 ecosystems (npm, Cargo, pip, Maven) with caret, tilde, wildcard, hyphen, comparator, and bracket range syntax. CLI commands: parse, check, overlap, translate, explain with JSON output support.",
+      "limitations": "Pure offline tool with no external dependencies. Range translation between ecosystems is approximate when syntax doesn't map 1:1 (e.g., npm caret to pip compatible release)."
+    },
     "complexity": "weekend",
     "capability": "Multi-ecosystem version range parsing, membership testing, and intersection calculation",
     "approach": "Pure Python CLI. Parses range syntax for npm, Cargo, pip, and Maven. Tests whether a version satisfies a range, computes intersections of multiple ranges, explains semantics in plain English.",
