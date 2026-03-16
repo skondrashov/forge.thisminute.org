@@ -166,6 +166,33 @@
     }
   },
   {
+    "id": "personal-knowledge-graph",
+    "name": "Local-First Personal Knowledge Graph",
+    "description": "Import from browser bookmarks, Kindle highlights, markdown notes, PDF annotations. AI builds a concept graph with semantic relationships — not just keywords. Browse visually or query in natural language. All data stays local.",
+    "url": "",
+    "category": "Productivity",
+    "os": ["windows", "macos", "linux", "web"],
+    "pricing": "free",
+    "tags": ["idea", "knowledge-management", "local-first", "graph", "search", "notes"],
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/personal-knowledge-graph/",
+    "language": "typescript",
+    "validation": {
+      "benchmarks": "51 tests passing. Graph builder verified with real imports.",
+      "limitations": "Requires Claude API key for semantic relationship extraction. Large document collections may require batched processing."
+    },
+    "complexity": "multi-month",
+    "capability": "Semantic relationship discovery across heterogeneous text sources",
+    "approach": "Local-first app (Electron or Tauri). Import from browser bookmarks, Kindle highlights, markdown notes, PDF annotations. AI builds a graph: nodes are concepts, edges are relationships. Browse visually or query in natural language.",
+    "agentArchitecture": { "model": "protocol-forum", "roles": ["orchestrator", "builder", "designer", "strategist", "skeptic"] },
+    "triage": {
+      "impact": "high",
+      "buildability": "hard",
+      "alternatives": "partial",
+      "alternatives_note": "Obsidian, Roam, and Logseq offer graph views of notes but require manual linking. No tool automatically discovers semantic relationships across heterogeneous sources (bookmarks, highlights, PDFs, notes) with AI."
+    }
+  },
+  {
     "id": "regex-explainer-tester",
     "name": "Regex Explainer & Tester",
     "description": "Parse a regex into its AST, explain each part in plain English, test against sample strings, and flag pitfalls like catastrophic backtracking, unescaped dots, or missing anchors. Regex is the #1 thing LLMs get wrong — this tool gets it right every time.",

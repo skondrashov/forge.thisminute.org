@@ -202,7 +202,9 @@
       ],
       "rationale": "Complex multi-domain project (data ingestion, AI pipeline, graph storage, visualization) that will evolve over months. Protocol+forum gives the team persistent context and a forum for design debates."
     },
-    "status": "idea"
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/personal-knowledge-graph/",
+    "submittedDate": "2026-03-16"
   },
   {
     "id": "git-commit-archaeology",
