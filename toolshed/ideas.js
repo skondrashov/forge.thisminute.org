@@ -432,10 +432,16 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
     "tags": ["idea", "cli", "shell", "escaping", "bash", "powershell", "precision-tool"],
-    "status": "idea",
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/shell-escape-quoter/",
+    "language": "python",
+    "validation": {
+      "benchmarks": "1756 tests passing. Covers 6 shells (bash, zsh, sh, fish, PowerShell, cmd.exe) with per-dangerous-character-per-shell matrix, injection payload neutralization, unicode handling, and CLI integration tests.",
+      "limitations": "Pure offline tool with no external dependencies. Does not execute shell commands to verify round-trips at runtime; correctness is validated by static test suite."
+    },
     "complexity": "weekend",
     "capability": "Cross-shell string escaping with quoting strategy selection and explanation",
-    "approach": "Pure Python CLI. Implements quoting rules for 5 shells. Takes a raw string + target shell, produces correctly quoted output. Explains which characters triggered escaping and which quoting style was chosen.",
+    "approach": "Pure Python CLI. Implements quoting rules for 6 shells. Takes a raw string + target shell, produces correctly quoted output. Analyzes strings for injection risk and explains which characters are dangerous and why.",
     "agentArchitecture": { "model": "steward", "roles": ["steward"] },
     "triage": {
       "impact": "high",
