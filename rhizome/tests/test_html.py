@@ -20,11 +20,12 @@ class TestIndexLinks:
         target = os.path.join(ROOT, href)
         assert os.path.isfile(target), f"Evolution link target '{href}' does not exist"
 
-    def test_cross_site_links_have_trailing_slashes(self):
-        """Cross-site nav links should use trailing slashes."""
+    def test_cross_site_nav_via_shared_library(self):
+        """Cross-site nav uses shared forge.js and links back to portal."""
         html = _read_html("index.html")
-        for path in ["/toolshed/", "/forge/"]:
-            assert f'href="{path}"' in html, f"Missing or malformed link to {path}"
+        assert '/shared/forge.js' in html, "Missing shared forge.js include"
+        assert '/shared/forge.css' in html, "Missing shared forge.css include"
+        assert 'href="/"' in html, "Missing link back to portal hub"
 
     def test_fieldnotes_inline_trigger_exists(self):
         """There should be an inline field notes trigger near the intro blurb."""
