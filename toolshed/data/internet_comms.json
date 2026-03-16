@@ -443,6 +443,27 @@
     "source": "https://github.com/lukasmonk/lucaschessR2"
   },
   {
+    "id": "python-chess",
+    "name": "python-chess",
+    "description": "Pure Python chess library with move generation, validation, PGN/SVG rendering, and Stockfish/UCI engine communication.",
+    "url": "https://python-chess.readthedocs.io",
+    "category": "Chess",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["library", "python", "pgn", "uci", "open-source"],
+    "source": "https://github.com/niklasf/python-chess"
+  },
+  {
+    "id": "chesstempo",
+    "name": "ChessTempo",
+    "description": "Online chess tactics trainer with adaptive difficulty. Endgame practice, opening trainer, and a large problem database.",
+    "url": "https://chesstempo.com",
+    "category": "Chess",
+    "os": ["web"],
+    "pricing": "freemium",
+    "tags": ["tactics", "training", "puzzles", "endgames"]
+  },
+  {
     "id": "tixati",
     "name": "Tixati",
     "description": "Lightweight BitTorrent client with detailed bandwidth management. No ads, DHT, and advanced per-torrent settings.",

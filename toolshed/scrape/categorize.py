@@ -2,6 +2,26 @@ import json, glob, os, re
 from collections import defaultdict, Counter
 from .config import DATA_DIR, VALID_CATEGORIES
 
+# Hard overrides for specific entry IDs that are consistently miscategorized.
+# These take priority over all other categorization logic.
+CATEGORY_OVERRIDES = {
+    "techan": "Data Analysis",
+    "govader": "NLP & Text AI",
+    "apicompat": "Static Analysis",
+    "dupl": "Static Analysis",
+    "better-reflection": "Static Analysis",
+    "phpactor": "Code Editors",
+    "phploc": "Static Analysis",
+    "rector": "Static Analysis",
+    "ta4j": "Data Analysis",
+    "aquaskk": "System Utilities",
+    "beast2": "Scientific Computing",
+    "genealogical-dna-analysis-tool": "Scientific Computing",
+    "maltego": "Security Scanning",
+    "oscar": "System Utilities",
+    "tableau-prep": "Data Analysis",
+}
+
 # Direct keyword -> category mapping for common terms
 KEYWORD_TO_CATEGORY = {
     "analytics": "Monitoring & Metrics",
@@ -275,6 +295,7 @@ STOP_WORDS = {
     "client", "server", "file", "files", "data", "code", "system",
     "line", "command", "framework", "plugin", "interface", "manager",
     "multiple", "management", "development", "high", "performance",
+    "analysis", "analyzer", "analyse", "analyze",
 }
 
 
@@ -304,6 +325,11 @@ def build_category_index():
 
 def categorize(entry, category_index=None):
     """Determine the best category for an entry."""
+    # Tier 0: Hard overrides for known miscategorized entries
+    entry_id = entry.get("id", "")
+    if entry_id in CATEGORY_OVERRIDES:
+        return CATEGORY_OVERRIDES[entry_id]
+
     # If already has a valid category, keep it
     if entry.get("category") in VALID_CATEGORIES:
         return entry["category"]
