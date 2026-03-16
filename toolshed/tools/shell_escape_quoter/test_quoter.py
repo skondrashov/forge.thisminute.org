@@ -961,5 +961,67 @@ class TestCLI:
         assert "Bash" in result.stdout
 
 
+# ============================================================
+# 22. Exploit examples in shell definitions
+# ============================================================
+
+
+class TestExploitExamples:
+    """All high-danger special chars should have exploit_example."""
+
+    def test_all_high_danger_chars_have_exploit_examples(self):
+        for shell_def in all_shells():
+            for sc in shell_def.special_chars:
+                if sc.danger_level == "high":
+                    assert sc.exploit_example, (
+                        f"Shell {shell_def.name}: high-danger char {sc.name!r} "
+                        f"({repr(sc.char)}) has no exploit_example"
+                    )
+
+    def test_bash_semicolon_exploit_example(self):
+        sh = get_shell("bash")
+        info = sh.get_char_info(";")
+        assert info is not None
+        assert info.exploit_example
+        assert "rm" in info.exploit_example.lower() or "inject" in info.exploit_example.lower()
+
+    def test_cmd_percent_exploit_example(self):
+        sh = get_shell("cmd")
+        info = sh.get_char_info("%")
+        assert info is not None
+        assert info.exploit_example
+        assert "%" in info.exploit_example
+
+    def test_powershell_dollar_exploit_example(self):
+        sh = get_shell("powershell")
+        info = sh.get_char_info("$")
+        assert info is not None
+        assert info.exploit_example
+
+
+# ============================================================
+# 23. --explain rendering in CLI
+# ============================================================
+
+
+class TestExplainCLI:
+    def test_explain_shows_exploit_examples(self):
+        result = subprocess.run(
+            [sys.executable, "quoter.py", "; rm -rf /", "--analyze", "--explain"],
+            capture_output=True, text=True, cwd=_TOOL_DIR,
+        )
+        assert result.returncode == 0
+        assert "->" in result.stdout  # exploit examples are shown with ->
+
+    def test_analyze_without_explain_no_exploit(self):
+        result = subprocess.run(
+            [sys.executable, "quoter.py", "hello world", "--analyze"],
+            capture_output=True, text=True, cwd=_TOOL_DIR,
+        )
+        assert result.returncode == 0
+        # Should NOT show exploit examples without --explain
+        assert "->" not in result.stdout
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

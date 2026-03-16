@@ -11,7 +11,7 @@ Supported template types:
     int     — integer (decimal)
     float   — floating point number
     bool    — true/false/yes/no/1/0/on/off (case-insensitive)
-    url     — URL format (http:// or https://)
+    url     — URL format (any scheme: http://, https://, postgres://, redis://, etc.)
     email   — email format (contains @)
     port    — integer 1-65535
     path    — filesystem path
@@ -551,6 +551,7 @@ class ValidationIssue:
     severity: Severity
     expected: Optional[str] = None
     actual: Optional[str] = None
+    fix_suggestion: Optional[str] = None
 
 
 @dataclass
@@ -593,17 +594,18 @@ class ValidationResult:
                     "severity": issue.severity.value,
                     "expected": issue.expected,
                     "actual": issue.actual,
+                    "fix_suggestion": issue.fix_suggestion,
                 }
                 for issue in self.issues
             ],
         }
 
 
-# URL pattern
+# URL pattern — accepts any standard scheme (RFC 3986)
 _URL_PATTERN = re.compile(
-    r"^https?://"
-    r"[^\s/$.?#]"
-    r"[^\s]*$",
+    r"^[a-zA-Z][a-zA-Z0-9+\-.]*://"  # scheme (RFC 3986)
+    r"[^\s]"                           # at least one char after scheme
+    r"[^\s]*$",                        # rest of URL
     re.IGNORECASE,
 )
 
@@ -616,6 +618,22 @@ _EMAIL_PATTERN = re.compile(
 _BOOL_TRUE = {"true", "yes", "1", "on"}
 _BOOL_FALSE = {"false", "no", "0", "off"}
 _BOOL_ALL = _BOOL_TRUE | _BOOL_FALSE
+
+# Patterns that suggest a value contains a secret
+_SECRET_PATTERNS = [
+    re.compile(r"^[A-Za-z0-9+/]{32,}={0,2}$"),  # base64-like, 32+ chars
+    re.compile(r"^[0-9a-f]{32,}$", re.IGNORECASE),  # hex string, 32+ chars
+    re.compile(r"^ghp_[A-Za-z0-9]{36}$"),  # GitHub personal access token
+    re.compile(r"^sk-[A-Za-z0-9]{32,}$"),  # OpenAI/Stripe secret key
+    re.compile(r"^AKIA[A-Z0-9]{16}$"),  # AWS access key ID
+    re.compile(r"^-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----"),  # Private key
+]
+
+# Key names that typically hold secrets
+_SECRET_KEY_PATTERNS = re.compile(
+    r"(SECRET|PASSWORD|PASSWD|TOKEN|API_KEY|PRIVATE_KEY|ACCESS_KEY|AUTH)",
+    re.IGNORECASE,
+)
 
 
 def _validate_int(value: str) -> bool:
@@ -666,6 +684,92 @@ def _validate_enum(value: str, allowed: list[str]) -> bool:
     return value in allowed
 
 
+def _suggest_fix(key: str, value: str, type_name: str, template: TemplateEntry) -> Optional[str]:
+    """Generate a fix suggestion for a validation error."""
+    if type_name == "int":
+        try:
+            float(value)
+            return f"Value '{value}' looks like a float. Use an integer instead, e.g., {key}={int(float(value))}"
+        except ValueError:
+            pass
+        stripped = value.strip('"').strip("'")
+        if stripped != value:
+            try:
+                int(stripped)
+                return f"Remove quotes around the value: {key}={stripped}"
+            except ValueError:
+                pass
+        return f"Set {key} to a whole number, e.g., {key}=42"
+
+    if type_name == "float":
+        return f"Set {key} to a number, e.g., {key}=3.14"
+
+    if type_name == "bool":
+        lower = value.lower()
+        if lower in ("y", "n"):
+            suggested = "yes" if lower == "y" else "no"
+            return f"Did you mean '{suggested}'? Use: {key}={suggested}"
+        if lower in ("t", "f"):
+            suggested = "true" if lower == "t" else "false"
+            return f"Did you mean '{suggested}'? Use: {key}={suggested}"
+        if lower in ("enabled", "disabled"):
+            suggested = "true" if lower == "enabled" else "false"
+            return f"Use 'true' or 'false' instead: {key}={suggested}"
+        return f"Use one of: true, false, yes, no, 1, 0, on, off"
+
+    if type_name == "url":
+        if "://" not in value and ("." in value or "localhost" in value):
+            return f"Missing scheme. Try: {key}=https://{value}"
+        return f"Set {key} to a valid URL, e.g., {key}=https://example.com"
+
+    if type_name == "email":
+        if "@" not in value:
+            return f"Missing '@'. A valid email looks like: user@example.com"
+        return f"Set {key} to a valid email, e.g., {key}=user@example.com"
+
+    if type_name == "port":
+        try:
+            port = int(value)
+            if port <= 0:
+                return f"Port must be between 1 and 65535. Common ports: 80, 443, 3000, 5432, 8080"
+            if port > 65535:
+                return f"Port {port} is too high. Maximum is 65535. Common ports: 80, 443, 3000, 5432, 8080"
+        except ValueError:
+            return f"Set {key} to a number between 1 and 65535, e.g., {key}=3000"
+
+    if type_name == "enum":
+        allowed = template.enum_values
+        lower_map = {v.lower(): v for v in allowed}
+        if value.lower() in lower_map:
+            correct = lower_map[value.lower()]
+            return f"Case mismatch. Use: {key}={correct}"
+        return f"Valid values are: {', '.join(allowed)}"
+
+    return None
+
+
+def _detect_secret(key: str, value: str) -> bool:
+    """Detect if a value looks like it contains a secret."""
+    if not value or len(value) < 8:
+        return False
+
+    has_secret_key = bool(_SECRET_KEY_PATTERNS.search(key))
+
+    for pattern in _SECRET_PATTERNS:
+        if pattern.search(value):
+            return True
+
+    if has_secret_key and len(value) >= 16:
+        placeholders = {
+            "changeme", "change-me", "your-secret-here", "xxx",
+            "placeholder", "todo", "fixme", "replace-me",
+        }
+        if value.lower() not in placeholders:
+            return True
+
+    return False
+
+
 def validate_entry(
     entry: EnvEntry,
     template: TemplateEntry,
@@ -683,6 +787,7 @@ def validate_entry(
                 severity=Severity.ERROR,
                 expected=template.var_type,
                 actual="(empty)",
+                fix_suggestion=f"Set a value: {entry.key}=<{template.var_type}>",
             )
         )
         return issues
@@ -704,6 +809,7 @@ def validate_entry(
                     severity=Severity.ERROR,
                     expected="int",
                     actual=value,
+                    fix_suggestion=_suggest_fix(entry.key, value, "int", template),
                 )
             )
 
@@ -716,6 +822,7 @@ def validate_entry(
                     severity=Severity.ERROR,
                     expected="float",
                     actual=value,
+                    fix_suggestion=_suggest_fix(entry.key, value, "float", template),
                 )
             )
 
@@ -731,6 +838,7 @@ def validate_entry(
                     severity=Severity.ERROR,
                     expected="bool",
                     actual=value,
+                    fix_suggestion=_suggest_fix(entry.key, value, "bool", template),
                 )
             )
 
@@ -739,10 +847,11 @@ def validate_entry(
             issues.append(
                 ValidationIssue(
                     key=entry.key,
-                    message=f"'{entry.key}' expected URL (http/https), got '{value}'",
+                    message=f"'{entry.key}' expected URL, got '{value}'",
                     severity=Severity.ERROR,
                     expected="url",
                     actual=value,
+                    fix_suggestion=_suggest_fix(entry.key, value, "url", template),
                 )
             )
 
@@ -755,6 +864,7 @@ def validate_entry(
                     severity=Severity.ERROR,
                     expected="email",
                     actual=value,
+                    fix_suggestion=_suggest_fix(entry.key, value, "email", template),
                 )
             )
 
@@ -767,6 +877,7 @@ def validate_entry(
                     severity=Severity.ERROR,
                     expected="port (1-65535)",
                     actual=value,
+                    fix_suggestion=_suggest_fix(entry.key, value, "port", template),
                 )
             )
 
@@ -781,6 +892,7 @@ def validate_entry(
                     else Severity.WARNING,
                     expected="path",
                     actual=value,
+                    fix_suggestion=f"Create the path or update the value: {entry.key}=<valid-path>",
                 )
             )
 
@@ -797,6 +909,7 @@ def validate_entry(
                     severity=Severity.ERROR,
                     expected=f"enum({allowed})",
                     actual=value,
+                    fix_suggestion=_suggest_fix(entry.key, value, "enum", template),
                 )
             )
 
@@ -808,6 +921,7 @@ def validate(
     template: TemplateResult,
     strict: bool = False,
     check_path_exists: bool = False,
+    detect_secrets: bool = False,
 ) -> ValidationResult:
     """Validate a parsed .env against a parsed template."""
     result = ValidationResult()
@@ -823,6 +937,7 @@ def validate(
                         key=key,
                         message=f"Required variable '{key}' is missing",
                         severity=Severity.ERROR,
+                        fix_suggestion=f"Add to your .env file: {key}=<{tmpl_entry.var_type}>",
                     )
                 )
             else:
@@ -860,8 +975,25 @@ def validate(
                     key=key,
                     message=f"Variable '{key}' is not defined in template",
                     severity=severity,
+                    fix_suggestion=f"Add '{key}' to your .env.template, or remove it from .env",
                 )
             )
+
+    # Secret detection
+    if detect_secrets:
+        for key, entry in env.entries.items():
+            if _detect_secret(key, entry.value):
+                result.issues.append(
+                    ValidationIssue(
+                        key=key,
+                        message=f"Variable '{key}' appears to contain a secret value",
+                        severity=Severity.WARNING,
+                        fix_suggestion=(
+                            f"Avoid committing secrets. Use a .env.local file "
+                            f"(added to .gitignore) or an environment variable manager."
+                        ),
+                    )
+                )
 
     return result
 
@@ -959,9 +1091,9 @@ def diff_envs(a: ParseResult, b: ParseResult) -> DiffResult:
 # Generator — infer template from .env
 # ===================================================================
 
-# URL pattern for type inference
+# URL pattern for type inference — accepts any scheme
 _INFER_URL_PATTERN = re.compile(
-    r"^https?://[^\s/$.?#][^\s]*$", re.IGNORECASE
+    r"^[a-zA-Z][a-zA-Z0-9+\-.]*://[^\s]+$", re.IGNORECASE
 )
 
 # Email pattern for type inference
@@ -1106,6 +1238,7 @@ def _cmd_check(args: argparse.Namespace) -> int:
         tmpl_result,
         strict=args.strict,
         check_path_exists=args.check_paths,
+        detect_secrets=getattr(args, "detect_secrets", False),
     )
 
     if args.json:
@@ -1276,6 +1409,10 @@ def build_parser() -> argparse.ArgumentParser:
     check_parser.add_argument(
         "--check-paths", action="store_true",
         help="Verify that path-typed values exist on disk",
+    )
+    check_parser.add_argument(
+        "--detect-secrets", action="store_true",
+        help="Warn about values that look like committed secrets",
     )
 
     init_parser = subparsers.add_parser(

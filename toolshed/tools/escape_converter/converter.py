@@ -7,15 +7,16 @@ any two formats in a single call.  Agents constantly move data across
 boundaries (URLs, HTML, JSON, shell commands, databases) and need reliable
 encoding/decoding -- LLMs frequently get edge cases wrong.
 
-SUPPORTED FORMATS (9)
-=====================
+SUPPORTED FORMATS (10)
+======================
   url             Percent-encoding (RFC 3986)
   html            HTML entities (named + numeric character references)
   unicode_escape  \\uXXXX / \\UXXXXXXXX sequences
   json            JSON string escapes (\\n, \\t, \\uXXXX, etc.)
   c_escape        C-style escapes (\\n, \\xHH, \\OOO, etc.)
   xml             XML predefined entities + numeric character references
-  base64          Base64 (RFC 4648)
+  base64          Base64 (RFC 4648), tolerates missing padding
+  base64url       Base64url (RFC 4648 section 5), URL-safe alphabet, no padding
   hex             Lowercase hex pairs
   octal           \\OOO byte sequences
 
@@ -55,6 +56,7 @@ FORMATS = (
     "c_escape",
     "xml",
     "base64",
+    "base64url",
     "hex",
     "octal",
 )
@@ -151,6 +153,15 @@ def encode_base64(text: str, encoding: str = "utf-8") -> str:
     return b64.b64encode(text.encode(encoding)).decode("ascii")
 
 
+def encode_base64url(text: str, encoding: str = "utf-8") -> str:
+    """Base64url-encode a string (RFC 4648 section 5).
+
+    Uses URL-safe alphabet (- instead of +, _ instead of /) and
+    strips padding (=). Used by JWTs and many web APIs.
+    """
+    return b64.urlsafe_b64encode(text.encode(encoding)).decode("ascii").rstrip("=")
+
+
 def encode_hex(text: str, encoding: str = "utf-8") -> str:
     """Hex-encode a string's bytes as lowercase hex pairs."""
     return text.encode(encoding).hex()
@@ -176,6 +187,7 @@ ENCODERS: dict[str, callable] = {
     "c_escape": encode_c_escape,
     "xml": encode_xml,
     "base64": encode_base64,
+    "base64url": encode_base64url,
     "hex": encode_hex,
     "octal": encode_octal,
 }
@@ -291,12 +303,33 @@ def decode_xml(text: str) -> str:
     return html_mod.unescape(text)
 
 
+def _pad_base64(text: str) -> str:
+    """Add missing padding to a base64 string if needed."""
+    missing = len(text) % 4
+    if missing:
+        text += "=" * (4 - missing)
+    return text
+
+
 def decode_base64(text: str, encoding: str = "utf-8") -> str:
-    """Decode base64 to a string."""
+    """Decode base64 to a string. Tolerates missing padding."""
     try:
-        data = b64.b64decode(text)
+        data = b64.b64decode(_pad_base64(text))
     except Exception as e:
         raise ValueError(f"Invalid base64 data: {e}") from e
+    return data.decode(encoding)
+
+
+def decode_base64url(text: str, encoding: str = "utf-8") -> str:
+    """Decode base64url (RFC 4648 section 5). Tolerates missing padding.
+
+    Uses URL-safe alphabet (- instead of +, _ instead of /).
+    Used by JWTs and many web APIs.
+    """
+    try:
+        data = b64.urlsafe_b64decode(_pad_base64(text))
+    except Exception as e:
+        raise ValueError(f"Invalid base64url data: {e}") from e
     return data.decode(encoding)
 
 
@@ -351,6 +384,7 @@ DECODERS: dict[str, callable] = {
     "c_escape": decode_c_escape,
     "xml": decode_xml,
     "base64": decode_base64,
+    "base64url": decode_base64url,
     "hex": decode_hex,
     "octal": decode_octal,
 }
@@ -398,6 +432,7 @@ _JSON_ESCAPE_PATTERN = re.compile(r'\\[nrtbf\\"/]|\\u[0-9A-Fa-f]{4}')
 _C_ESCAPE_PATTERN = re.compile(r"\\[nrtbfav0\\\"]|\\x[0-9A-Fa-f]{2}|\\[0-7]{1,3}")
 _XML_PATTERN = re.compile(r"&(amp|lt|gt|quot|apos);|&#(\d+|x[0-9A-Fa-f]+);")
 _BASE64_PATTERN = re.compile(r"^[A-Za-z0-9+/]+={0,2}$")
+_BASE64URL_PATTERN = re.compile(r"^[A-Za-z0-9\-_]+={0,2}$")
 _HEX_PATTERN = re.compile(r"^[0-9A-Fa-f]+$")
 _OCTAL_PATTERN = re.compile(r"\\[0-7]{3}")
 _DOUBLE_URL_PATTERN = re.compile(r"%25[0-9A-Fa-f]{2}")
@@ -503,6 +538,32 @@ def detect_base64(text: str) -> Detection | None:
     return Detection("base64", confidence, f"Valid base64 ({len(stripped)} chars)")
 
 
+def detect_base64url(text: str) -> Detection | None:
+    """Detect base64url encoding (RFC 4648 section 5).
+
+    Uses - instead of + and _ instead of /. May or may not have padding.
+    """
+    stripped = text.strip()
+    if len(stripped) < 4:
+        return None
+    if not _BASE64URL_PATTERN.match(stripped):
+        return None
+    has_url_chars = "-" in stripped or "_" in stripped
+    if not has_url_chars:
+        return None
+    try:
+        padded = stripped + "=" * (4 - len(stripped) % 4) if len(stripped) % 4 else stripped
+        b64.urlsafe_b64decode(padded)
+    except Exception:
+        return None
+    confidence = 0.5
+    if len(stripped) >= 20:
+        confidence = 0.6
+    if len(stripped) >= 40:
+        confidence = 0.7
+    return Detection("base64url", confidence, f"Valid base64url ({len(stripped)} chars)")
+
+
 def detect_hex(text: str) -> Detection | None:
     stripped = text.strip()
     if len(stripped) < 2:
@@ -552,7 +613,8 @@ def detect_double_html(text: str) -> Detection | None:
 
 _DETECTORS = [
     detect_url, detect_html, detect_unicode_escape, detect_json,
-    detect_c_escape, detect_xml, detect_base64, detect_hex, detect_octal,
+    detect_c_escape, detect_xml, detect_base64, detect_base64url,
+    detect_hex, detect_octal,
 ]
 
 _DOUBLE_DETECTORS = [detect_double_url, detect_double_html]

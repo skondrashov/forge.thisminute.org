@@ -191,6 +191,12 @@ def _pg_types() -> dict[str, TypeInfo]:
         "TSQUERY": TypeInfo(name="TSQUERY", category="special",
             notes="Text search query",
             mappings={"mysql": "VARCHAR(255)", "sqlite": "TEXT", "sqlserver": "NVARCHAR(255)", "oracle": "VARCHAR2(255)"}),
+        "HSTORE": TypeInfo(name="HSTORE", category="special",
+            notes="Key-value pairs (requires hstore extension)",
+            mappings={"mysql": "JSON", "sqlite": "TEXT", "sqlserver": "NVARCHAR(MAX)", "oracle": "CLOB"}),
+        "MACADDR8": TypeInfo(name="MACADDR8", category="network",
+            notes="MAC address (EUI-64 format)",
+            mappings={"mysql": "VARCHAR(23)", "sqlite": "TEXT", "sqlserver": "VARCHAR(23)", "oracle": "VARCHAR2(23)"}),
     }
 
 
@@ -425,6 +431,9 @@ def _sqlserver_types() -> dict[str, TypeInfo]:
         "ROWVERSION": TypeInfo(name="ROWVERSION", aliases=["TIMESTAMP"], category="special",
             notes="Auto-generated binary(8), not a datetime",
             mappings={"postgres": "BYTEA", "mysql": "BINARY(8)", "sqlite": "BLOB", "oracle": "RAW(8)"}),
+        "HIERARCHYID": TypeInfo(name="HIERARCHYID", category="special",
+            notes="CLR type for tree hierarchy positions",
+            mappings={"postgres": "VARCHAR(4000)", "mysql": "VARCHAR(4000)", "sqlite": "TEXT", "oracle": "VARCHAR2(4000)"}),
     }
 
 
@@ -792,6 +801,18 @@ GOTCHAS: list[Gotcha] = [
     Gotcha(id="timestamp-precision-varies", title="Timestamp fractional seconds precision varies",
         description="Fractional seconds: PostgreSQL=6 (microseconds), MySQL=6, SQL Server=7 (100ns), Oracle=9 (nanoseconds). Migrating from Oracle/SQL Server to PostgreSQL/MySQL may lose sub-microsecond precision.",
         source_dialect="any", target_dialect="any", source_type="TIMESTAMP", target_type="TIMESTAMP", severity="info"),
+    Gotcha(id="pg-hstore-no-equiv", title="PostgreSQL HSTORE has no native equivalent in other dialects",
+        description="PostgreSQL HSTORE stores key-value string pairs with GIN/GiST indexing support. Other dialects must use JSON columns or application-level key-value storage. HSTORE operators (?, @>, etc.) are not available.",
+        source_dialect="postgres", target_dialect="any", source_type="HSTORE", target_type="JSON", severity="warning",
+        workaround="Use JSON/JSONB column in target, or a separate key-value table."),
+    Gotcha(id="spatial-type-incompatible", title="Spatial types have different implementations across dialects",
+        description="PostgreSQL uses PostGIS extensions (GEOMETRY/GEOGRAPHY), MySQL has built-in spatial types, SQL Server has GEOMETRY/GEOGRAPHY CLR types, and Oracle uses SDO_GEOMETRY. Spatial functions, indexes, and SRID handling differ significantly. Data can be transferred via WKT/WKB but spatial queries must be rewritten.",
+        source_dialect="any", target_dialect="any", source_type="GEOMETRY", target_type="GEOMETRY", severity="warning",
+        workaround="Export as WKT/WKB and reimport. Rewrite spatial queries for target dialect."),
+    Gotcha(id="sqlserver-hierarchyid", title="SQL Server HIERARCHYID has no equivalent in other dialects",
+        description="SQL Server HIERARCHYID is a CLR type that efficiently represents positions in a tree hierarchy with built-in methods (GetAncestor, GetDescendant, IsDescendantOf). No other dialect has this. Must be stored as a string path (e.g., '/1/2/3/') and hierarchy logic reimplemented in application code or with recursive CTEs.",
+        source_dialect="sqlserver", target_dialect="any", source_type="HIERARCHYID", target_type="VARCHAR", severity="danger",
+        workaround="Store as VARCHAR path representation. Reimplement hierarchy operations."),
 ]
 
 

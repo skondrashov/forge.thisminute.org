@@ -17,9 +17,11 @@ from converter import (
     FORMATS,
     encode, decode, convert, convert_bulk, list_formats,
     encode_url, encode_html, encode_unicode_escape, encode_json,
-    encode_c_escape, encode_xml, encode_base64, encode_hex, encode_octal,
+    encode_c_escape, encode_xml, encode_base64, encode_base64url,
+    encode_hex, encode_octal,
     decode_url, decode_html, decode_unicode_escape, decode_json,
-    decode_c_escape, decode_xml, decode_base64, decode_hex, decode_octal,
+    decode_c_escape, decode_xml, decode_base64, decode_base64url,
+    decode_hex, decode_octal,
     detect, detect_best, is_double_encoded,
     Detection,
 )
@@ -580,9 +582,9 @@ class TestDispatcher:
 
 
 class TestListFormats:
-    def test_all_nine_formats(self):
+    def test_all_ten_formats(self):
         fmts = list_formats()
-        assert len(fmts) == 9
+        assert len(fmts) == 10
         for f in FORMATS:
             assert f in fmts
 
@@ -642,6 +644,87 @@ class TestCLI:
         )
         # Should print help, not crash
         assert result.returncode == 0
+
+
+# ============================================================
+# 15. Base64url encoding/decoding
+# ============================================================
+
+class TestBase64URL:
+    def test_encode(self):
+        result = encode_base64url("hello")
+        assert result == "aGVsbG8"  # no padding
+        assert "=" not in result
+
+    def test_encode_with_url_unsafe_chars(self):
+        """Strings that produce + or / in standard base64 use - and _ in base64url."""
+        result = encode_base64url("subjects?_d")
+        assert "+" not in result
+        assert "/" not in result
+
+    def test_decode(self):
+        assert decode_base64url("aGVsbG8") == "hello"
+
+    def test_decode_with_padding(self):
+        """Tolerates padding even though base64url typically omits it."""
+        assert decode_base64url("aGVsbG8=") == "hello"
+
+    def test_roundtrip(self):
+        original = "hello world 123 !@#"
+        assert decode_base64url(encode_base64url(original)) == original
+
+    def test_roundtrip_unicode(self):
+        original = "caf\u00e9 \u2603"
+        assert decode_base64url(encode_base64url(original)) == original
+
+    def test_encode_decode_dispatch(self):
+        """base64url works through the encode/decode dispatchers."""
+        original = "hello world"
+        encoded = encode(original, "base64url")
+        decoded = decode(encoded, "base64url")
+        assert decoded == original
+
+    def test_convert_base64_to_base64url(self):
+        """Convert standard base64 to base64url."""
+        b64_text = encode_base64("hello world")
+        result = convert(b64_text, "base64", "base64url")
+        assert decode_base64url(result) == "hello world"
+
+
+# ============================================================
+# 16. Base64 padding tolerance
+# ============================================================
+
+class TestBase64PaddingTolerance:
+    def test_decode_missing_one_pad(self):
+        """Base64 'aGVsbG8' is 'hello' without the trailing =."""
+        assert decode_base64("aGVsbG8") == "hello"
+
+    def test_decode_missing_two_pads(self):
+        """Base64 'YQ' is 'a' without the trailing ==."""
+        assert decode_base64("YQ") == "a"
+
+    def test_decode_with_padding_still_works(self):
+        assert decode_base64("aGVsbG8=") == "hello"
+        assert decode_base64("YQ==") == "a"
+
+
+# ============================================================
+# 17. Base64url detection
+# ============================================================
+
+class TestDetectBase64URL:
+    def test_detect_base64url(self):
+        """Strings with - or _ should detect as base64url."""
+        # A JWT-like token segment
+        text = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+        # This contains letters that overlap with base64url
+        # but the test is for when - or _ are present
+        b64url_text = encode_base64url("subjects?_d/with+slash")
+        if "-" in b64url_text or "_" in b64url_text:
+            results = detect(b64url_text)
+            formats = [d.format for d in results]
+            assert "base64url" in formats
 
 
 if __name__ == "__main__":

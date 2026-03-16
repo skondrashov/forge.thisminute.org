@@ -976,5 +976,93 @@ class TestCLI:
         assert "UNKNOWN" in result.stdout
 
 
+# ============================================================
+# 13. New types: HSTORE, MACADDR8, HIERARCHYID
+# ============================================================
+
+
+class TestNewTypes:
+    def test_hstore_exists(self):
+        info = get_type_info("postgres", "HSTORE")
+        assert info is not None
+        assert info.name == "HSTORE"
+
+    def test_hstore_to_mysql(self):
+        r = map_type("HSTORE", "postgres", "mysql")
+        assert r.target_type == "JSON"
+
+    def test_hstore_to_sqlserver(self):
+        r = map_type("HSTORE", "postgres", "sqlserver")
+        assert "NVARCHAR" in r.target_type
+
+    def test_macaddr8_exists(self):
+        info = get_type_info("postgres", "MACADDR8")
+        assert info is not None
+        assert info.name == "MACADDR8"
+
+    def test_macaddr8_to_mysql(self):
+        r = map_type("MACADDR8", "postgres", "mysql")
+        assert "VARCHAR" in r.target_type
+
+    def test_hierarchyid_exists(self):
+        info = get_type_info("sqlserver", "HIERARCHYID")
+        assert info is not None
+        assert info.name == "HIERARCHYID"
+
+    def test_hierarchyid_to_postgres(self):
+        r = map_type("HIERARCHYID", "sqlserver", "postgres")
+        assert "VARCHAR" in r.target_type
+
+    def test_hierarchyid_to_mysql(self):
+        r = map_type("HIERARCHYID", "sqlserver", "mysql")
+        assert "VARCHAR" in r.target_type
+
+
+# ============================================================
+# 14. New gotchas: HSTORE, spatial, HIERARCHYID
+# ============================================================
+
+
+class TestNewGotchas:
+    def test_hstore_gotcha_exists(self):
+        gotchas = get_gotchas(source_dialect="postgres", type_name="HSTORE")
+        assert len(gotchas) > 0
+        assert any("hstore" in g.title.lower() for g in gotchas)
+
+    def test_spatial_gotcha_exists(self):
+        gotchas = get_gotchas(type_name="GEOMETRY")
+        assert any("spatial" in g.title.lower() for g in gotchas)
+
+    def test_hierarchyid_gotcha_exists(self):
+        gotchas = get_gotchas(source_dialect="sqlserver", type_name="HIERARCHYID")
+        assert len(gotchas) > 0
+        assert any("hierarchyid" in g.title.lower() for g in gotchas)
+
+    def test_hierarchyid_gotcha_is_danger(self):
+        gotchas = get_gotchas(source_dialect="sqlserver", type_name="HIERARCHYID")
+        assert any(g.severity == "danger" for g in gotchas)
+
+    def test_total_gotchas_increased(self):
+        # Should have more gotchas than before
+        assert len(GOTCHAS) >= 30
+
+
+# ============================================================
+# 15. FLOAT alias in MySQL
+# ============================================================
+
+
+class TestFloatAlias:
+    def test_mysql_float_to_postgres(self):
+        r = map_type("FLOAT", "mysql", "postgres")
+        assert r.target_type == "REAL"
+
+    def test_mysql_double_real_alias(self):
+        """REAL is an alias for DOUBLE in MySQL."""
+        info = get_type_info("mysql", "REAL")
+        assert info is not None
+        assert info.name == "DOUBLE"
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

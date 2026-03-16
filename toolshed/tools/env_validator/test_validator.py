@@ -565,11 +565,24 @@ class TestValidateUrl:
         result = validate(env, tmpl)
         assert not result.is_valid
 
-    def test_invalid_url_ftp(self):
+    def test_valid_url_ftp(self):
+        """Any scheme is accepted — postgres://, redis://, ftp://, etc."""
         env = parse_env("API=ftp://example.com")
         tmpl = parse_template("API=url")
         result = validate(env, tmpl)
-        assert not result.is_valid
+        assert result.is_valid
+
+    def test_valid_url_postgres(self):
+        env = parse_env("DB=postgres://user:pass@localhost:5432/mydb")
+        tmpl = parse_template("DB=url")
+        result = validate(env, tmpl)
+        assert result.is_valid
+
+    def test_valid_url_redis(self):
+        env = parse_env("CACHE=redis://localhost:6379")
+        tmpl = parse_template("CACHE=url")
+        result = validate(env, tmpl)
+        assert result.is_valid
 
 
 class TestValidateEmail:
@@ -1022,6 +1035,142 @@ API_KEY=string
         tmpl = parse_template(tmpl_str)
         result = validate(env, tmpl)
         assert result.is_valid
+
+
+# ============================================================
+# 21. Fix suggestions
+# ============================================================
+
+class TestFixSuggestions:
+    def test_int_fix_suggestion(self):
+        env = parse_env("COUNT=abc")
+        tmpl = parse_template("COUNT=int")
+        result = validate(env, tmpl)
+        assert len(result.errors) == 1
+        assert result.errors[0].fix_suggestion is not None
+        assert "42" in result.errors[0].fix_suggestion
+
+    def test_int_float_fix_suggestion(self):
+        env = parse_env("COUNT=3.14")
+        tmpl = parse_template("COUNT=int")
+        result = validate(env, tmpl)
+        assert len(result.errors) == 1
+        assert result.errors[0].fix_suggestion is not None
+        assert "3" in result.errors[0].fix_suggestion
+
+    def test_bool_fix_suggestion(self):
+        env = parse_env("DEBUG=maybe")
+        tmpl = parse_template("DEBUG=bool")
+        result = validate(env, tmpl)
+        assert len(result.errors) == 1
+        assert result.errors[0].fix_suggestion is not None
+
+    def test_bool_y_fix_suggestion(self):
+        env = parse_env("DEBUG=y")
+        tmpl = parse_template("DEBUG=bool")
+        result = validate(env, tmpl)
+        assert len(result.errors) == 1
+        assert "yes" in result.errors[0].fix_suggestion
+
+    def test_url_no_scheme_fix_suggestion(self):
+        env = parse_env("API=example.com")
+        tmpl = parse_template("API=url")
+        result = validate(env, tmpl)
+        assert len(result.errors) == 1
+        assert "https://" in result.errors[0].fix_suggestion
+
+    def test_email_no_at_fix_suggestion(self):
+        env = parse_env("ADMIN=userexample.com")
+        tmpl = parse_template("ADMIN=email")
+        result = validate(env, tmpl)
+        assert len(result.errors) == 1
+        assert "@" in result.errors[0].fix_suggestion
+
+    def test_enum_case_mismatch_fix_suggestion(self):
+        env = parse_env("LEVEL=INFO")
+        tmpl = parse_template("LEVEL=enum(debug,info,warn,error)")
+        result = validate(env, tmpl)
+        assert len(result.errors) == 1
+        assert result.errors[0].fix_suggestion is not None
+        assert "info" in result.errors[0].fix_suggestion
+
+    def test_missing_var_has_fix_suggestion(self):
+        env = parse_env("")
+        tmpl = parse_template("REQUIRED=string")
+        result = validate(env, tmpl)
+        assert len(result.errors) == 1
+        assert result.errors[0].fix_suggestion is not None
+        assert "REQUIRED" in result.errors[0].fix_suggestion
+
+
+# ============================================================
+# 22. Secret detection
+# ============================================================
+
+class TestSecretDetection:
+    def test_no_secrets_when_disabled(self):
+        env = parse_env("API_KEY=sk-1234567890abcdef1234567890abcdef12")
+        tmpl = parse_template("API_KEY=string")
+        result = validate(env, tmpl, detect_secrets=False)
+        assert not any("secret" in i.message.lower() for i in result.issues)
+
+    def test_openai_key_detected(self):
+        env = parse_env("API_KEY=sk-1234567890abcdef1234567890abcdef12")
+        tmpl = parse_template("API_KEY=string")
+        result = validate(env, tmpl, detect_secrets=True)
+        secret_warnings = [i for i in result.issues if "secret" in i.message.lower()]
+        assert len(secret_warnings) >= 1
+        assert secret_warnings[0].fix_suggestion is not None
+
+    def test_github_token_detected(self):
+        env = parse_env("TOKEN=ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghij")
+        tmpl = parse_template("TOKEN=string")
+        result = validate(env, tmpl, detect_secrets=True)
+        secret_warnings = [i for i in result.issues if "secret" in i.message.lower()]
+        assert len(secret_warnings) >= 1
+
+    def test_aws_key_detected(self):
+        env = parse_env("AWS_KEY=AKIAIOSFODNN7EXAMPLE")
+        tmpl = parse_template("AWS_KEY=string")
+        result = validate(env, tmpl, detect_secrets=True)
+        secret_warnings = [i for i in result.issues if "secret" in i.message.lower()]
+        assert len(secret_warnings) >= 1
+
+    def test_short_value_not_secret(self):
+        env = parse_env("SECRET_KEY=short")
+        tmpl = parse_template("SECRET_KEY=string")
+        result = validate(env, tmpl, detect_secrets=True)
+        secret_warnings = [i for i in result.issues if "secret" in i.message.lower()]
+        assert len(secret_warnings) == 0
+
+    def test_placeholder_not_secret(self):
+        env = parse_env("SECRET_KEY=changeme")
+        tmpl = parse_template("SECRET_KEY=string")
+        result = validate(env, tmpl, detect_secrets=True)
+        secret_warnings = [i for i in result.issues if "secret" in i.message.lower()]
+        assert len(secret_warnings) == 0
+
+    def test_secret_key_name_with_long_value(self):
+        env = parse_env("API_SECRET_TOKEN=abcdefghijklmnop1234")
+        tmpl = parse_template("API_SECRET_TOKEN=string")
+        result = validate(env, tmpl, detect_secrets=True)
+        secret_warnings = [i for i in result.issues if "secret" in i.message.lower()]
+        assert len(secret_warnings) >= 1
+
+
+# ============================================================
+# 23. URL scheme validation (postgres://, redis://)
+# ============================================================
+
+class TestURLSchemeValidation:
+    def test_postgres_url_inferred(self):
+        assert infer_type("DATABASE_URL", "postgres://user:pass@localhost/db") == "url"
+
+    def test_redis_url_inferred(self):
+        assert infer_type("REDIS_URL", "redis://localhost:6379") == "url"
+
+    def test_amqp_url_inferred(self):
+        assert infer_type("BROKER_URL", "amqp://guest:guest@localhost") == "url"
 
 
 if __name__ == "__main__":
