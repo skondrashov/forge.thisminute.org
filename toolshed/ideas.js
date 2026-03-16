@@ -260,7 +260,13 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
     "tags": ["idea", "cli", "encoding", "unicode", "text-processing", "precision-tool"],
-    "status": "idea",
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/encoding-detective/",
+    "language": "python",
+    "validation": {
+      "benchmarks": "389 tests passing. BOM detection (UTF-8, UTF-16 LE/BE, UTF-32 LE/BE), UTF-8 structural validation (2/3/4-byte sequences, overlong/surrogate rejection), CJK encoding detection (Shift-JIS, EUC-JP, GB2312, Big5), single-byte heuristics (Windows-1252, ISO-8859-15, KOI8-R), mojibake detection and repair (UTF-8 as Latin-1, UTF-8 as CP1252, double-encoded UTF-8), encoding conversion with round-trip verification. CLI commands: analyze, bom, convert, mojibake.",
+      "limitations": "Pure offline tool with no external dependencies. CJK detection uses byte-pair heuristics which can be ambiguous between similar encodings (Shift-JIS vs GBK). Single-byte encoding disambiguation relies on statistical analysis of small differences."
+    },
     "complexity": "weekend",
     "capability": "Encoding detection, double-encoding diagnosis, and byte-level analysis",
     "approach": "Pure Python CLI. Detects encoding via BOM and heuristics, traces double-encoding chains by attempting decode/re-encode cycles, displays byte-level hex dumps with annotations, converts between encodings.",
@@ -308,7 +314,13 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
     "tags": ["idea", "cli", "timezone", "datetime", "scheduling", "precision-tool"],
-    "status": "idea",
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/timezone-converter/",
+    "language": "python",
+    "validation": {
+      "benchmarks": "507 tests passing. 5 subcommands: now (multi-zone current time), convert (between any two zones), overlap (work-hour intersection), list (filterable IANA zones + abbreviations), dst (transition detection via binary search). Supports IANA names, UTC offsets, and 50+ abbreviations. DST transitions accurate to 1 minute via binary search.",
+      "limitations": "Abbreviation disambiguation uses documented defaults (CST=US Central, IST=India). Overlap calculation assumes contiguous work hours within a single day. Requires tzdata package on Windows."
+    },
     "complexity": "weekend",
     "capability": "Timezone conversion, multi-zone overlap calculation, and DST-aware time analysis",
     "approach": "Pure Python CLI. Uses Python 3.9+ zoneinfo (stdlib). Converts between named zones, finds overlapping business hours across multiple zones, flags DST transitions and ambiguous/non-existent times.",
@@ -329,7 +341,13 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
     "tags": ["idea", "cli", "unicode", "text", "security", "precision-tool"],
-    "status": "idea",
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/unicode-inspector/",
+    "language": "python",
+    "validation": {
+      "benchmarks": "373 tests passing. Covers character inspection (codepoint, name, category, block, script, UTF-8/16/32 bytes, bidi class, combining class), invisible character detection (ZWS, ZWNJ, ZWJ, RTL/LTR marks, soft hyphens, BOM, C0/C1 controls, variation selectors), NFC/NFD/NFKC/NFKD normalization, and Latin/Cyrillic/Greek homoglyph confusable detection. CLI commands: char, string, search, invisible, normalize.",
+      "limitations": "Pure offline tool with no external dependencies. Script detection is approximated from Unicode block (not full Unicode Script property). Confusable table covers common Latin/Cyrillic/Greek pairs but not the full Unicode TR39 confusables.txt."
+    },
     "complexity": "weekend",
     "capability": "Unicode character analysis, invisible character detection, and confusable string identification",
     "approach": "Pure Python CLI. Uses unicodedata for character metadata. Builds confusable detection from Unicode TR39 confusables.txt. Scans for invisible characters by category. Normalizes between NFC/NFD/NFKC/NFKD.",
