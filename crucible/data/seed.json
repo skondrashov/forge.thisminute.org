@@ -27,7 +27,9 @@
       ],
       "rationale": "Focused tool with a single workflow. A steward handles everything and only splits roles if the clause taxonomy grows complex enough to need a specialist."
     },
-    "status": "idea"
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/lease-clause-comparator/",
+    "submittedDate": "2026-03-16"
   },
   {
     "id": "dependency-health-scorer",
@@ -100,7 +102,9 @@
       ],
       "rationale": "Linear pipeline with clear input/output at each stage. A steward handles it end-to-end. If integration with multiple task trackers grows complex, a builder role can split off."
     },
-    "status": "idea"
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/meeting-to-actions/",
+    "submittedDate": "2026-03-16"
   },
   {
     "id": "codebase-migration-planner",
@@ -225,7 +229,9 @@
       ],
       "rationale": "Focused read-only tool with a linear workflow. No design debates or iterative refinement needed — it either produces a good narrative or it doesn't. Steward can iterate on prompt quality without needing a team."
     },
-    "status": "idea"
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/git-commit-archaeology/",
+    "submittedDate": "2026-03-16"
   },
   {
     "id": "recipe-scaler-substituter",
@@ -298,6 +304,8 @@
       ],
       "rationale": "The debate engine needs iterative refinement — the quality of expert perspectives and debate dynamics will improve over cycles. Checkpoint model fits because each iteration produces a testable artifact (a debate transcript to evaluate)."
     },
-    "status": "idea"
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/research-paper-debate/",
+    "submittedDate": "2026-03-16"
   }
 ]
