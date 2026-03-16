@@ -497,7 +497,13 @@
     "os": ["windows", "macos", "linux"],
     "pricing": "free",
     "tags": ["idea", "cli", "dns", "networking", "email", "precision-tool"],
-    "status": "idea",
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/dns-record-reference/",
+    "language": "python",
+    "validation": {
+      "benchmarks": "277 project tests, 107 toolshed tests. Registry covers 20+ DNS record types with RFC references, syntax, examples. SPF validator parses mechanisms (ip4, ip6, include, a, mx, ptr, exists, all), qualifiers, modifiers, CIDR ranges, DNS lookup counting. DKIM validator parses tag-value pairs, validates version, key type (RSA/Ed25519), base64 key, hash algorithms. DMARC validator parses policy, alignment, reporting URIs, percentage. Also validates A, AAAA, CNAME, MX, SRV, CAA, NS, PTR records. CLI commands: lookup, list, search, validate, explain, generate.",
+      "limitations": "Pure offline tool with no external dependencies. Validates syntax only, does not query live DNS. SPF macro expansion not fully validated. DKIM key length validation is heuristic."
+    },
     "complexity": "weekend",
     "capability": "DNS record type reference with value validation for SPF, DKIM, and DMARC",
     "approach": "Pure Python CLI. Embeds reference data for ~20 record types with RFC links. Validates SPF mechanisms, DKIM key syntax, DMARC policy tags, SRV format, and CNAME restrictions.",
