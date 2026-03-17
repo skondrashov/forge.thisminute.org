@@ -691,5 +691,32 @@
       "alternatives": "partial",
       "alternatives_note": "SciPy linprog, PuLP, and Google OR-Tools are libraries that require integration into code. No agent-callable tool interface exists for optimization. The value is the same as chess-engine and logic-engine: structured tool interfaces for multi-step computation Claude can't replicate in a single response."
     }
+  },
+  {
+    "id": "statistics-engine",
+    "name": "Statistics Engine",
+    "description": "Agent skill for statistical hypothesis testing, distribution functions, regression, and inference. Six modules: distributions (normal, t, chi-squared, F, binomial, Poisson with PDF/CDF/quantile), descriptive statistics, hypothesis tests (t-tests, ANOVA, chi-squared, Mann-Whitney U, Wilcoxon), linear regression (simple and multiple with full inference), correlation (Pearson, Spearman, Kendall), and confidence intervals. Gives Claude exact p-values, test statistics, and regression coefficients instead of approximate mental math.",
+    "url": "",
+    "category": "Statistical Tools",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["idea", "statistics", "hypothesis-testing", "regression", "distributions", "agent-skill"],
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/statistics-engine/",
+    "language": "python",
+    "validation": {
+      "benchmarks": "110 benchmarks passing across 7 categories (Distributions: 30, Descriptive: 18, Hypothesis: 22, Regression: 16, Correlation: 12, Confidence: 12). 58 external validation tests against: standard statistical tables (Z/t/chi-squared/F for 28 critical values), Student's 1908 sleep data (paired t=-4.062, p=0.0028), Fisher's Iris ANOVA (F=18.57, p<0.001), Mendel's peas (chi2=0.263, 3:1 ratio not rejected), Anscombe's quartet (r=0.816), binomial/Poisson distribution properties. All pass.",
+      "limitations": "Pure Python — distribution functions use continued fraction expansions (betainc, gammainc) accurate to ~12 decimal places but slower than C implementations. Matrix inverse via Gauss-Jordan limits multiple regression to ~50 predictors. Nonparametric test p-values use normal approximation (adequate for n>=10)."
+    },
+    "complexity": "weekend",
+    "capability": "Exact statistical computation — p-values, test statistics, distribution quantiles, regression coefficients — that Claude cannot reliably compute inline",
+    "approach": "Pure Python, zero external dependencies. Implements regularized incomplete beta/gamma functions via continued fractions for distribution CDFs. All hypothesis tests return structured TestResult dataclasses with statistic, p-value, df, and reject decision.",
+    "agentArchitecture": { "model": "steward", "roles": ["statistician"] },
+    "triage": {
+      "impact": "high",
+      "buildability": "moderate",
+      "alternatives": "partial",
+      "alternatives_note": "scipy.stats is the standard Python library for statistical tests. R provides comprehensive statistical computing. No agent-callable tool interface exists. The value: Claude frequently makes errors on complex statistical calculations — this gives it exact computation as a tool."
+    }
   }
 );
