@@ -237,6 +237,139 @@
     "language": "java"
   },
   {
+    "id": "aiohttp",
+    "name": "aiohttp",
+    "description": "Async HTTP client and server for Python. Built on asyncio with WebSocket support, middlewares, and pluggable routing.",
+    "url": "https://docs.aiohttp.org",
+    "category": "HTTP Libraries",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "python",
+      "http",
+      "async",
+      "asyncio",
+      "open-source"
+    ],
+    "source": "https://github.com/aio-libs/aiohttp",
+    "language": "python"
+  },
+  {
+    "id": "hyper-http",
+    "name": "hyper (Rust)",
+    "description": "Fast, correct HTTP/1 and HTTP/2 implementation for Rust. Low-level building block used by reqwest and many Rust web frameworks.",
+    "url": "https://hyper.rs",
+    "category": "HTTP Libraries",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "rust",
+      "http",
+      "http2",
+      "low-level",
+      "open-source"
+    ],
+    "source": "https://github.com/hyperium/hyper",
+    "language": "rust"
+  },
+  {
+    "id": "guzzle",
+    "name": "Guzzle",
+    "description": "PHP HTTP client for sending requests and integrating with web services. PSR-7 compliant with middleware and async support.",
+    "url": "https://docs.guzzlephp.org",
+    "category": "HTTP Libraries",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "php",
+      "http",
+      "psr-7",
+      "middleware",
+      "open-source"
+    ],
+    "source": "https://github.com/guzzle/guzzle",
+    "language": "php"
+  },
+  {
+    "id": "superagent",
+    "name": "SuperAgent",
+    "description": "Lightweight HTTP client for Node.js and browsers. Chainable API with promises, plugins, and multipart upload support.",
+    "url": "https://github.com/ladjs/superagent",
+    "category": "HTTP Libraries",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "javascript",
+      "http",
+      "nodejs",
+      "browser",
+      "open-source"
+    ],
+    "source": "https://github.com/ladjs/superagent",
+    "language": "javascript"
+  },
+  {
+    "id": "http4k",
+    "name": "http4k",
+    "description": "Functional HTTP toolkit for Kotlin. Lightweight, testable, and server-agnostic with typesafe contracts and OpenAPI support.",
+    "url": "https://www.http4k.org",
+    "category": "HTTP Libraries",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "kotlin",
+      "http",
+      "functional",
+      "type-safe",
+      "open-source"
+    ],
+    "source": "https://github.com/http4k/http4k",
+    "language": "kotlin"
+  },
+  {
+    "id": "urllib3",
+    "name": "urllib3",
+    "description": "Foundational HTTP client for Python. Thread-safe connection pooling, TLS verification, and retry logic. Powers Requests and pip.",
+    "url": "https://urllib3.readthedocs.io",
+    "category": "HTTP Libraries",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "python",
+      "http",
+      "connection-pooling",
+      "foundational",
+      "open-source"
+    ],
+    "source": "https://github.com/urllib3/urllib3",
+    "language": "python"
+  },
+  {
     "id": "beautifulsoup4",
     "name": "Beautiful Soup",
     "description": "Python library for pulling data out of HTML and XML. Forgiving parser that handles messy real-world markup.",

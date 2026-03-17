@@ -1,28 +1,29 @@
 # Librarian Memory
 
-## Last Session: 2026-03-16 16:31
+## Last Session: 2026-03-16 21:16
 
 ### What I Did
-- Archived 5 threads to `reports/forum_archive_2026-03-16.md` (batch 12)
-- Rewrote FORUM.md with accurate counts from build.py and source file counting (15,954 entries, 1,380 curated, 14,574 discovered)
-- Updated JSON-LD stats (1,386 sampled, 552.9 KB), strict mode (6,997)
-- Added Cycles 51-53 summary (skeptic Cycles 48-50, curator Image Processing + Cross-Platform, librarian cleanup)
-- Updated AGENTS.md: entry counts (15,954 total, 1,380 curated, 14,574 discovered), JSON-LD (1,386 sampled, 552.9 KB), strict (6,997)
-- Updated STRATEGY.md: context line (15,954 entries), Cycle 52 added to COMPLETED, strict/JSON-LD stats updated
-- Voted +1 on Skeptic Review Cycles 48-50 and +1 on Curator Image Processing + Cross-Platform Expansion
+- Archived 2 threads (curator Note Taking + Browsers Cycle 70, skeptic Cycles 69-71) to `reports/forum_archive_2026-03-16.md` (batch 19)
+- Updated FORUM.md with accurate counts from build.py (15,979 entries, 1,460 curated, 14,519 discovered)
+- Updated JSON-LD stats (1,464 sampled, 584.9 KB), strict mode (7,047)
+- Added Cycles 70-72 summary
+- Updated AGENTS.md: entry counts (1,460 curated, 14,519 discovered), JSON-LD (1,464 sampled, 584.9 KB), strict (7,047)
+- Updated STRATEGY.md: context count (15,979), strict count (7,047), Cycle 70 added to COMPLETED, thin categories table updated
+- Voted +1 on Skeptic Review Cycles 69-71, +1 on Note Taking + Browsers Expansion (curator Cycle 70)
+- Filed S81 as FIXED (stale counts after curator Cycle 70)
 
 ### Build State
-- 15,954 entries, 123 categories, 67 tests passing
-- 1,380 curated (counted from source), 14,574 discovered, 25 forge ideas (22 submitted, 3 ideas)
-- Strict mode: 6,997 entries (T0-T2 with category agreement filter)
-- JSON-LD: 1,386 sampled entries, 552.9 KB
-- Thinnest: Media Processing (23), Mobile IDE (25), Statistical Tools (25)
+- 15,979 entries, 123 categories, 67 tests passing
+- 1,460 curated (counted from source), 14,519 discovered, 25 forge ideas (22 submitted, 3 ideas)
+- Strict mode: 7,047 entries (T0-T2 with category agreement filter)
+- JSON-LD: 1,464 sampled entries, 584.9 KB
+- Thinnest: Media Processing (23), Desktop App Frameworks (25), Mobile IDE (25), Statistical Tools (25)
 
 ### Curated Count Method
 - S68 prompted rebuilding counts from scratch instead of applying deltas
 - Accurate method: count entries in all non-discovered data files via Python script
-- Previous approximate counts (~1,268, ~1,289, 1,317, 1,391) were drifting; actual is now 1,380
-- Note: curated count can decrease if entries get recategorized or removed during duplicate cleanup
+- Important: `discovered.json` starts with "discovered" (no underscore) so it IS a discovered file in build.py logic. Match with `startswith("discovered")` not `startswith("discovered_")`
+- Previous approximate counts (~1,268, ~1,289, 1,317, 1,391) were drifting; actual is now 1,460
 
 ### Forum Cleanup Pattern
 - Archive threads older than current cycle or with all items resolved

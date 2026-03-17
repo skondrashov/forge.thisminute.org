@@ -189,6 +189,137 @@
     "source": "https://github.com/musescore/MuseScore"
   },
   {
+    "id": "cubase",
+    "name": "Cubase",
+    "description": "Steinberg's professional DAW. Industry reference for composing, recording, editing, and mixing across all genres.",
+    "url": "https://www.steinberg.net/cubase",
+    "category": "Music Production",
+    "os": [
+      "windows",
+      "macos"
+    ],
+    "pricing": "paid",
+    "tags": [
+      "daw",
+      "professional",
+      "midi",
+      "mixing"
+    ]
+  },
+  {
+    "id": "pro-tools",
+    "name": "Pro Tools",
+    "description": "Avid's industry-standard DAW for recording studios. The benchmark for professional audio recording, editing, and mixing.",
+    "url": "https://www.avid.com/pro-tools",
+    "category": "Music Production",
+    "os": [
+      "windows",
+      "macos"
+    ],
+    "pricing": "subscription",
+    "tags": [
+      "daw",
+      "professional",
+      "recording",
+      "studio"
+    ]
+  },
+  {
+    "id": "renoise",
+    "name": "Renoise",
+    "description": "Tracker-based DAW for sample-driven music production. Column-based note entry, scripting, and a built-in phrase sequencer.",
+    "url": "https://www.renoise.com",
+    "category": "Music Production",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "paid",
+    "tags": [
+      "daw",
+      "tracker",
+      "samples",
+      "scripting"
+    ]
+  },
+  {
+    "id": "cakewalk-sonar",
+    "name": "Cakewalk Sonar",
+    "description": "Free DAW for Windows by BandLab. Professional recording, editing, and mixing with 30 years of development behind it.",
+    "url": "https://www.cakewalk.com",
+    "category": "Music Production",
+    "os": [
+      "windows"
+    ],
+    "pricing": "free",
+    "tags": [
+      "daw",
+      "free",
+      "recording",
+      "mixing"
+    ]
+  },
+  {
+    "id": "surge-synth",
+    "name": "Surge XT",
+    "description": "Free, open-source hybrid synthesizer. 2,800+ factory patches, MPE support, and 12 oscillator algorithms across dual scenes.",
+    "url": "https://surge-synthesizer.github.io",
+    "category": "Music Production",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "synthesizer",
+      "vst",
+      "open-source",
+      "wavetable"
+    ],
+    "source": "https://github.com/surge-synthesizer/surge"
+  },
+  {
+    "id": "vital-synth",
+    "name": "Vital",
+    "description": "Spectral warping wavetable synthesizer with visual modulation feedback. Free tier with full synth engine included.",
+    "url": "https://vital.audio",
+    "category": "Music Production",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "synthesizer",
+      "wavetable",
+      "vst",
+      "modulation"
+    ]
+  },
+  {
+    "id": "sonic-pi",
+    "name": "Sonic Pi",
+    "description": "Free live coding music tool. Write code to create and perform music in real time, from classical to EDM.",
+    "url": "https://sonic-pi.net",
+    "category": "Music Production",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "live-coding",
+      "education",
+      "performance",
+      "open-source"
+    ],
+    "source": "https://github.com/samaaron/sonic-pi"
+  },
+  {
     "id": "davinci-resolve",
     "name": "DaVinci Resolve",
     "description": "Professional video editor with industry-leading color grading, Fusion VFX, and Fairlight audio — all free.",

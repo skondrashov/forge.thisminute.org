@@ -503,6 +503,138 @@
     "language": "python"
   },
   {
+    "id": "tortoise-orm",
+    "name": "Tortoise ORM",
+    "description": "Async ORM for Python inspired by Django. Supports PostgreSQL, MySQL, SQLite, and MSSQL with a familiar model API.",
+    "url": "https://tortoise.github.io",
+    "category": "ORMs",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "python",
+      "orm",
+      "async",
+      "asyncio",
+      "open-source"
+    ],
+    "source": "https://github.com/tortoise/tortoise-orm",
+    "language": "python"
+  },
+  {
+    "id": "hibernate",
+    "name": "Hibernate",
+    "description": "Industry-standard ORM for Java. Full JPA implementation with caching, lazy loading, and HQL query language.",
+    "url": "https://hibernate.org",
+    "category": "ORMs",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "java",
+      "orm",
+      "jpa",
+      "database",
+      "open-source"
+    ],
+    "source": "https://github.com/hibernate/hibernate-orm",
+    "language": "java"
+  },
+  {
+    "id": "active-record",
+    "name": "Active Record",
+    "description": "ORM layer for Ruby on Rails. Convention-over-configuration mapping between classes and database tables with migrations.",
+    "url": "https://guides.rubyonrails.org/active_record_basics.html",
+    "category": "ORMs",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "ruby",
+      "orm",
+      "rails",
+      "migrations",
+      "open-source"
+    ],
+    "source": "https://github.com/rails/rails",
+    "language": "ruby"
+  },
+  {
+    "id": "peewee",
+    "name": "Peewee",
+    "description": "Small, expressive Python ORM. Simple API for SQLite, MySQL, MariaDB, and PostgreSQL with minimal boilerplate.",
+    "url": "https://docs.peewee-orm.com",
+    "category": "ORMs",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "python",
+      "orm",
+      "lightweight",
+      "database",
+      "open-source"
+    ],
+    "source": "https://github.com/coleifer/peewee",
+    "language": "python"
+  },
+  {
+    "id": "sqlmodel",
+    "name": "SQLModel",
+    "description": "Python library combining SQLAlchemy and Pydantic. Type-safe database models with validation, built for FastAPI integration.",
+    "url": "https://sqlmodel.tiangolo.com",
+    "category": "ORMs",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "python",
+      "orm",
+      "pydantic",
+      "fastapi",
+      "open-source"
+    ],
+    "source": "https://github.com/fastapi/sqlmodel",
+    "language": "python"
+  },
+  {
+    "id": "mikro-orm",
+    "name": "MikroORM",
+    "description": "TypeScript ORM based on Data Mapper and Unit of Work patterns. Supports PostgreSQL, MySQL, MongoDB, and SQLite.",
+    "url": "https://mikro-orm.io",
+    "category": "ORMs",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "typescript",
+      "orm",
+      "data-mapper",
+      "nodejs",
+      "open-source"
+    ],
+    "source": "https://github.com/mikro-orm/mikro-orm",
+    "language": "typescript"
+  },
+  {
     "id": "pydantic",
     "name": "Pydantic",
     "description": "Data validation using Python type hints. Fast, extensible, and the backbone of FastAPI's request parsing.",
@@ -746,6 +878,141 @@
     ],
     "source": "https://github.com/apache/avro",
     "language": "java"
+  },
+  {
+    "id": "messagepack",
+    "name": "MessagePack",
+    "description": "Efficient binary serialization format. Like JSON but faster and smaller. Supported by 50+ languages with minimal encoding overhead.",
+    "url": "https://msgpack.org",
+    "category": "Data Validation & Serialization",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "serialization",
+      "binary",
+      "cross-language",
+      "performance",
+      "open-source"
+    ],
+    "source": "https://github.com/msgpack/msgpack",
+    "language": "multi"
+  },
+  {
+    "id": "flatbuffers",
+    "name": "FlatBuffers",
+    "description": "Serialization library by Google for games and performance-critical apps. Access serialized data without parsing or unpacking.",
+    "url": "https://flatbuffers.dev",
+    "category": "Data Validation & Serialization",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "serialization",
+      "binary",
+      "zero-copy",
+      "google",
+      "open-source"
+    ],
+    "source": "https://github.com/google/flatbuffers",
+    "language": "cpp"
+  },
+  {
+    "id": "apache-thrift",
+    "name": "Apache Thrift",
+    "description": "Framework for scalable cross-language services. Code generation engine for RPC clients and servers across C++, Java, Python, and 20+ languages.",
+    "url": "https://thrift.apache.org",
+    "category": "Data Validation & Serialization",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "serialization",
+      "rpc",
+      "cross-language",
+      "code-generation",
+      "open-source"
+    ],
+    "source": "https://github.com/apache/thrift",
+    "language": "multi"
+  },
+  {
+    "id": "yup",
+    "name": "Yup",
+    "description": "Schema builder for JavaScript/TypeScript runtime validation. Chainable API for parsing and asserting value shapes with async support.",
+    "url": "https://github.com/jquense/yup",
+    "category": "Data Validation & Serialization",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "javascript",
+      "typescript",
+      "validation",
+      "schema",
+      "open-source"
+    ],
+    "source": "https://github.com/jquense/yup",
+    "language": "javascript"
+  },
+  {
+    "id": "superstruct",
+    "name": "Superstruct",
+    "description": "TypeScript/JavaScript validation library for defining interfaces and validating data at runtime. Composable, lightweight, MIT-licensed.",
+    "url": "https://github.com/ianstormtaylor/superstruct",
+    "category": "Data Validation & Serialization",
+    "os": [
+      "windows",
+      "macos",
+      "linux",
+      "web"
+    ],
+    "pricing": "free",
+    "tags": [
+      "typescript",
+      "validation",
+      "runtime",
+      "composable",
+      "open-source"
+    ],
+    "source": "https://github.com/ianstormtaylor/superstruct",
+    "language": "typescript"
+  },
+  {
+    "id": "jsonschema",
+    "name": "jsonschema",
+    "description": "Python implementation of JSON Schema validation. Supports drafts 3 through 2020-12 with detailed error reporting. 800K+ dependents.",
+    "url": "https://python-jsonschema.readthedocs.io",
+    "category": "Data Validation & Serialization",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "python",
+      "json-schema",
+      "validation",
+      "standards-compliant",
+      "open-source"
+    ],
+    "source": "https://github.com/python-jsonschema/jsonschema",
+    "language": "python"
   },
   {
     "id": "dbt",
@@ -1222,6 +1489,155 @@
     ],
     "source": "https://github.com/surrealdb/surrealdb",
     "language": "rust"
+  },
+  {
+    "id": "tidb",
+    "name": "TiDB",
+    "description": "Distributed SQL database with MySQL compatibility and HTAP support. Horizontal scaling with strong consistency.",
+    "url": "https://www.pingcap.com/tidb/",
+    "category": "Databases",
+    "os": [
+      "linux",
+      "macos"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "distributed",
+      "sql",
+      "mysql-compatible",
+      "htap",
+      "open-source"
+    ],
+    "source": "https://github.com/pingcap/tidb",
+    "language": "go"
+  },
+  {
+    "id": "couchdb",
+    "name": "Apache CouchDB",
+    "description": "Document database with multi-master replication via the Couch Replication Protocol. HTTP API and offline-first sync.",
+    "url": "https://couchdb.apache.org",
+    "category": "Databases",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "document-store",
+      "replication",
+      "http-api",
+      "offline-first",
+      "open-source"
+    ],
+    "source": "https://github.com/apache/couchdb"
+  },
+  {
+    "id": "scylladb",
+    "name": "ScyllaDB",
+    "description": "High-performance NoSQL database compatible with Cassandra and DynamoDB. Written in C++ for predictable low latency.",
+    "url": "https://www.scylladb.com",
+    "category": "Databases",
+    "os": [
+      "linux"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "nosql",
+      "cassandra-compatible",
+      "high-performance",
+      "wide-column",
+      "source-available"
+    ],
+    "source": "https://github.com/scylladb/scylladb",
+    "language": "cpp"
+  },
+  {
+    "id": "timescaledb",
+    "name": "TimescaleDB",
+    "description": "PostgreSQL extension for time-series data. Hypertables, columnar compression, and continuous aggregates.",
+    "url": "https://www.timescale.com",
+    "category": "Databases",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "freemium",
+    "tags": [
+      "time-series",
+      "postgresql",
+      "analytics",
+      "compression",
+      "open-source"
+    ],
+    "source": "https://github.com/timescale/timescaledb",
+    "language": "c"
+  },
+  {
+    "id": "firebird-sql",
+    "name": "Firebird",
+    "description": "Open-source relational database with full ACID compliance. Lightweight, embeddable, and zero-administration capable.",
+    "url": "https://firebirdsql.org",
+    "category": "Databases",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "relational",
+      "sql",
+      "embedded",
+      "lightweight",
+      "open-source"
+    ],
+    "source": "https://github.com/FirebirdSQL/firebird",
+    "language": "cpp"
+  },
+  {
+    "id": "rethinkdb",
+    "name": "RethinkDB",
+    "description": "Document database with real-time push architecture. Change feeds notify apps instantly when data updates.",
+    "url": "https://rethinkdb.com",
+    "category": "Databases",
+    "os": [
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "document-store",
+      "real-time",
+      "change-feeds",
+      "json",
+      "open-source"
+    ],
+    "source": "https://github.com/rethinkdb/rethinkdb",
+    "language": "cpp"
+  },
+  {
+    "id": "foundationdb",
+    "name": "FoundationDB",
+    "description": "Distributed key-value store with ACID transactions. Apple-backed, powers iCloud and Snowflake infrastructure.",
+    "url": "https://www.foundationdb.org",
+    "category": "Databases",
+    "os": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "pricing": "free",
+    "tags": [
+      "distributed",
+      "key-value",
+      "acid",
+      "apple",
+      "open-source"
+    ],
+    "source": "https://github.com/apple/foundationdb",
+    "language": "cpp"
   },
   {
     "id": "elasticsearch",

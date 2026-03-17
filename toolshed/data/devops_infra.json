@@ -1462,6 +1462,78 @@
     "source": "https://github.com/GoogleContainerTools/skaffold"
   },
   {
+    "id": "containerd",
+    "name": "containerd",
+    "description": "Industry-standard container runtime. Manages the full container lifecycle from image transfer to execution, used by Docker and Kubernetes.",
+    "url": "https://containerd.io",
+    "category": "Container Orchestration",
+    "os": ["windows", "linux"],
+    "pricing": "free",
+    "tags": ["containers", "runtime", "cncf", "open-source"],
+    "source": "https://github.com/containerd/containerd",
+    "language": "go"
+  },
+  {
+    "id": "minikube",
+    "name": "Minikube",
+    "description": "Run a single-node Kubernetes cluster locally for development and testing. Supports multiple container runtimes and drivers.",
+    "url": "https://minikube.sigs.k8s.io",
+    "category": "Container Orchestration",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["kubernetes", "local-development", "testing", "open-source"],
+    "source": "https://github.com/kubernetes/minikube",
+    "language": "go"
+  },
+  {
+    "id": "kind",
+    "name": "kind",
+    "description": "Run local Kubernetes clusters using Docker container nodes. Designed for testing Kubernetes itself, also useful for CI and local dev.",
+    "url": "https://kind.sigs.k8s.io",
+    "category": "Container Orchestration",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["kubernetes", "docker", "testing", "ci", "open-source"],
+    "source": "https://github.com/kubernetes-sigs/kind",
+    "language": "go"
+  },
+  {
+    "id": "k9s",
+    "name": "k9s",
+    "description": "Terminal-based UI for managing Kubernetes clusters. Navigate, observe, and manage deployed applications with real-time resource monitoring.",
+    "url": "https://k9scli.io",
+    "category": "Container Orchestration",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["kubernetes", "tui", "monitoring", "cli", "open-source"],
+    "source": "https://github.com/derailed/k9s",
+    "language": "go"
+  },
+  {
+    "id": "istio",
+    "name": "Istio",
+    "description": "Service mesh for Kubernetes and traditional workloads. Programmable traffic management, telemetry, and mutual TLS security.",
+    "url": "https://istio.io",
+    "category": "Container Orchestration",
+    "os": ["linux", "macos"],
+    "pricing": "free",
+    "tags": ["kubernetes", "service-mesh", "networking", "cncf", "open-source"],
+    "source": "https://github.com/istio/istio",
+    "language": "go"
+  },
+  {
+    "id": "tilt",
+    "name": "Tilt",
+    "description": "Microservice development toolkit with smart rebuilds and live updates. Bridges local development and Kubernetes deployments.",
+    "url": "https://tilt.dev",
+    "category": "Container Orchestration",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["kubernetes", "development", "live-reload", "microservices", "open-source"],
+    "source": "https://github.com/tilt-dev/tilt",
+    "language": "go"
+  },
+  {
     "id": "aws-cli",
     "name": "AWS CLI",
     "description": "Official command-line tool for Amazon Web Services. Manage EC2, S3, Lambda, and all AWS services from the terminal.",

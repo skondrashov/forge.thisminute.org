@@ -347,6 +347,69 @@
     "source": "https://github.com/Floorp-Projects/Floorp"
   },
   {
+    "id": "opera",
+    "name": "Opera",
+    "description": "Feature-rich Chromium browser with built-in VPN, ad blocker, and integrated messengers. 30+ years of development.",
+    "url": "https://www.opera.com",
+    "category": "Browsers",
+    "os": ["windows", "macos", "linux", "ios", "android"],
+    "pricing": "free",
+    "tags": ["chromium", "built-in-vpn", "ad-blocker", "messengers"]
+  },
+  {
+    "id": "orion",
+    "name": "Orion",
+    "description": "WebKit-based browser by Kagi with native speed on Apple platforms. Supports Chrome, Firefox, and Safari extensions simultaneously.",
+    "url": "https://orionbrowser.com",
+    "category": "Browsers",
+    "os": ["macos", "ios"],
+    "pricing": "freemium",
+    "tags": ["webkit", "kagi", "multi-extension", "apple"]
+  },
+  {
+    "id": "mullvad-browser",
+    "name": "Mullvad Browser",
+    "description": "Privacy browser built with the Tor Project. Anti-fingerprinting, no telemetry, and no third-party tracking. Free and open-source.",
+    "url": "https://mullvad.net/en/browser",
+    "category": "Browsers",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["privacy", "anti-fingerprinting", "tor-project", "open-source"]
+  },
+  {
+    "id": "librewolf",
+    "name": "LibreWolf",
+    "description": "Privacy-hardened Firefox fork. Removes telemetry, disables DRM, and ships with uBlock Origin. Community-maintained.",
+    "url": "https://librewolf.net",
+    "category": "Browsers",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["privacy", "firefox-fork", "no-telemetry", "open-source"],
+    "source": "https://codeberg.org/librewolf/source"
+  },
+  {
+    "id": "ladybird",
+    "name": "Ladybird",
+    "description": "Independent browser engine built from scratch, not forked from existing engines. Funded by donations, no ads or data collection.",
+    "url": "https://ladybird.org",
+    "category": "Browsers",
+    "os": ["linux", "macos"],
+    "pricing": "free",
+    "tags": ["independent-engine", "open-source", "no-tracking", "from-scratch"],
+    "source": "https://github.com/LadybirdBrowser/ladybird"
+  },
+  {
+    "id": "min-browser",
+    "name": "Min",
+    "description": "Fast, minimal browser focused on privacy. Built-in ad/tracker blocking, tab grouping, and full-text search of browsing history.",
+    "url": "https://minbrowser.org",
+    "category": "Browsers",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["minimal", "privacy", "fast", "open-source"],
+    "source": "https://github.com/minbrowser/min"
+  },
+  {
     "id": "whatsapp",
     "name": "WhatsApp",
     "description": "End-to-end encrypted messaging app by Meta. Text, voice, video calls, groups, and file sharing for billions of users.",
@@ -377,6 +440,71 @@
     "pricing": "freemium",
     "tags": ["encrypted", "collaboration", "enterprise", "open-source"],
     "source": "https://github.com/wireapp"
+  },
+  {
+    "id": "mattermost",
+    "name": "Mattermost",
+    "description": "Self-hosted team messaging platform. Channels, playbooks, integrations, and on-premise deployment for security-conscious orgs.",
+    "url": "https://mattermost.com",
+    "category": "Communication",
+    "os": ["windows", "macos", "linux", "web", "ios", "android"],
+    "pricing": "freemium",
+    "tags": ["self-hosted", "workplace", "channels", "open-source"],
+    "source": "https://github.com/mattermost/mattermost"
+  },
+  {
+    "id": "zulip",
+    "name": "Zulip",
+    "description": "Threaded team chat for async-first communication. Topic-based organization, open-source, and self-hostable.",
+    "url": "https://zulip.com",
+    "category": "Communication",
+    "os": ["windows", "macos", "linux", "web", "ios", "android"],
+    "pricing": "freemium",
+    "tags": ["threaded", "async", "self-hosted", "open-source"],
+    "source": "https://github.com/zulip/zulip"
+  },
+  {
+    "id": "rocket-chat",
+    "name": "Rocket.Chat",
+    "description": "Self-hosted team communication with messaging, voice, video, and federation. Air-gapped and on-premise deployment options.",
+    "url": "https://rocket.chat",
+    "category": "Communication",
+    "os": ["windows", "macos", "linux", "web", "ios", "android"],
+    "pricing": "freemium",
+    "tags": ["self-hosted", "federated", "enterprise", "open-source"],
+    "source": "https://github.com/RocketChat/Rocket.Chat"
+  },
+  {
+    "id": "mumble",
+    "name": "Mumble",
+    "description": "Free, open-source voice chat with low latency and high quality. Self-hostable with positional audio and strong encryption.",
+    "url": "https://www.mumble.info",
+    "category": "Communication",
+    "os": ["windows", "macos", "linux", "ios"],
+    "pricing": "free",
+    "tags": ["voice-chat", "low-latency", "self-hosted", "open-source"],
+    "source": "https://github.com/mumble-voip/mumble"
+  },
+  {
+    "id": "guilded",
+    "name": "Guilded",
+    "description": "Community chat platform with built-in event calendars, forums, and scheduling. Free with gaming-focused features.",
+    "url": "https://guilded.gg",
+    "category": "Communication",
+    "os": ["windows", "macos", "ios", "android"],
+    "pricing": "free",
+    "tags": ["communities", "gaming", "forums", "events"]
+  },
+  {
+    "id": "simplex-chat",
+    "name": "SimpleX Chat",
+    "description": "Private messenger with no user IDs or phone numbers. End-to-end encrypted, decentralized, and independently audited.",
+    "url": "https://simplex.chat",
+    "category": "Communication",
+    "os": ["windows", "macos", "linux", "ios", "android"],
+    "pricing": "free",
+    "tags": ["encrypted", "privacy", "decentralized", "open-source"],
+    "source": "https://github.com/simplex-chat/simplex-chat"
   },
   {
     "id": "expressvpn",

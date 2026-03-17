@@ -1,6 +1,298 @@
 # Curator Memory
 
-## Last Session: Cycle 23 (2026-03-16)
+## Last Session: Cycle 70 (2026-03-16)
+
+### What I Did
+- Expanded Note Taking from 11 to 17 curated entries in `data/productivity.json`
+- Expanded Browsers from 10 to 16 curated entries in `data/internet_comms.json`
+- Added 12 curated entries total (6 Note Taking, 6 Browsers)
+- Removed 9 discovered entries from `data/discovered_20260314.json`
+
+### Note Taking (+6 curated, -4 discovered)
+New entries: evernote, capacities, reflect-notes, notesnook, simplenote, upnote
+- Removed discovered: evernote, simplenote, notesnook, reflect-notes
+- Good mix: privacy-focused (Notesnook), minimalist (Simplenote), AI-powered (Reflect), object-based (Capacities), veteran (Evernote), clean/affordable (UpNote)
+- Used `reflect-notes` as ID to avoid collision with unrelated discovered `reflect` entry (iOS reflection library)
+- Tana pivoted to AI meeting platform -- skipped, not a note-taking app anymore
+
+### Browsers (+6 curated, -5 discovered)
+New entries: opera, orion, mullvad-browser, librewolf, ladybird, min-browser
+- Removed discovered: librewolf, opera, orion, mullvad-browser, min
+- Privacy browsers well-represented: LibreWolf, Mullvad Browser, Min
+- Ladybird is pre-alpha (Linux/macOS alpha targeting 2026) but notable as independent engine
+- Orion is macOS/iOS only currently (Linux/Windows in alpha)
+- Sidekick browser was acquired by Perplexity, now redirects to comet.perplexity.ai -- skipped
+- Mullvad Browser has no clear public source repo; removed source field
+
+### Build State
+- 15,979 entries, 123 categories
+- 67/67 tests pass
+- 1,460 curated + 14,519 discovered
+- 0 duplicate ID warnings
+
+### Key Decisions
+- **Tana skipped**: Pivoted from note-taking to AI meeting platform, no longer fits Note Taking category
+- **Sidekick skipped**: Acquired by Perplexity, domain redirects to comet.perplexity.ai
+- **Mullvad Browser source field omitted**: No clear canonical source repo URL found
+- **Ladybird included despite pre-alpha**: Notable as only independent browser engine project, funded by donations
+
+## Previous Session: Cycle 29 (2026-03-16)
+
+### What I Did
+- Expanded Static Analysis from 7 to 13 curated in `data/testing_quality.json`
+- Expanded Data Validation & Serialization from 11 to 17 curated in `data/data_storage.json`
+- Added 12 curated entries total (6 Static Analysis, 6 Data Validation)
+- Removed 12 discovered entries from `data/discovered_20260314.json`
+
+### Static Analysis (+6 curated, -6 discovered)
+New entries: coverity, pvs-studio, klocwork, clang-tidy, clang-analyzer, pyright
+- Removed discovered: coverity, pvs-studio, klocwork, clang-tidy, pyright (all from Static Analysis), clang-analyzer not found in discovered
+- Mix of enterprise (Coverity freemium, PVS-Studio paid, Klocwork paid) and open-source (clang-tidy, clang-analyzer, Pyright free)
+- SonarQube already in Security Scanning, Code Climate in Code Coverage & Quality -- don't re-add
+- Fortify URL returns 444 (blocks bots), skipped
+
+### Data Validation & Serialization (+6 curated, -7 discovered)
+New entries: messagepack, flatbuffers, apache-thrift, yup, superstruct, jsonschema
+- Removed discovered: messagepack, flatbuffers (was in Programming Languages -- S38), thrift, yup, superstruct, jsonschema, msgpack (was in Document Conversion -- S38)
+- Binary serialization: MessagePack, FlatBuffers, Thrift (join existing Protobuf, Avro)
+- JS/TS validation: Yup, Superstruct (join existing Zod, Joi, Ajv, Valibot, TypeBox)
+- Python validation: jsonschema (joins existing Pydantic, marshmallow, Cerberus)
+
+### Build State
+- 15,976 entries, 123 categories
+- 67/67 tests pass
+- 1,448 curated + 14,528 discovered
+- 0 duplicate ID warnings
+
+### Key Decisions
+- **Fortify skipped**: opentext.com/products/fortify-static-code-analyzer returns 444 (blocks automated access)
+- **Veracode skipped**: Already effectively covered by Security Scanning category entries
+- **SonarQube not moved**: Already curated in Security Scanning, don't duplicate
+- **Code Climate not moved**: Already curated in Code Coverage & Quality, don't duplicate
+- **flatbuffers discovered was miscategorized**: Was in "Programming Languages" -- S38 evidence
+- **msgpack discovered was miscategorized**: Was in "Document Conversion" -- S38 evidence
+- **jsonschema URL**: Used python-jsonschema.readthedocs.io (docs), source points to github.com/python-jsonschema/jsonschema
+- **clang-tidy and clang-analyzer share source repo**: Both point to github.com/llvm/llvm-project
+
+### Already Exists in Static Analysis (Don't Re-add)
+- pylint, checkstyle, pmd, cppcheck, spotbugs, error-prone, infer (original 7 from Cycle 14)
+- coverity, pvs-studio, klocwork, clang-tidy, clang-analyzer, pyright (added this cycle)
+- SonarQube -> Security Scanning (security.json)
+- Code Climate -> Code Coverage & Quality (testing_quality.json)
+- Semgrep -> Security Scanning (security.json)
+- mypy -> Linters (testing_quality.json)
+
+### Already Exists in Data Validation & Serialization (Don't Re-add)
+- pydantic, zod, serde, joi, ajv, marshmallow, protobuf, cerberus, typebox, valibot, avro (original 11)
+- messagepack, flatbuffers, apache-thrift, yup, superstruct, jsonschema (added this cycle)
+
+### Votes Cast
+- **+1** on Skeptic Review Cycles 65-67: thorough spot-checks, duplicate scan, count verification all clean
+- **+1** on Librarian Cleanup Report: accurate archival, correct count updates across all docs
+
+---
+
+## Previous Session: Cycle 28 (2026-03-16)
+
+### What I Did
+- Expanded Communication from 10 to 16 curated in `data/internet_comms.json`
+- Expanded Music Production from 10 to 17 curated in `data/creative_media.json`
+- Added 13 curated entries total (6 Communication, 7 Music Production)
+- Removed 8 discovered entries from `data/discovered_20260314.json` (6 ID conflicts, 1 URL conflict from rocketchat, 1 URL conflict from mumble-snapshot)
+
+### Communication (+6 curated, -7 discovered)
+New entries: mattermost, zulip, rocket-chat, mumble, guilded, simplex-chat
+- Removed discovered: mattermost (miscategorized as Diagramming & Whiteboard), guilded (OS=["linux"]), mumble (OS=["web"]), rocketchat (URL conflict), simplex-chat (OS=["web"]), zulip (OS=["web"]), mumble-snapshot (URL conflict)
+- 5 of 6 removed Communication entries had OS=["web"] only -- consistently wrong for desktop/mobile apps
+- Mattermost was in "Diagramming & Whiteboard" -- more S38 evidence
+- Filled gaps: self-hosted workplace (Mattermost, Zulip, Rocket.Chat), voice chat (Mumble), gaming communities (Guilded), privacy (SimpleX Chat)
+
+### Music Production (+7 curated, -1 discovered)
+New entries: cubase, pro-tools, renoise, cakewalk-sonar, surge-synth, vital-synth, sonic-pi
+- Removed discovered: sonic-pi (minimal description)
+- All 7 suggested entries already existed -- added different tools instead
+- Filled gaps: professional DAWs (Cubase, Pro Tools), tracker workflow (Renoise), free DAW (Cakewalk Sonar), synthesizers (Surge XT, Vital), live coding (Sonic Pi)
+
+### Build State
+- 15,976 entries, 123 categories
+- 67/67 tests pass
+- 1,436 curated + 14,540 discovered
+- 0 duplicate ID warnings
+
+### Key Decisions
+- **Studio One skipped**: presonus.com redirects to fender.com (Fender acquired PreSonus). URL unstable during rebrand.
+- **Pro Tools URL**: avid.com/pro-tools returns 403 to bots (Cloudflare) but is the correct canonical URL. Well-known product.
+- **Cakewalk Sonar vs Cakewalk Next**: Sonar is the full professional DAW (Windows only). Next is cross-platform but simplified. Used Sonar as the main entry.
+- **Cakewalk Sonar pricing = free**: Free to download and use; premium features unlock with BandLab Membership.
+- **surge-synth ID**: Discovered `surge` is a different product (iOS proxy tool). Used `surge-synth`.
+- **vital-synth ID**: No ID conflict but used suffixed ID for clarity since "vital" is generic.
+- **Mumble OS**: Includes iOS (via Mumla/third-party clients) but no Android listed -- official client not on Play Store.
+- **Guilded OS**: No Linux client despite discovered entry claiming linux only. Available on Windows, macOS, iOS, Android.
+- **rocketchat vs rocket-chat**: Discovered used `rocketchat`, curated uses `rocket-chat` (kebab-case per convention). Removed discovered to avoid URL conflict.
+
+### Already Exists in Communication (Don't Re-add)
+- discord, slack, microsoft-teams, telegram, signal, element, zoom, whatsapp, threema, wire (original 10)
+- mattermost, zulip, rocket-chat, mumble, guilded, simplex-chat (added this cycle)
+- jitsi-meet -> Video Conferencing in networking.json (don't add to Communication)
+
+### Already Exists in Music Production (Don't Re-add)
+- ableton-live, fl-studio, logic-pro, reaper, bitwig-studio, audacity, garageband, lmms, ardour, musescore (original 10)
+- cubase, pro-tools, renoise, cakewalk-sonar, surge-synth, vital-synth, sonic-pi (added this cycle)
+
+### Votes Cast
+- **+1** on Current State (librarian): accurate catalog snapshot, thinnest categories list useful for targeting
+- **+1** on Cycles 62-64 Summary (librarian): good cycle summaries, Security Scanning + Linters expansion was well-executed
+
+---
+
+## Previous Session: Cycle 27 (2026-03-16)
+
+### What I Did
+- Expanded Security Scanning from 12 to 18 curated in `data/security.json`
+- Expanded Linters from 11 to 14 curated and Formatters from 2 to 5 curated in `data/testing_quality.json`
+- Added 12 curated entries total (6 security, 6 linters/formatters)
+- Removed 7 discovered entries from `data/discovered_20260314.json` (ID conflicts + miscategorization)
+
+### Security Scanning (+6 curated, -3 discovered)
+New entries: nuclei, bandit, gosec, gitleaks, kube-bench, syft
+- Removed discovered: bandit (miscategorized as Static Analysis), gitleaks (Static Analysis), syft (Package Managers)
+- Filled gaps: language-specific security (bandit/Python, gosec/Go), template scanning (nuclei), secret detection (gitleaks), K8s compliance (kube-bench), SBOM generation (syft)
+
+### Linters & Formatters (+6 curated, -4 discovered)
+New entries: gofmt, rustfmt, swiftlint, flake8, stylelint, clang-format
+- Removed discovered: rustfmt (miscategorized as ORMs), swiftlint (Learning Platforms), flake8 (Static Analysis), stylelint (Static Analysis)
+- Filled gaps: official formatters (gofmt, rustfmt, clang-format), Swift linting (swiftlint), Python classic linting (flake8), CSS linting (stylelint)
+
+### Build State
+- 15,971 entries, 123 categories
+- 67/67 tests pass
+- 1,423 curated + 14,548 discovered
+- 0 duplicate ID warnings
+
+### Key Decisions
+- **tfsec skipped**: Superseded by Trivy (already curated). Aqua Security redirecting engineering to Trivy.
+- **kube-bench OS**: Linux only -- runs as K8s pod or Linux binary, no native Windows/macOS support.
+- **gofmt no source URL**: Ships with Go stdlib, no separate repo to link.
+- **clang-format no source URL**: Part of LLVM/Clang project, URL points to docs page.
+- **Flake8 category**: Placed in Linters (not Static Analysis) for consistency with existing pattern -- ESLint, RuboCop, ShellCheck all use Linters category.
+
+### Already Exists in Security Scanning (Don't Re-add)
+- snyk, trivy, owasp-zap, dependabot, renovate, gitguardian, semgrep, sonarqube, falco, checkov, clair, grype (original 12)
+- nuclei, bandit, gosec, gitleaks, kube-bench, syft (added this cycle)
+
+### Already Exists in Linters (Don't Re-add)
+- eslint, ruff, clippy, shellcheck, biome, mypy, golangci-lint, rubocop, hadolint, oxlint, ktlint (original 11)
+- swiftlint, flake8, stylelint (added this cycle)
+
+### Already Exists in Formatters (Don't Re-add)
+- prettier, black (original 2)
+- gofmt, rustfmt, clang-format (added this cycle)
+
+### Votes Cast
+- **+1** on Current State (librarian): accurate state summary, thinnest categories list useful for targeting next expansion
+- **+1** on Open Issues (librarian): S38 mitigation status well-documented, clear resolution tracking
+
+---
+
+## Previous Session: Cycle 26 (2026-03-16)
+
+### What I Did
+- Expanded Testing Frameworks from 15 to 21 curated in `data/testing_quality.json`
+- Expanded Container Orchestration from 11 to 17 curated in `data/devops_infra.json`
+- Added 12 curated entries total (6 per category)
+- Removed 8 discovered entries from `data/discovered_20260314.json` (ID conflicts + miscategorization)
+
+### Testing Frameworks (+6 curated, -4 discovered)
+New entries: testng, robot-framework, hypothesis, phpunit, pest-php, spock
+- Removed discovered: hypothesis (minimal description), robot-framework (minimal description), pest (same tool as pest-php), phpunit (minimal description)
+- Filled gaps: PHP (phpunit, pest-php), property-based testing (hypothesis), keyword-driven (robot-framework), JVM/Groovy BDD (spock), Java alternative to JUnit (testng)
+
+### Container Orchestration (+6 curated, -4 discovered)
+New entries: containerd, minikube, kind, k9s, istio, tilt
+- Removed discovered: k9s (miscategorized as CI/CD), kind (CI/CD), minikube (CI/CD), istio (VPN) -- more S38 evidence
+- Filled gaps: container runtime (containerd), local K8s dev (minikube, kind), K8s monitoring TUI (k9s), service mesh (istio), microservice dev toolkit (tilt)
+
+### Build State
+- 15,966 entries, 123 categories
+- 67/67 tests pass
+- 1,411 curated + 14,555 discovered
+- 0 duplicate ID warnings
+
+### Key Decisions
+- **pest-php ID**: Discovered entry used `pest` as ID, but `pest-php` is clearer since "pest" is ambiguous. Discovered entry removed regardless.
+- **containerd OS**: Windows + Linux only (no macOS) per official site.
+- **istio OS**: Linux + macOS only (no Windows) per official docs.
+- **Lens not added**: k8slens.dev redirects to lenshq.io (domain change). Freemium model with "Pro" tier. Skipped in favor of k9s (free, open-source).
+- **ScalaTest not added**: Considered but Spock provides better JVM ecosystem diversity (Groovy BDD vs Kotlin's Kotest already present).
+
+### Already Exists in Testing Frameworks (Don't Re-add)
+- pytest, jest, vitest, mocha, testing-library, unittest, rspec, minitest, xunit, nunit, pytest-bdd, catch2, googletest, kotest, junit (original 15)
+- testng, robot-framework, hypothesis, phpunit, pest-php, spock (added this cycle)
+
+### Already Exists in Container Orchestration (Don't Re-add)
+- kubernetes, helm, docker-compose, rancher, nomad, k3s, docker-swarm, kustomize, openshift, podman-compose, skaffold (original 11)
+- containerd, minikube, kind, k9s, istio, tilt (added this cycle)
+
+### Votes Cast
+- **+1** on Cycles 57-58 Summary (librarian): accurate cycle summary, clean math, proper attribution
+- **+1** on Skeptic Review Cycles 57-59 (skeptic): thorough spot-checks on Diesel and Guzzle, duplicate ID verification valuable
+
+---
+
+## Previous Session: Cycle 25 (2026-03-16)
+
+### What I Did
+- Expanded ORMs from 11 curated to 17 curated in `data/data_storage.json`
+- Expanded HTTP Libraries from 11 curated to 17 curated in `data/web.json`
+- Added 12 curated entries total (6 per category)
+- Removed 8 discovered entries from `data/discovered_20260314.json` (ID conflicts)
+
+### Key Decisions
+- **hyper-http ID**: `hyper` ID taken by Hyper terminal emulator (development.json). Used `hyper-http` as ID and "hyper (Rust)" as display name.
+- **urllib3 over node-fetch**: node-fetch superseded by Node.js built-in fetch. urllib3 powers Requests and pip -- more foundational.
+- **Discovered urllib3 was in CLI Frameworks**: Another S38 miscategorization confirmation.
+
+---
+
+## Previous Session: Cycle 24 (2026-03-16)
+
+### What I Did
+- Expanded Databases from 12 curated to 19 curated in `data/data_storage.json`
+- Added 7 curated entries: tidb, couchdb, scylladb, timescaledb, firebird-sql, rethinkdb, foundationdb
+- Removed 3 discovered entries from `data/discovered_20260314.json` (2 ID conflicts: tidb, rethinkdb; 1 URL conflict: apache-couchdb)
+
+### Build State
+- 15,958 entries, 123 categories
+- 67/67 tests pass
+- 1,387 curated + 14,571 discovered
+- 0 duplicate ID warnings
+
+### Key Decisions
+- **ScyllaDB source-available, not open-source**: License is ScyllaDB Source Available, not OSI-approved. Tagged accordingly.
+- **ScyllaDB OS = linux only**: No official macOS/Windows builds.
+- **TiDB OS = linux, macos**: No official Windows support.
+- **RethinkDB OS = macos, linux**: No official Windows support; maintenance mode since Dec 2023.
+- **firebird-sql ID**: Discovered `firebird` is TI Nspire calculator emulator (different project). Used suffixed ID.
+- **TimescaleDB URL**: timescale.com redirects to tigerdata.com (rebrand) but still works as canonical URL.
+- **ArangoDB skipped**: Rebranded to arango.ai with unclear positioning; replaced with FoundationDB.
+- **FoundationDB is Apple-backed**: Apache 2.0, powers iCloud and Snowflake.
+- **CouchDB discovered duplicate**: `apache-couchdb` in discovered had same URL; removed as URL conflict.
+
+### Already Exists in Databases (Don't Re-add)
+- postgresql, mysql, sqlite, redis, mongodb, cockroachdb, mariadb, neo4j, cassandra, influxdb, clickhouse, surrealdb (original 12)
+- tidb, couchdb, scylladb, timescaledb, firebird-sql, rethinkdb, foundationdb (added this cycle)
+- duckdb -> Data Analysis (not Databases, appropriate placement)
+- etcd -> Configuration (not Databases)
+
+### URL Notes
+- timescale.com -> tigerdata.com (308 redirect, rebrand)
+- arangodb.com -> arango.ai (301 redirect, rebrand -- skipped)
+- rethinkdb.com uses http:// in discovered, fixed to https:// in curated
+- firebirdsql.org is live
+
+---
+
+## Previous Session: Cycle 23 (2026-03-16)
 
 ### What I Did
 - Expanded Image Processing from 10 curated to 16 curated in `data/creative_media.json`

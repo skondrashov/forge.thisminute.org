@@ -1147,6 +1147,78 @@
     "source": "https://github.com/anchore/grype"
   },
   {
+    "id": "nuclei",
+    "name": "Nuclei",
+    "description": "Fast, template-based vulnerability scanner by ProjectDiscovery. YAML templates for detecting CVEs, misconfigurations, and exposures.",
+    "url": "https://github.com/projectdiscovery/nuclei",
+    "category": "Security Scanning",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["vulnerability-scanning", "templates", "pentest", "cve", "open-source"],
+    "source": "https://github.com/projectdiscovery/nuclei",
+    "language": "go"
+  },
+  {
+    "id": "bandit",
+    "name": "Bandit",
+    "description": "Security linter for Python code. Scans ASTs to find common security issues like hardcoded passwords, SQL injection, and insecure imports.",
+    "url": "https://bandit.readthedocs.io",
+    "category": "Security Scanning",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["python", "security", "static-analysis", "ast", "open-source"],
+    "source": "https://github.com/PyCQA/bandit",
+    "language": "python"
+  },
+  {
+    "id": "gosec",
+    "name": "gosec",
+    "description": "Go security checker that inspects source code AST and SSA for vulnerabilities. Covers injection, crypto, file handling, and taint analysis.",
+    "url": "https://github.com/securego/gosec",
+    "category": "Security Scanning",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["go", "security", "static-analysis", "ast", "open-source"],
+    "source": "https://github.com/securego/gosec",
+    "language": "go"
+  },
+  {
+    "id": "gitleaks",
+    "name": "Gitleaks",
+    "description": "Detects hardcoded secrets like API keys, passwords, and tokens in Git repos and files. Regex and entropy-based scanning with pre-commit support.",
+    "url": "https://github.com/gitleaks/gitleaks",
+    "category": "Security Scanning",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["secret-detection", "git", "pre-commit", "credentials", "open-source"],
+    "source": "https://github.com/gitleaks/gitleaks",
+    "language": "go"
+  },
+  {
+    "id": "kube-bench",
+    "name": "kube-bench",
+    "description": "Checks Kubernetes clusters against CIS Benchmark security standards. YAML-configurable tests that run as a pod or standalone binary.",
+    "url": "https://github.com/aquasecurity/kube-bench",
+    "category": "Security Scanning",
+    "os": ["linux"],
+    "pricing": "free",
+    "tags": ["kubernetes", "cis-benchmark", "compliance", "security", "open-source"],
+    "source": "https://github.com/aquasecurity/kube-bench",
+    "language": "go"
+  },
+  {
+    "id": "syft",
+    "name": "Syft",
+    "description": "SBOM generator for container images and filesystems by Anchore. Creates software bills of materials in SPDX, CycloneDX, and other formats.",
+    "url": "https://github.com/anchore/syft",
+    "category": "Security Scanning",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["sbom", "containers", "supply-chain", "spdx", "open-source"],
+    "source": "https://github.com/anchore/syft",
+    "language": "go"
+  },
+  {
     "id": "gpg",
     "name": "GnuPG",
     "description": "Free implementation of the OpenPGP standard. Encrypts and signs data and communications. The backbone of email encryption.",

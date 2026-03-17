@@ -1,5 +1,5 @@
 # toolshed
-> Universal software directory with 15954 entries across 123 categories. Structured data for AI agents and developers.
+> Universal software directory with 15979 entries across 123 categories. Structured data for AI agents and developers.
 
 ## Endpoints
 - Full catalog (JSON): /api/v1/catalog.json
@@ -20,38 +20,38 @@ OS: windows | macos | linux | web | ios | android
 
 ## Categories
 - iOS UI Components: 700
-- Static Analysis: 533
-- CLI Frameworks: 451
-- Databases: 404
-- Testing Frameworks: 349
+- Static Analysis: 530
+- CLI Frameworks: 450
+- Databases: 408
+- Testing Frameworks: 351
 - Image Processing: 341
 - Frontend Frameworks: 336
 - Networking: 334
 - Cross-Platform Frameworks: 309
-- Container Orchestration: 301
+- Container Orchestration: 307
 - Video Editing: 290
 - Communication: 285
-- Data Validation & Serialization: 275
-- Music Production: 272
+- Music Production: 278
+- Data Validation & Serialization: 276
 - Game Engines: 233
 - Backend Frameworks: 219
 - Version Control: 208
 - Data Pipelines: 207
 - Media Players: 207
 - Async & Concurrency: 206
-- CI/CD Tools: 196
 - API Clients: 195
+- CI/CD Tools: 193
 - Logging & Diagnostics: 191
 - Project Management: 189
 - Configuration: 185
 - Backup & Sync: 183
 - Encryption & Privacy Tools: 183
+- Security Scanning: 183
 - AI/ML Libraries: 181
 - Monitoring & Metrics: 181
-- Programming Languages: 180
-- Note Taking: 179
+- Note Taking: 181
+- Programming Languages: 179
 - UI/UX Design Tools: 178
-- Security Scanning: 177
 - Content Management Systems: 174
 - Utilities: 167
 - Launcher & Productivity Utils: 161
@@ -69,19 +69,19 @@ OS: windows | macos | linux | web | ios | android
 - 3D & CAD: 133
 - Screen Recording / Streaming: 129
 - Fonts & Typography: 128
-- ORMs: 125
+- ORMs: 127
 - Search Engines: 122
 - Real-time Communication: 121
 - Password Managers: 119
 - Text Processing: 119
 - Office Suites: 118
 - Operating Systems: 117
-- Package Managers: 117
 - Window Managers: 117
+- Package Managers: 116
 - Terminal Emulators: 115
-- Learning Platforms: 114
+- HTTP Libraries: 114
 - Cloud Storage: 113
-- HTTP Libraries: 112
+- Learning Platforms: 113
 - Scientific Computing: 112
 - Email: 110
 - Data Analysis: 108
@@ -91,7 +91,7 @@ OS: windows | macos | linux | web | ios | android
 - Caching: 80
 - RSS Readers: 80
 - Blockchain & Web3: 78
-- Document Conversion: 78
+- Document Conversion: 77
 - Date & Time: 76
 - Virtualization: 76
 - Clipboard Managers: 71
@@ -101,29 +101,29 @@ OS: windows | macos | linux | web | ios | android
 - Template Engines: 63
 - Database Drivers: 62
 - Blogging & Newsletter Platforms: 61
-- VPN: 60
-- Browsers: 59
+- Browsers: 60
+- VPN: 59
 - LLM Tools: 58
 - Load & Performance Testing: 55
 - Error & Exception Tracking: 53
+- Linters: 53
 - Torrent Clients: 51
 - Jupyter & Notebooks: 50
-- Linters: 50
 - GraphQL Tools: 49
 - Image Editors: 47
 - Social Media Clients: 47
-- Diagramming & Whiteboard: 46
 - Screenshot & Annotation: 46
+- Diagramming & Whiteboard: 45
 - Terminal UI: 45
 - Code Coverage & Quality: 42
 - CRM & Sales: 41
 - Math & Numerics: 40
 - Log Management: 39
+- Formatters: 37
 - Shell Environments: 37
 - Vector & Illustration: 36
 - Compression & Archiving: 34
 - Database Migrations: 34
-- Formatters: 34
 - Infrastructure as Code: 33
 - Error Handling: 30
 - API Documentation: 29

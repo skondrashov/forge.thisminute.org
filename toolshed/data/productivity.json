@@ -113,6 +113,68 @@
     "tags": ["local-first", "p2p", "open-source", "object-based"]
   },
   {
+    "id": "evernote",
+    "name": "Evernote",
+    "description": "Veteran note-taking app with web clipper, document scanning, and powerful search across handwritten and typed notes.",
+    "url": "https://evernote.com",
+    "category": "Note Taking",
+    "os": ["windows", "macos", "web", "ios", "android"],
+    "pricing": "freemium",
+    "tags": ["web-clipper", "scanning", "search", "veteran"]
+  },
+  {
+    "id": "capacities",
+    "name": "Capacities",
+    "description": "Object-based note-taking app. Organize information as typed objects (books, people, ideas) with relations instead of folders.",
+    "url": "https://capacities.io",
+    "category": "Note Taking",
+    "os": ["windows", "macos", "linux", "web", "ios", "android"],
+    "pricing": "freemium",
+    "tags": ["object-based", "knowledge-management", "relations", "cross-platform"]
+  },
+  {
+    "id": "reflect-notes",
+    "name": "Reflect",
+    "description": "AI-powered note-taking with networked notes, backlinks, and end-to-end encryption. GPT-4 integration for writing assistance.",
+    "url": "https://reflect.app",
+    "category": "Note Taking",
+    "os": ["windows", "macos", "web", "ios"],
+    "pricing": "subscription",
+    "tags": ["ai", "backlinks", "encrypted", "networked-notes"]
+  },
+  {
+    "id": "notesnook",
+    "name": "Notesnook",
+    "description": "Open-source, end-to-end encrypted note-taking app focused on privacy. No tracking, no ads, with self-hosting option.",
+    "url": "https://notesnook.com",
+    "category": "Note Taking",
+    "os": ["windows", "macos", "linux", "web", "ios", "android"],
+    "pricing": "freemium",
+    "tags": ["encrypted", "privacy", "open-source", "self-hosted"],
+    "source": "https://github.com/streetwriters/notesnook"
+  },
+  {
+    "id": "simplenote",
+    "name": "Simplenote",
+    "description": "Free, minimalist note app by Automattic. Markdown support, tags, version history, and instant sync across all devices.",
+    "url": "https://simplenote.com",
+    "category": "Note Taking",
+    "os": ["windows", "macos", "linux", "web", "ios", "android"],
+    "pricing": "free",
+    "tags": ["minimal", "free", "markdown", "sync"],
+    "source": "https://github.com/Automattic/simplenote-electron"
+  },
+  {
+    "id": "upnote",
+    "name": "UpNote",
+    "description": "Clean note-taking app with nested notebooks, rich formatting, and a lifetime purchase option. Offline-first with sync.",
+    "url": "https://www.getupnote.com",
+    "category": "Note Taking",
+    "os": ["windows", "macos", "linux", "ios", "android"],
+    "pricing": "freemium",
+    "tags": ["nested-notebooks", "offline-first", "lifetime-purchase", "clean"]
+  },
+  {
     "id": "thunderbird",
     "name": "Thunderbird",
     "description": "Free, open-source email client by Mozilla. Supports IMAP/POP3, calendar, contacts, and extensions.",
