@@ -664,5 +664,32 @@
       "alternatives": "none",
       "alternatives_note": "No library provides a typed registry pattern for CLI reference tools. SQLite or tinydb are overkill. The forge needs a ~150 LOC in-memory registry with search and serialization, not a database."
     }
+  },
+  {
+    "id": "optimization-solver",
+    "name": "Optimization Solver",
+    "description": "Agent skill for operations research and combinatorial optimization. Six algorithm modules: linear programming (two-phase simplex), integer programming (branch and bound), assignment problem (Hungarian algorithm), network flow (Edmonds-Karp max flow / min cut), knapsack (0/1 DP, fractional greedy, bounded), and TSP (nearest neighbor, 2-opt, exact branch and bound). Gives Claude real computational capability for resource allocation, scheduling, routing, and planning problems that can't be solved inline.",
+    "url": "",
+    "category": "Math & Numerics",
+    "os": ["windows", "macos", "linux"],
+    "pricing": "free",
+    "tags": ["idea", "optimization", "operations-research", "linear-programming", "agent-skill"],
+    "status": "submitted",
+    "projectPath": "~/projects/singularity/optimization-solver/",
+    "language": "python",
+    "validation": {
+      "benchmarks": "116 benchmarks passing across 6 categories (LP: 28, ILP: 17, Assignment: 18, Network Flow: 17, Knapsack: 18, TSP: 18). 34 external validation tests against textbook problems: Hillier & Lieberman Wyndor Glass LP, Taha assignment problem, CLRS max flow (Fig 26.6), brute-force verified 10-item knapsack, regular polygon and grid TSP with exact solutions. All external validations pass.",
+      "limitations": "Pure Python — performance is adequate for problems up to ~100 variables/nodes but not competitive with C-based solvers (OR-Tools, CPLEX) for large instances. TSP exact solver practical for ≤15 cities. LP simplex may cycle on highly degenerate problems despite Bland's rule."
+    },
+    "complexity": "weekend",
+    "capability": "Structured tool interfaces for optimization algorithms that Claude cannot execute inline during conversation",
+    "approach": "Pure Python, zero external dependencies. Each module provides a clean function API returning dataclass results. Two-phase simplex with Bland's rule, branch-and-bound with LP relaxation, O(n^3) Hungarian with dual potentials, Edmonds-Karp BFS max flow, DP knapsack with backtracking, TSP with nearest neighbor + 2-opt + exact B&B.",
+    "agentArchitecture": { "model": "steward", "roles": ["solver"] },
+    "triage": {
+      "impact": "high",
+      "buildability": "straightforward",
+      "alternatives": "partial",
+      "alternatives_note": "SciPy linprog, PuLP, and Google OR-Tools are libraries that require integration into code. No agent-callable tool interface exists for optimization. The value is the same as chess-engine and logic-engine: structured tool interfaces for multi-step computation Claude can't replicate in a single response."
+    }
   }
 );
