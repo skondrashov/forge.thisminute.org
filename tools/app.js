@@ -42,7 +42,7 @@
   var PRICING_LABELS = { free: 'Free', freemium: 'Freemium', paid: 'Paid', subscription: 'Subscription' };
   var LANG_LABELS = { python: 'Python', typescript: 'TypeScript', javascript: 'JavaScript', rust: 'Rust', go: 'Go', java: 'Java', 'c++': 'C++', c: 'C', ruby: 'Ruby', swift: 'Swift' };
   var TAG_EXCLUDE = new Set(['crawl-discovered', 'idea', 'precision-tool', 'forge-infra', 'miscellaneous', 'other', 'open-source']);
-  var PANEL_IDS = ['os-panel', 'pricing-panel', 'lang-panel'];
+  var PANEL_IDS = ['os-panel', 'pricing-panel', 'lang-panel', 'cat-filter-panel'];
 
   var state;
   var catPanelPath = [];
@@ -98,7 +98,7 @@
 
   function renderStats() {
     var total = state.data.length;
-    var hasFilters = state.os || state.pricing || state.language || state.tag;
+    var hasFilters = state.os || state.pricing || state.language || state.groupFilter || state.tag;
     if (hasFilters) {
       var filtered = state.data.filter(function (e) { return applyCommonFilters(e); }).length;
       document.getElementById('stat-entries').textContent = filtered.toLocaleString() + ' of ' + total.toLocaleString();
@@ -219,10 +219,33 @@
     updateActiveLabel('lang-active-label', state.language ? (LANG_LABELS[state.language] || state.language) : '');
   }
 
+  function renderCatFilter() {
+    var container = document.getElementById('cat-tiles');
+    var panel = document.getElementById('cat-filter-panel');
+    if (!container || !panel || !state.taxonomy) return;
+    var groups = (state.taxonomy.children || []);
+    var opts = groups.map(function (g) {
+      return { value: g.name, label: g.name, count: countEntries(g) };
+    }).filter(function (o) { return o.count > 0; });
+    buildTiles(container, opts, state.groupFilter, function (val) {
+      state.groupFilter = val;
+      if (val) {
+        var group = groups.find(function (g) { return g.name === val; });
+        if (group) state.path = [group]; else state.path = [];
+      } else {
+        state.path = [];
+      }
+      renderAllFilters();
+      renderContent();
+    });
+    updateActiveLabel('cat-active-label', state.groupFilter || '');
+  }
+
   function renderAllFilters() {
     renderOSFilters();
     renderPricingFilters();
     renderLangFilters();
+    renderCatFilter();
     renderStats();
   }
 
@@ -686,11 +709,7 @@
   // ---- Keyboard handler ---- //
   function handleKeydown(e) {
     if (e.key === 'Escape') {
-      if (document.getElementById('cat-panel').classList.contains('active')) {
-        closeCatPanel();
-      } else {
-        closeDetail();
-      }
+      closeDetail();
     }
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
@@ -711,6 +730,7 @@
       os: null,
       pricing: null,
       language: null,
+      groupFilter: null,
       tag: null,
       query: '',
       sort: 'category'
@@ -720,13 +740,12 @@
 
     buildCategoryColors();
 
-    renderAllFilters();
-
     state.taxonomy = window.TAXONOMY || null;
+
+    renderAllFilters();
     renderBreadcrumb();
     renderContent();
     updateSortVisibility();
-    updateCatBtnLabel();
 
     // Bind events
     var searchEl = document.getElementById('search');
@@ -769,9 +788,6 @@
       });
     });
 
-    // Mobile category
-    on(document.getElementById('mobile-cat-btn'), 'click', openCatPanel);
-    on(document.getElementById('cat-panel-scrim'), 'click', closeCatPanel);
 
     // Deep-link
     if (location.hash) {

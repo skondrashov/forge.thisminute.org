@@ -79,6 +79,17 @@
     .search-count.visible { display: block; }
 
     .filter-row { max-width: 1400px; }
+    /* Override shared mobile behavior: keep filter panels as popup dropdowns,
+       not inline accordions (which look terrible with many tiles). */
+    @media (max-width: 768px) {
+      .filter-row { flex-direction: row; flex-wrap: wrap; }
+      .filter-panel-body {
+        position: fixed;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        border: 1px solid var(--border-light);
+        margin-top: 0.25rem;
+      }
+    }
 
     .sort-controls {
       display: flex;
@@ -880,6 +891,15 @@
             <div class="filter-tiles" id="lang-tiles" style="grid-template-columns:repeat(5, minmax(0,1fr))"></div>
           </div></div>
         </div>
+        <div class="filter-panel" id="cat-filter-panel">
+          <div class="filter-panel-header" id="cat-filter-panel-header" role="button" tabindex="0" aria-expanded="false">
+            <span class="filter-panel-title">Category <span class="filter-panel-active-label" id="cat-active-label"></span></span>
+            <span class="filter-panel-chevron">&#9654;</span>
+          </div>
+          <div class="filter-panel-body"><div class="filter-panel-inner">
+            <div class="filter-tiles" id="cat-tiles" style="grid-template-columns:repeat(4, minmax(0,1fr))"></div>
+          </div></div>
+        </div>
       </div>
       <div class="sort-controls hidden" id="sort-controls">
         <span class="sort-label">Sort:</span>
@@ -906,12 +926,6 @@
     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 3.293l-4.354 4.354a.5.5 0 01-.707-.708l5-5a.5.5 0 01.707 0l5 5a.5.5 0 11-.707.708L8 3.293zm0 5l-4.354 4.354a.5.5 0 01-.707-.708l5-5a.5.5 0 01.707 0l5 5a.5.5 0 11-.707.708L8 8.293z"/></svg>
   </button>
 
-  <button class="mobile-cat-btn" id="mobile-cat-btn" aria-label="Browse categories">
-    <span class="cat-btn-icon">&#9776;</span>
-    <span id="cat-btn-label">Categories</span>
-  </button>
-  <div class="cat-panel-scrim" id="cat-panel-scrim"></div>
-  <div class="cat-panel" id="cat-panel"></div>
 
   <div class="overlay" id="overlay"></div>
   <div class="detail" id="detail" role="dialog" aria-modal="true" aria-label="Software details"></div>

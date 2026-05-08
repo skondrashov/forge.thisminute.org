@@ -47,6 +47,7 @@
       font-size: 0.85em;
       color: var(--accent);
       font-family: var(--font-mono);
+      word-break: break-word;
     }
 
     pre {
@@ -249,7 +250,7 @@ cd agent-forge
         </div>
         <div class="role-card">
           <h3>Librarian</h3>
-          <p>Maintains the pattern library. Challenges the auditor's findings to keep quality honest.</p>
+          <p>Maintains the pattern library. Challenges the auditor's findings so low-value patterns don't accumulate.</p>
         </div>
       </div>
     </section>
@@ -271,6 +272,96 @@ cd agent-forge
           <span>Agents evaluate their context at session end; feedback fixes the docs.</span>
         </div>
       </div>
+    </section>
+
+    <section>
+      <h2>Alternatives</h2>
+      <p>The forge is one way to organize agents. It is not the only way, and depending on what you need it might not be the right one.</p>
+
+      <h3 style="font-size: 1.05rem; color: var(--text); margin: 1.5rem 0 0.5rem;">If you want a code framework</h3>
+      <p>Most multi-agent systems are code frameworks: you write Python or TypeScript, define agents as objects, and the framework handles message passing, tool calls, and coordination. These are more powerful and more complex than what the forge does. The big ones:</p>
+      <div class="pattern-list">
+        <a class="pattern-item" href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener">
+          <strong>LangGraph</strong>
+          <span>Graph-based workflows with branching, state, and human-in-the-loop. The most widely adopted in production.</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/crewAIInc/crewAI" target="_blank" rel="noopener">
+          <strong>CrewAI</strong>
+          <span>Role-based agents defined like employees. Low learning curve, about 20 lines to get started.</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/microsoft/agent-framework" target="_blank" rel="noopener">
+          <strong>Microsoft Agent Framework</strong>
+          <span>The merger of AutoGen and Semantic Kernel. GA 1.0 as of April 2026. C#, Python, and Java.</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/google/adk-python" target="_blank" rel="noopener">
+          <strong>Google ADK</strong>
+          <span>Hierarchical agent trees with native A2A protocol support for cross-framework interop.</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/openai/openai-agents-python" target="_blank" rel="noopener">
+          <strong>OpenAI Agents SDK</strong>
+          <span>Agents hand off control to each other explicitly, carrying conversation context.</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/anthropics/claude-agent-sdk-python" target="_blank" rel="noopener">
+          <strong>Claude Agent SDK</strong>
+          <span>Subagents, tool use, hooks, MCP integration. Also offers hosted multi-agent via Managed Agents.</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/mastra-ai/mastra" target="_blank" rel="noopener">
+          <strong>Mastra</strong>
+          <span>TypeScript-first. 150K weekly npm downloads.</span>
+        </a>
+      </div>
+      <p style="margin-top: 0.75rem;">There are many more: <a href="https://github.com/FoundationAgents/MetaGPT">MetaGPT</a>, <a href="https://github.com/camel-ai/camel">CAMEL</a>, <a href="https://github.com/VRSEN/agency-swarm">Agency Swarm</a>, <a href="https://github.com/pydantic/pydantic-ai">Pydantic AI</a>, <a href="https://github.com/agno-agi/agno">Agno</a>, <a href="https://github.com/huggingface/smolagents">smolagents</a>. The <a href="https://github.com/caramaschiHG/awesome-ai-agents-2026">awesome-ai-agents-2026</a> list tracks 300+ resources if you want to go deeper.</p>
+
+      <h3 style="font-size: 1.05rem; color: var(--text); margin: 1.5rem 0 0.5rem;">If you want context conventions (no code)</h3>
+      <p>These are closer to what the forge does: structure and conventions that shape agent behavior through markdown files rather than application code.</p>
+      <div class="pattern-list">
+        <a class="pattern-item" href="https://agents.md" target="_blank" rel="noopener">
+          <strong>AGENTS.md standard</strong>
+          <span>The de facto standard for single-agent context files. Supported by 60+ tools, found in 60,000+ repos. Donated to the Linux Foundation.</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/bradygaster/squad" target="_blank" rel="noopener">
+          <strong>Squad</strong>
+          <span>Multi-agent team coordination on top of GitHub Copilot. Role definitions in <code>.ai-team-templates/</code>, orchestration via markdown. Copilot-specific.</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">
+          <strong>OpenClaw</strong>
+          <span>Separates agent identity (SOUL.md) from operations (AGENTS.md). 162 community templates. Tied to the OpenClaw platform.</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/RinDig/Interpreted-Context-Methdology" target="_blank" rel="noopener">
+          <strong>ICM</strong>
+          <span>Folder structure as agent architecture. Numbered folders represent workflow stages, markdown files carry prompts and context. Academic origin (arXiv, March 2026).</span>
+        </a>
+        <a class="pattern-item" href="https://github.com/sammcj/agentic-coding" target="_blank" rel="noopener">
+          <strong>sammcj/agentic-coding</strong>
+          <span>Practical rules, templates, and sub-agent patterns. Portable across tools.</span>
+        </a>
+      </div>
+
+      <h3 style="font-size: 1.05rem; color: var(--text); margin: 1.5rem 0 0.5rem;">If your harness already ships something</h3>
+      <p>Most <a href="/harnesses/">harnesses</a> now have their own version of agent context files built in. If you only use one harness, you might not need the forge at all.</p>
+      <div class="pattern-list">
+        <div class="pattern-item">
+          <strong>Claude Code</strong>
+          <span>CLAUDE.md at repo/user/project levels, subagents, skills (SKILL.md files), hierarchical memory.</span>
+        </div>
+        <div class="pattern-item">
+          <strong>GitHub Copilot</strong>
+          <span><code>copilot-instructions.md</code> in <code>.github/</code>, modular <code>.instructions.md</code> files by domain.</span>
+        </div>
+        <div class="pattern-item">
+          <strong>Cursor</strong>
+          <span><code>.cursorrules</code> and <code>.cursor/rules/*.mdc</code> for project-specific context.</span>
+        </div>
+        <div class="pattern-item">
+          <strong>Codex CLI</strong>
+          <span>Reads <code>AGENTS.md</code> natively at the project root.</span>
+        </div>
+        <div class="pattern-item">
+          <strong>Gemini CLI</strong>
+          <span>Reads <code>GEMINI.md</code> at the project root.</span>
+        </div>
+      </div>
+      <p style="margin-top: 0.75rem;">The forge is designed around the assumption that these native features will keep getting better, and that eventually most of what it provides will ship as defaults. Until then, it fills the gap for teams that want multi-agent coordination now and don't want to be locked to a single harness.</p>
     </section>
 
   </div>

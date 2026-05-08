@@ -27,7 +27,7 @@ When the orchestration-curator has done a pass, review recently-added patterns f
 - `realWorldExample`, `whenToUse`, `strengths`, `weaknesses` are non-empty and non-generic
 - No duplicate pattern IDs or near-duplicates of existing entries
 
-Always run `python build.py` + `python -m pytest tests/ -v` in the relevant section after substantive curator changes. Flag any test failures.
+After substantive curator changes, flag the orchestrator to spawn the tester for a full test run. If test results are already available from a recent tester session, review those instead.
 
 ## Home page (`index.html`)
 

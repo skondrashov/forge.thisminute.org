@@ -35,5 +35,5 @@ As the section evolves you may notice the single-role shape doesn't fit anymore 
 # Rules
 
 - No deploys from here — submit deploy requests to `~/projects/ops/DEPLOY_QUEUE.md`
-- Run `python build.py` and `python -m pytest tests/ -v` after pattern or schema changes
+- Run `python build.py` after pattern or schema changes to verify the build. For test runs, flag the orchestrator to spawn the tester.
 - When changes touch user input or executable instructions (comments, votes), apply `agents/skills/security_review.md`

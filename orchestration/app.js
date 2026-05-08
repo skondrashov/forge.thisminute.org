@@ -735,6 +735,7 @@ function clearFilters() {
   renderStructureTiles();
   updateFilterDescriptions();
   renderGrid();
+  renderStats();
 }
 
 // ─── Detail Drawer ────────────────────────────────────
@@ -1214,36 +1215,6 @@ function bindUIEvents() {
   const controlsEl = document.getElementById('controls');
   const mobileBar = document.getElementById('mobile-filter-bar');
   const mobileTab = document.getElementById('mobile-filter-tab');
-  const mobilePanelEl = document.getElementById('mobile-filter-panel');
-
-  function syncMobileCategories() {
-    if (!mobilePanelEl) return;
-    let html = `<div class="mobile-section-label">Origin</div>`;
-    html += buildFilterTiles(getDomainCounts(), state.activeDomain, 'domain', DOMAIN_COLORS, DOMAIN_LABELS);
-    html += `<div class="mobile-section-label mobile-section-label-sep">Structure</div>`;
-    html += buildFilterTiles(getStructuralClassCounts(), state.activeStructuralClass, 'sc', SC_COLORS, SC_LABELS);
-    html += `<div class="mobile-section-label mobile-section-label-sep">Field</div>`;
-    html += buildFilterTiles(getCategories(), state.activeCategory, 'category', CATEGORY_COLORS);
-    mobilePanelEl.innerHTML = html;
-    wireFilterTiles(mobilePanelEl, 'domain', val => {
-      state.activeDomain = val;
-      renderAllFilterPanels();
-      renderGrid();
-      mobileBar.classList.remove('open');
-    });
-    wireFilterTiles(mobilePanelEl, 'sc', val => {
-      state.activeStructuralClass = val;
-      renderAllFilterPanels();
-      renderGrid();
-      mobileBar.classList.remove('open');
-    });
-    wireFilterTiles(mobilePanelEl, 'category', val => {
-      state.activeCategory = val;
-      renderAllFilterPanels();
-      renderGrid();
-      mobileBar.classList.remove('open');
-    });
-  }
 
   if (controlsEl) {
     controlsObserver = new IntersectionObserver(([entry]) => {
@@ -1260,6 +1231,38 @@ function bindUIEvents() {
     mobileBar.classList.toggle('open');
   });
 } // end bindUIEvents
+
+// ─── Mobile Filter Sync (module scope, called from render functions) ──
+function syncMobileCategories() {
+  const mobilePanelEl = document.getElementById('mobile-filter-panel');
+  const mobileBar = document.getElementById('mobile-filter-bar');
+  if (!mobilePanelEl) return;
+  let html = `<div class="mobile-section-label">Origin</div>`;
+  html += buildFilterTiles(getDomainCounts(), state.activeDomain, 'domain', DOMAIN_COLORS, DOMAIN_LABELS);
+  html += `<div class="mobile-section-label mobile-section-label-sep">Structure</div>`;
+  html += buildFilterTiles(getStructuralClassCounts(), state.activeStructuralClass, 'sc', SC_COLORS, SC_LABELS);
+  html += `<div class="mobile-section-label mobile-section-label-sep">Field</div>`;
+  html += buildFilterTiles(getCategories(), state.activeCategory, 'category', CATEGORY_COLORS);
+  mobilePanelEl.innerHTML = html;
+  wireFilterTiles(mobilePanelEl, 'domain', val => {
+    state.activeDomain = val;
+    renderAllFilterPanels();
+    renderGrid();
+    if (mobileBar) mobileBar.classList.remove('open');
+  });
+  wireFilterTiles(mobilePanelEl, 'sc', val => {
+    state.activeStructuralClass = val;
+    renderAllFilterPanels();
+    renderGrid();
+    if (mobileBar) mobileBar.classList.remove('open');
+  });
+  wireFilterTiles(mobilePanelEl, 'category', val => {
+    state.activeCategory = val;
+    renderAllFilterPanels();
+    renderGrid();
+    if (mobileBar) mobileBar.classList.remove('open');
+  });
+}
 
 let controlsObserver = null;
 
@@ -1321,7 +1324,11 @@ function appTeardown() {
 
 window.__page = { init: appInit, teardown: appTeardown };
 
-// Auto-init (works for both standalone and SPA-injected)
-appInit();
+// Auto-init only when loaded standalone (not via SPA router).
+// The SPA router marks injected scripts with data-page-script and
+// calls window.__page.init() itself after the script loads.
+if (!document.querySelector('script[data-page-script]')) {
+  appInit();
+}
 
 })(); // end IIFE

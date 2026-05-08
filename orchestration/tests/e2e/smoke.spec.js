@@ -27,6 +27,10 @@ test.describe('Orchestration — Smoke', () => {
   test('stats bar shows non-zero counts', async ({ page }) => {
     await page.goto('/orchestration/');
     await page.locator('.card').first().waitFor();
+    // Clear the default "core" lens filter to see all patterns
+    await page.keyboard.press('Escape');
+    // Wait for the grid to re-render after filter clear
+    await page.waitForTimeout(500);
 
     const totalCount = await page.locator('#total-count').textContent();
     expect(Number(totalCount)).toBeGreaterThan(200);

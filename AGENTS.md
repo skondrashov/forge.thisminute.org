@@ -39,7 +39,7 @@ Soft, warm, essayist. Parchment-cream light / warm-plum-dusk dark. Watermelon-gu
 
 ## Agent system
 
-Five roles, all at the top level in `agents/`. Sections do **not** have their own agents — those directories were removed in the 2026-04-18 consolidation.
+Six roles, all at the top level in `agents/`. Sections do **not** have their own agents — those directories were removed in the 2026-04-18 consolidation.
 
 | Agent | Role file | Scope |
 |-------|-----------|-------|
@@ -47,12 +47,14 @@ Five roles, all at the top level in `agents/`. Sections do **not** have their ow
 | **tools-curator** | `agents/tools-curator.md` | Catalog-maintenance specialist for `tools/` (data quality, dedup, new entries, category gaps) |
 | **orchestration-curator** | `agents/orchestration-curator.md` | Pattern-catalog specialist for `orchestration/` (new patterns, three-lens IA, structural classes, harness mappings) |
 | **llms-curator** | `agents/llms-curator.md` | Content specialist for the four flat-page sections (`home/`, `models/`, `context/`, `forge/`); owns voice/tone |
+| **tester** | `agents/tester.md` | Owns all automated testing: pytest suites, Playwright e2e, SPA router tests, cross-section validation |
 | **skeptic** | `agents/skeptic.md` | Project-wide reviewer: catalog data quality, pattern taxonomy, flat-page content, accessibility, cross-section consistency |
 
 Orchestrator's spawning rules:
 - Catalog or entry work in `tools/` → `tools-curator`
 - Pattern work in `orchestration/` → `orchestration-curator`
 - Flat-page content or voice/tone → `llms-curator`
+- Test infrastructure, new tests, or test runs → `tester`
 - Review → `skeptic`
 - Everything else (small code fixes, CSS tweaks, cross-section navigation, shared chrome, doc maintenance) → orchestrator does it directly
 
@@ -85,7 +87,7 @@ context/index.html      # Context explainer (flat page)
 orchestration/          # Pattern catalog, 271+ patterns, FastAPI + SQLite API
 tools/                  # Software directory (~16K entries)
 forge/index.html        # Multi-agent management guide (flat page)
-agents/                 # Role files (5 roles)
+agents/                 # Role files (6 roles)
 agents/skills/          # Reusable checklists (security_review.md)
 memory/                 # Per-role persistent learnings (+ memory/archive/ for retired roles)
 .claude/checkpoint.md   # Session history — read before starting work

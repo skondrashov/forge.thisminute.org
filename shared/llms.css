@@ -272,6 +272,14 @@ a:hover {
 .nav-hamburger {
   display: none;
 }
+/* Dropdown and scrim are injected by JS on every page.
+   On desktop they must be hidden; mobile media query shows them. */
+.site-nav-dropdown {
+  display: none;
+}
+.nav-scrim {
+  display: none;
+}
 
 @media (max-width: 640px) {
   /* Hide inline links, show hamburger */
@@ -854,6 +862,7 @@ main.catalog {
 /* --- Shared filter-panel dropdowns --- */
 .filter-row {
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
   max-width: 1100px;
   margin: 0 auto 0.5rem;
@@ -867,8 +876,6 @@ main.catalog {
 }
 .filter-panel {
   position: relative;
-  flex: 1;
-  min-width: 0;
 }
 .filter-panel-header {
   display: flex;
@@ -895,8 +902,7 @@ main.catalog {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  min-width: 0;
-  overflow: hidden;
+  white-space: nowrap;
 }
 .filter-panel-header:hover .filter-panel-title { color: var(--accent); }
 .filter-panel-active-label {

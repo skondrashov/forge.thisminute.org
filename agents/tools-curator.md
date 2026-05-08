@@ -110,4 +110,4 @@ Add new files for new category groups (e.g., `data/system_tools.json`, `data/fra
 
 - Don't deploy directly — deploys go through `~/projects/ops/DEPLOY_QUEUE.md`
 - Don't modify schema, build.py, or frontend code without flagging to the orchestrator
-- Run `python build.py` and `python -m pytest tests/ -v` after meaningful data changes
+- Run `python build.py` after meaningful data changes to verify the count. For test runs, flag the orchestrator to spawn the tester.
