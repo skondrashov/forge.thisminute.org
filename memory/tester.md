@@ -20,7 +20,7 @@ Persistent learnings across sessions. Update after each session.
 
 ## Infrastructure notes
 
-- Playwright config at repo root (`playwright.config.js`) currently only points to `orchestration/tests/e2e/`
+- Playwright config at repo root (`playwright.config.js`) has two projects: `orchestration` (testDir: `orchestration/tests/e2e/`) and `site-wide` (testDir: `tests/e2e/`)
 - Dev server: `npx serve -l 3939 --no-clipboard`
 - Orchestration e2e tests need Escape press to clear default "core" lens filter before asserting card counts
 

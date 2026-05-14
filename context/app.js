@@ -94,13 +94,26 @@ function init() {
   render(0, false);
   status();
 
-  // Bind button events
-  document.getElementById('rbtn').addEventListener('click', doReset);
-  document.getElementById('sbtn').addEventListener('click', doStep);
-  document.getElementById('pbtn').addEventListener('click', doPlay);
+  // Bind button events (store refs for teardown)
+  var rbtn = document.getElementById('rbtn');
+  var sbtn = document.getElementById('sbtn');
+  var pbtn = document.getElementById('pbtn');
+  if (rbtn) rbtn.addEventListener('click', doReset);
+  if (sbtn) sbtn.addEventListener('click', doStep);
+  if (pbtn) pbtn.addEventListener('click', doPlay);
 }
 
-window.__page = { init: init, teardown: function() { playing = false; } };
+function teardown() {
+  playing = false;
+  var rbtn = document.getElementById('rbtn');
+  var sbtn = document.getElementById('sbtn');
+  var pbtn = document.getElementById('pbtn');
+  if (rbtn) rbtn.removeEventListener('click', doReset);
+  if (sbtn) sbtn.removeEventListener('click', doStep);
+  if (pbtn) pbtn.removeEventListener('click', doPlay);
+}
+
+window.__page = { init: init, teardown: teardown };
 init();
 
 })();

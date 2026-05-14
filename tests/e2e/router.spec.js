@@ -138,7 +138,7 @@ test.describe('SPA Router — Navigation', () => {
     const isLightBefore = await page.evaluate(() => document.body.classList.contains('light-mode'));
 
     // Toggle theme
-    await page.locator('#forge-theme-btn').click();
+    await page.locator('#theme-btn').click();
     await page.waitForTimeout(200);
 
     const isLightAfterToggle = await page.evaluate(() => document.body.classList.contains('light-mode'));

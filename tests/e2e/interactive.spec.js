@@ -8,14 +8,14 @@ test.describe('Interactive — Theme Toggle', () => {
 
     const isLightBefore = await page.evaluate(() => document.body.classList.contains('light-mode'));
 
-    await page.locator('#forge-theme-btn').click();
+    await page.locator('#theme-btn').click();
     await page.waitForTimeout(200);
 
     const isLightAfter = await page.evaluate(() => document.body.classList.contains('light-mode'));
     expect(isLightAfter).toBe(!isLightBefore);
 
     // Toggle back
-    await page.locator('#forge-theme-btn').click();
+    await page.locator('#theme-btn').click();
     await page.waitForTimeout(200);
 
     const isLightRestored = await page.evaluate(() => document.body.classList.contains('light-mode'));
@@ -28,7 +28,7 @@ test.describe('Interactive — Theme Toggle', () => {
     // Set to light mode
     const isLight = await page.evaluate(() => document.body.classList.contains('light-mode'));
     if (!isLight) {
-      await page.locator('#forge-theme-btn').click();
+      await page.locator('#theme-btn').click();
       await page.waitForTimeout(200);
     }
 
@@ -36,7 +36,7 @@ test.describe('Interactive — Theme Toggle', () => {
     expect(storedTheme).toBe('light');
 
     // Toggle to dark
-    await page.locator('#forge-theme-btn').click();
+    await page.locator('#theme-btn').click();
     await page.waitForTimeout(200);
     const storedDark = await page.evaluate(() => localStorage.getItem('thisminute_theme'));
     expect(storedDark).toBe('dark');
@@ -48,7 +48,7 @@ test.describe('Interactive — Theme Toggle', () => {
     // Force light mode
     const isLight = await page.evaluate(() => document.body.classList.contains('light-mode'));
     if (!isLight) {
-      await page.locator('#forge-theme-btn').click();
+      await page.locator('#theme-btn').click();
       await page.waitForTimeout(200);
     }
 
@@ -64,22 +64,22 @@ test.describe('Interactive — Theme Toggle', () => {
     // Force to dark mode (default)
     const isLight = await page.evaluate(() => document.body.classList.contains('light-mode'));
     if (isLight) {
-      await page.locator('#forge-theme-btn').click();
+      await page.locator('#theme-btn').click();
       await page.waitForTimeout(200);
     }
 
     // In dark mode, moon should be visible, sun hidden
-    const moonDisplay = await page.locator('#forge-icon-moon').evaluate(el => el.style.display);
-    const sunDisplay = await page.locator('#forge-icon-sun').evaluate(el => el.style.display);
+    const moonDisplay = await page.locator('#icon-moon').evaluate(el => el.style.display);
+    const sunDisplay = await page.locator('#icon-sun').evaluate(el => el.style.display);
     expect(moonDisplay).not.toBe('none');
     expect(sunDisplay).toBe('none');
 
     // Switch to light mode
-    await page.locator('#forge-theme-btn').click();
+    await page.locator('#theme-btn').click();
     await page.waitForTimeout(200);
 
-    const moonDisplayLight = await page.locator('#forge-icon-moon').evaluate(el => el.style.display);
-    const sunDisplayLight = await page.locator('#forge-icon-sun').evaluate(el => el.style.display);
+    const moonDisplayLight = await page.locator('#icon-moon').evaluate(el => el.style.display);
+    const sunDisplayLight = await page.locator('#icon-sun').evaluate(el => el.style.display);
     expect(moonDisplayLight).toBe('none');
     expect(sunDisplayLight).toBe('block');
   });
@@ -315,7 +315,7 @@ test.describe('Interactive — Nav on Every Page', () => {
 
     test(`theme toggle exists on ${path}`, async ({ page }) => {
       await page.goto(path, { waitUntil: 'networkidle' });
-      const btn = page.locator('#forge-theme-btn');
+      const btn = page.locator('#theme-btn');
       await expect(btn).toBeVisible();
     });
   }

@@ -45,7 +45,6 @@
   var PANEL_IDS = ['os-panel', 'pricing-panel', 'lang-panel', 'cat-filter-panel'];
 
   var state;
-  var catPanelPath = [];
 
   // Shared utilities
   var U = CatalogUtils;
@@ -306,8 +305,7 @@
         renderBreadcrumb();
         renderContent();
         updateSortVisibility();
-        updateCatBtnLabel();
-      });
+             });
     });
   }
 
@@ -469,8 +467,7 @@
         renderBreadcrumb();
         renderContent();
         updateSortVisibility();
-        updateCatBtnLabel();
-        window.scrollTo({ top: document.querySelector('.breadcrumb').offsetTop - 10, behavior: 'auto' });
+               window.scrollTo({ top: document.querySelector('.breadcrumb').offsetTop - 10, behavior: 'auto' });
       });
     });
   }
@@ -605,107 +602,6 @@
 
   // ---- Mobile category panel ---- //
 
-  function openCatPanel() {
-    catPanelPath = state.path.slice();
-    renderCatPanel();
-    document.getElementById('cat-panel').classList.add('active');
-    document.getElementById('cat-panel-scrim').classList.add('active');
-    document.getElementById('mobile-cat-btn').style.display = 'none';
-  }
-
-  function closeCatPanel() {
-    document.getElementById('cat-panel').classList.remove('active');
-    document.getElementById('cat-panel-scrim').classList.remove('active');
-    setTimeout(function () { document.getElementById('mobile-cat-btn').style.display = ''; }, 300);
-  }
-
-  function renderCatPanel() {
-    var tax = window.TAXONOMY;
-    if (!tax) return;
-    var node = tax;
-    for (var i = 0; i < catPanelPath.length; i++) { node = catPanelPath[i]; }
-    var title = catPanelPath.length === 0 ? 'Categories' : node.name;
-    var html = '<div class="cat-panel-header">' +
-      '<span class="cat-panel-title">' + esc(title) + '</span>' +
-      '<button class="cat-panel-close" id="cat-panel-close">&times;</button>' +
-    '</div>';
-    if (catPanelPath.length > 0) {
-      html += '<button class="cat-panel-back" id="cat-panel-back">&larr; Back</button>';
-    }
-    if (node.children) {
-      html += '<ul class="cat-panel-list">';
-      node.children.forEach(function (child, i) {
-        var count = countEntries(child);
-        var hasChildren = !!child.children;
-        var isCurrent = state.path.length > 0 && state.path[state.path.length - 1] === child;
-        html += '<button class="cat-panel-item' + (isCurrent ? ' current' : '') + '" data-panel-idx="' + i + '">' +
-          '<span>' + esc(child.name) + '</span>' +
-          '<span><span class="cat-panel-item-count">' + count + '</span>' +
-          (hasChildren ? '<span class="cat-panel-item-arrow">&rsaquo;</span>' : '') +
-          '</span></button>';
-      });
-      html += '</ul>';
-    } else if (node.categories) {
-      html += '<ul class="cat-panel-list">';
-      node.categories.forEach(function (cat) {
-        var count = state.data.filter(function (e) { return e.category === cat; }).length;
-        var isCurrent = state.path.length > 0 && state.path[state.path.length - 1] === node;
-        html += '<button class="cat-panel-item' + (isCurrent ? ' current' : '') + '" data-panel-cat="' + esc(cat) + '">' +
-          '<span>' + esc(cat) + '</span><span class="cat-panel-item-count">' + count + '</span></button>';
-      });
-      html += '</ul>';
-    }
-    var catPanel = document.getElementById('cat-panel');
-    catPanel.innerHTML = html;
-    document.getElementById('cat-panel-close').addEventListener('click', closeCatPanel);
-    var backBtn = document.getElementById('cat-panel-back');
-    if (backBtn) {
-      backBtn.addEventListener('click', function () { catPanelPath.pop(); renderCatPanel(); });
-    }
-    catPanel.querySelectorAll('.cat-panel-item[data-panel-idx]').forEach(function (item) {
-      item.addEventListener('click', function () {
-        var idx = parseInt(item.dataset.panelIdx);
-        var parentNode = catPanelPath.length === 0 ? window.TAXONOMY : catPanelPath[catPanelPath.length - 1];
-        var child = parentNode.children[idx];
-        if (child.children) {
-          catPanelPath.push(child);
-          renderCatPanel();
-        } else {
-          state.path = catPanelPath.concat([child]);
-          state.query = '';
-          document.getElementById('search').value = '';
-          document.getElementById('search-count').classList.remove('visible');
-          renderBreadcrumb(); renderContent(); updateSortVisibility(); updateCatBtnLabel();
-          closeCatPanel();
-          window.scrollTo({ top: document.querySelector('.breadcrumb').offsetTop - 10, behavior: 'auto' });
-        }
-      });
-    });
-    catPanel.querySelectorAll('.cat-panel-item[data-panel-cat]').forEach(function (item) {
-      item.addEventListener('click', function () {
-        state.path = catPanelPath.slice();
-        state.query = '';
-        document.getElementById('search').value = '';
-        document.getElementById('search-count').classList.remove('visible');
-        renderBreadcrumb(); renderContent(); updateSortVisibility(); updateCatBtnLabel();
-        closeCatPanel();
-        window.scrollTo({ top: document.querySelector('.breadcrumb').offsetTop - 10, behavior: 'auto' });
-      });
-    });
-  }
-
-  function updateCatBtnLabel() {
-    var catBtnLabel = document.getElementById('cat-btn-label');
-    if (!catBtnLabel) return;
-    if (state.path.length > 0) {
-      var currentName = state.path[state.path.length - 1].name;
-      var display = currentName.length > 16 ? currentName.slice(0, 14) + '...' : currentName;
-      catBtnLabel.innerHTML = esc(display) + ' <span class="cat-btn-badge">' + state.path.length + '</span>';
-    } else {
-      catBtnLabel.textContent = 'Categories';
-    }
-  }
-
   // ---- Keyboard handler ---- //
   function handleKeydown(e) {
     if (e.key === 'Escape') {
@@ -735,7 +631,6 @@
       query: '',
       sort: 'category'
     };
-    catPanelPath = [];
     tracker.teardown();
 
     buildCategoryColors();

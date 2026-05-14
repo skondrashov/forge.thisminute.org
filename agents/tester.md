@@ -47,7 +47,7 @@ The `playwright.config.js` at repo root configures the test runner. When adding 
 
 ## 1. SPA Router (`shared/router.js`)
 
-This is the highest-priority gap. The router handles client-side navigation, script lifecycle, history state, and content swapping. Tests should cover:
+Covered by `tests/e2e/router.spec.js`. The router handles client-side navigation, script lifecycle, history state, and content swapping. Tests should cover:
 
 - Navigation between all sections (home, models, context, tools, harnesses, orchestration, forge)
 - Back/forward button behavior (popstate handling)

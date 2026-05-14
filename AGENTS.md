@@ -5,11 +5,12 @@ An educational site about what's actually inside an AI agent. The home page is a
 | Section | Path | Source | What it is |
 |---------|------|--------|------------|
 | Home | `/` | `index.html` | LLMs-branded anatomy flowchart. Visual hand-offs to the other sections. |
+| Harnesses | `/harnesses/` | `harnesses/` | Catalog of ~100 AI harnesses grouped by setting (CLI, IDE, Web, etc.). |
 | Models | `/models/` | `models/` | Catalog of ~60 real models grouped by vendor. Card grid, vendor jump nav. |
 | Context | `/context/` | `context/` | Context explainer with embedded statelessness demo, "what's filling our context?" breakdown, vision transformers section. |
-| Orchestration | `/orchestration/` | `orchestration/` | Catalog of 271+ orchestration patterns with a FastAPI + SQLite social layer. |
+| Orchestration | `/orchestration/` | `orchestration/` | Catalog of 277 orchestration patterns with a FastAPI + SQLite social layer. |
 | Tools | `/tools/` | `tools/` | Software directory (~16K entries, filled + unfilled slots). |
-| Forge | `/forge/` | `forge/index.html` | Multi-agent system management guide. (Naming TBD — user wants to rename, options pending.) |
+| Forge | `/forge/` | `forge/index.html` | Multi-agent system management guide with alternatives comparison. |
 
 If told to go, start, or begin, you are the **orchestrator**. See `agents/orchestrator.md`.
 
@@ -20,16 +21,17 @@ The orchestrator has authority over the entire repo — home, models, context, o
 - `index.html` — LLMs-branded home with anatomy flowchart + rhizome cluster SVG + hover-word headline
 - `models/index.html` — flat page, model catalog
 - `context/index.html` — flat page, context explainer
-- `orchestration/` — pattern catalog, 271+ patterns, FastAPI + SQLite API (curator: `orchestration-curator`)
+- `harnesses/index.html` — harness catalog (flat page, uses createGroupedCatalog)
+- `orchestration/` — pattern catalog, 277 patterns, FastAPI + SQLite API (curator: `orchestration-curator`)
 - `tools/` — software directory (curator: `tools-curator`)
 - `forge/index.html` — multi-agent management landing, flat page
-- `shared/llms.css` + `shared/llms.js` — the watermelon-gum pastel theme and light-default theme toggle, loaded by every page
+- `shared/llms.css` + `shared/llms.js` + `shared/catalog.js` + `shared/router.js` — theme, nav chrome, catalog utilities, SPA routing
 - Visual identity and consistency across all sections
 - Deploys — submit requests to `~/projects/ops/DEPLOY_QUEUE.md`. Do not deploy directly.
 
 ## Stack
 
-Vanilla HTML/CSS/JS. No frameworks, no build step on the flat pages. Fredoka + JetBrains Mono webfonts loaded via `@import` in `shared/llms.css`. Light-default, dark available via toggle. Mobile-responsive. Favicons are emoji (💬 home, 🧠 model, 🪟 context, 🎶 orchestration, 🛠️ tools, 🔥 forge).
+Vanilla HTML/CSS/JS with SPA client-side routing (`shared/router.js`). No frameworks, no build step on the flat pages. Fredoka + JetBrains Mono webfonts loaded via `@import` in `shared/llms.css`. Light-default, dark available via toggle. Mobile-responsive (hamburger nav at ≤640px). Favicons are emoji (💬 home, 🧠 model, 🪟 context, 🎶 orchestration, 🛠️ tools, 🔥 forge).
 
 The orchestration and tools sections each have their own Python build pipeline (`python build.py`) and pytest suite; see the respective `AGENTS.md` in each section for details.
 
@@ -80,19 +82,25 @@ Capture the output, surface results back to the user or feed the next decision. 
 
 ```
 index.html              # LLMs-branded home (anatomy flowchart + rhizome cluster)
+home.js                 # Home page script (hover-word headline, harness box click)
 shared/llms.css        # Palette, typography, shared components, webfont @imports
-shared/llms.js         # Theme toggle (light-default)
+shared/llms.js         # Nav injection, theme toggle (looks for .site-chrome div)
+shared/catalog.js      # CatalogUtils: shared catalog rendering, filter panels, listener tracking
+shared/router.js       # SPA client-side routing (data-deps/data-app lifecycle)
 models/index.html       # Model catalog (flat page)
 context/index.html      # Context explainer (flat page)
-orchestration/          # Pattern catalog, 271+ patterns, FastAPI + SQLite API
+harnesses/index.html    # Harness catalog (flat page)
+orchestration/          # Pattern catalog, 277 patterns, FastAPI + SQLite API
 tools/                  # Software directory (~16K entries)
 forge/index.html        # Multi-agent management guide (flat page)
 agents/                 # Role files (6 roles)
 agents/skills/          # Reusable checklists (security_review.md)
 memory/                 # Per-role persistent learnings (+ memory/archive/ for retired roles)
 .claude/checkpoint.md   # Session history — read before starting work
+playwright.config.js    # Playwright e2e test config (145 tests)
+tests/e2e/             # Site-wide Playwright specs (router, visual, catalogs, interactive, regressions, filters)
 ```
 
-## Deploy status as of 2026-04-11
+## Deploy status as of 2026-05-08
 
-A major redesign + rename landed in this repo and is queued at `~/projects/ops/DEPLOY_QUEUE.md` ("forge — Full redesign" entry). The deploy has **not** happened yet. Until ops runs the one-time VM migration (see `orchestration/deploy.sh` header comment), the live site still has the pre-redesign structure. If anyone is confused about why the live site looks different from the repo, this is why.
+Site is live and deployed. All sections functional. Deploys go through `~/projects/ops/DEPLOY_QUEUE.md`. Most recent deploy: homepage hover fix + category filter init fix (2026-05-08).

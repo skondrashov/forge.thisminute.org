@@ -36,27 +36,33 @@ window.CatalogUtils = {
     return { groups: groups, order: order };
   },
 
-  /** Wire up a .back-to-top button (show after scrolling 400px, click to scroll top). */
+  /** Wire up a .back-to-top button. Returns a teardown function. */
   initBackToTop: function () {
     var btn = document.getElementById('back-to-top');
-    if (!btn) return;
+    if (!btn) return function () {};
     var threshold = 400;
-    window.addEventListener('scroll', function () {
+    var scrollFn = function () {
       btn.classList.toggle('visible', window.scrollY > threshold);
-    }, { passive: true });
-    btn.addEventListener('click', function () {
+    };
+    var clickFn = function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    };
+    window.addEventListener('scroll', scrollFn, { passive: true });
+    btn.addEventListener('click', clickFn);
+    return function () {
+      window.removeEventListener('scroll', scrollFn);
+      btn.removeEventListener('click', clickFn);
+    };
   },
 
   /** Show .catalog-nav and .catalog-stats only when #catalog is near the viewport.
-   *  Uses IntersectionObserver with a rootMargin to reveal slightly before scroll reaches it. */
+   *  Returns a teardown function that disconnects the observer. */
   initCatalogReveal: function () {
     var catalog = document.getElementById('catalog');
-    if (!catalog) return;
+    if (!catalog) return function () {};
     var nav = document.querySelector('.catalog-nav');
     var stats = document.querySelector('.catalog-stats');
-    if (!nav && !stats) return;
+    if (!nav && !stats) return function () {};
 
     function show() {
       if (nav) nav.classList.add('visible');
@@ -67,7 +73,7 @@ window.CatalogUtils = {
       if (stats) stats.classList.remove('visible');
     }
 
-    if (!('IntersectionObserver' in window)) { show(); return; }
+    if (!('IntersectionObserver' in window)) { show(); return function () {}; }
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -75,6 +81,7 @@ window.CatalogUtils = {
       });
     }, { rootMargin: '200px 0px 0px 0px' });
     observer.observe(catalog);
+    return function () { observer.disconnect(); };
   },
 
   /** Highlight search query matches in text. Returns escaped HTML. */
@@ -168,6 +175,7 @@ window.CatalogUtils = {
     var order = grouped.order;
     var activeFilter = null;
     var entityName = config.entityName || 'item';
+    var cleanups = [];
 
     function renderNav() {
       var navEl = document.getElementById(config.navId);
@@ -218,10 +226,13 @@ window.CatalogUtils = {
         }
         renderNav();
         renderCatalog();
-        U.initBackToTop();
-        U.initCatalogReveal();
+        cleanups.push(U.initBackToTop());
+        cleanups.push(U.initCatalogReveal());
       },
-      teardown: function () {}
+      teardown: function () {
+        cleanups.forEach(function (fn) { if (fn) fn(); });
+        cleanups = [];
+      }
     };
   }
 };

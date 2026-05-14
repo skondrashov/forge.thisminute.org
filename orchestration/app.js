@@ -1155,7 +1155,7 @@ function bindUIEvents() {
       return;
     }
     if (e.key === 't') {
-      const btn = document.getElementById('forge-theme-btn');
+      const btn = document.getElementById('theme-btn');
       if (btn) btn.click();
       return;
     }
@@ -1169,7 +1169,7 @@ function bindUIEvents() {
   }
 
   if (e.key === 't') {
-    const btn = document.getElementById('forge-theme-btn');
+    const btn = document.getElementById('theme-btn');
     if (btn) btn.click();
     return;
   }

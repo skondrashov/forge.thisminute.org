@@ -3,7 +3,7 @@
  * Progressive enhancement: pages work standalone; this layer intercepts
  * same-origin navigation and swaps content without a full reload.
  *
- * Shell (persistent): <body>, .forge-theme-toggle (nav), shared CSS/JS.
+ * Shell (persistent): <body>, .site-chrome (nav), shared CSS/JS.
  * Page content: everything inside <div id="page">.
  *
  * Pages declare their scripts via two attributes on #page:
